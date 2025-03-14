@@ -1,9 +1,16 @@
+import Hero from "@/components/home/Hero";
 
+export const metadata = {
+  title : "Home | Ably Care",
+  description : "Ably Care"
+}
 
 export default function Home() {
   return (
     <>
-      <h1 className="font-poppins font-bold text-5xl">Hello</h1>
+      <main className="mx-auto p-2 w-full lg:max-w-7xl">
+        <Hero />
+      </main>
     </>
   );
 }
