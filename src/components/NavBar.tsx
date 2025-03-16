@@ -127,12 +127,12 @@ import Image from "next/image";
             </div>
             <div className="hidden lg:flex items-center justify-end gap-2">
               <a href="/">
-                <Button variant={"outline"} className="rounded-lg">
+                <Button variant={"outline"} className="rounded-xl">
                     Login
                 </Button>
               </a>
               <a href="/">
-                <Button className="bg-customAccent hover:bg-customAccent/80 rounded-lg">
+                <Button className="bg-customAccent hover:bg-customAccent/80 rounded-xl">
                     Contact Us
                 </Button>
               </a>
@@ -249,10 +249,10 @@ import Image from "next/image";
               </Link>
             </div>
             <div className="px-5 py-4 mt-4 flex justify-center gap-2">
-              <Button variant={"outline"}>Login</Button>
+              <Button variant={"outline"} className="rounded-xl">Login</Button>
               <a
                 href="/login">
-                <Button className="text-white bg-customAccent hover:bg-customAccent/80">
+                <Button className="text-white bg-customAccent hover:bg-customAccent/80 rounded-xl">
                   Contact Us
                 </Button>
               </a>

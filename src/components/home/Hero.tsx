@@ -9,13 +9,12 @@ const Hero = () => {
       <main className="w-full h-screen md:h-[500px] md:max-h-[800px] flex justify-center items-center">
         <div className="relative w-full h-full lg:max-w-7xl rounded-3xl">
           <div className="w-full h-full z-[3] flex flex-col items-start justify-center lg:justify-end p-4 lg:p-[3rem] gap-3 lg:gap-4">
-            <h1 className="font-poppins text-white text-4xl lg:text-5xl font-bold">Compassionate Care,<br className="hidden sm:block"/> Tailored for You</h1>
+            <h1 className="font-poppins text-white text-4xl lg:text-5xl font-bold">Welcome to Ably Care, <br className="hidden md:block"/> Where Compassion Meets Empowerment</h1>
             <p className="text-white text-xs font-extralight font-inter sm:w-[70%] lg:w-[50%]">
-              At Ably Care, we provide personalized, high-quality healthcare
-              services with warmth and dedication. Whether it's disability
-              support, aged care, or mental well-being, our expert team is here
-              to empower and uplift every individual. Your care, your way
-              because you deserve the best
+              At Ably Care, we understand that true care goes beyond assistance. It's about 
+              building genuine connections and empowering you to live your life to the fullest. We 
+              provide personalized home and disability support, crafted with empathy and 
+              expertise. Discover a partner who truly cares. 
             </p>
             <Button className="bg-customAccent text-white hover:bg-customAccent/80 rounded-xl">See More</Button>
           </div>
