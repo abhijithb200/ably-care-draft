@@ -1,3 +1,4 @@
+import CoreValueSection from "@/components/home/CoreValueSection";
 import Hero from "@/components/home/Hero";
 import ServiceSection from "@/components/home/ServiceSection";
 import TeamSection from "@/components/home/TeamSection";
@@ -22,6 +23,9 @@ export default function Home() {
       </section>
       <section className="mx-auto p-2 w-full lg:max-w-7xl mt-12">
         <TeamSection />
+      </section>
+      <section className="mx-auto p-2 w-full lg:max-w-7xl mt-12">
+        <CoreValueSection />
       </section>
     </>
   );
