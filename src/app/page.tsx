@@ -1,5 +1,6 @@
 import Hero from "@/components/home/Hero";
 import ServiceSection from "@/components/home/ServiceSection";
+import TeamSection from "@/components/home/TeamSection";
 import WhyChooseSection from "@/components/home/WhyChooseSection";
 
 export const metadata = {
@@ -18,6 +19,9 @@ export default function Home() {
       </section>
       <section className="mx-auto p-2 w-full lg:max-w-7xl mt-12">
         <WhyChooseSection />
+      </section>
+      <section className="mx-auto p-2 w-full lg:max-w-7xl mt-12">
+        <TeamSection />
       </section>
     </>
   );

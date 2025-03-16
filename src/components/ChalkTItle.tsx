@@ -17,8 +17,8 @@ const ChalkTitle: React.FC<ChalkTitleProps> = ({
 }) => {
   return (
     <div className={`relative inline-block ${className}`}>
-      <h2 className={`text-3xl lg:text-4xl font-bold relative z-10 text-center font-poppins ${color}`}>{title}</h2>
-      <div className="absolute -bottom-2 left-0 w-full z-0">
+      <h2 className={`text-3xl lg:text-4xl font-bold relative z-10 font-poppins ${color}`}>{title}</h2>
+      <div className="absolute -bottom-2 left-0 md:left-[50%] md:translate-x-[-50%] w-full max-w-[250px] z-0">
         <svg
           id="Layer_1"
           xmlns="http://www.w3.org/2000/svg"
