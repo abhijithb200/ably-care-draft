@@ -52,7 +52,7 @@ const config: Config = {
   			},
 			customAccent : '#216AB9',
 			customSecondary : '#98C1E4',
-			
+			complementary : '#B97021',
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
