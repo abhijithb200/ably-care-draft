@@ -28,25 +28,8 @@ const ParticlesBackground: React.FC = () => {
       },
       fpsLimit: 120,
       interactivity: {
-        events: {
-          onClick: {
-            enable: true,
-            mode: "push",
-          },
-          onHover: {
-            enable: true,
-            mode: "repulse",
-          },
-        },
-        modes: {
-          push: {
-            quantity: 4,
-          },
-          repulse: {
-            distance: 200,
-            duration: 0.4,
-          },
-        },
+        detect_on: 'canvas',
+        events: { onhover: { enable: false }, onclick: { enable: false }, resize: true } // No interactivity
       },
         particles: {
           number: {
@@ -103,7 +86,7 @@ const ParticlesBackground: React.FC = () => {
           },
           move: {
             enable: true,
-            speed: 6,
+            speed: 3,
             direction: "none",
             random: false,
             straight: false,
@@ -121,11 +104,59 @@ const ParticlesBackground: React.FC = () => {
     [],
   );
 
+  const options2: ISourceOptions = useMemo(
+    () => ({
+      fullScreen: {
+        enable: false,
+      },
+      fpsLimit: 120,
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: false },
+          onclick: { enable: false },
+          resize: true,
+        }, // No interactivity
+      },
+      particles: {
+        number: { value: 50, density: { enable: true, value_area: 800 } }, // Reduced particle count
+        color: {
+          value: [
+            "#ffffff",
+            "#e6e6e6",
+            "#000033",
+            "#000066",
+            "#ffffcc",
+            "#ffff99",
+            "#333333",
+            "#666666",
+          ], // Color variations
+        },
+        shape: { type: "circle" },
+        opacity: { value: 1.5, random: true, anim: { enable: false } },
+        size: { value: 8, random: true, anim: { enable: false } },
+        line_linked: { enable: false }, // No lines
+        move: {
+          enable: true,
+          speed: 2, // Reduced speed
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false,
+        },
+      },
+      detectRetina: true,
+    }),
+    []
+  );
+
   if (init) {
     return (
       <Particles
         id="tsparticles"
-        options={options}
+        options={options2}
+        className="w-full h-full"
       />
     );
   }
