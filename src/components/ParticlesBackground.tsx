@@ -29,7 +29,7 @@ const ParticlesBackground: React.FC = () => {
       fpsLimit: 120,
       interactivity: {
         detect_on: 'canvas',
-        events: { onhover: { enable: false }, onclick: { enable: false }, resize: true } // No interactivity
+        events: { onhover: { enable: false }, onclick: { enable: false }, resize: { enable: true } } // No interactivity
       },
         particles: {
           number: {
