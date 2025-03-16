@@ -126,8 +126,6 @@ const ParticlesBackground: React.FC = () => {
       <Particles
         id="tsparticles"
         options={options}
-        width={"100px"}
-        height={"100px"}
       />
     );
   }
