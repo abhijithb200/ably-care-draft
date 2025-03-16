@@ -86,11 +86,11 @@ import Image from "next/image";
                       </NavigationMenuContent>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                      <Link href={"/"}>
+                      <Link href="/docs" legacyBehavior passHref>
                         <NavigationMenuLink
                           className={navigationMenuTriggerStyle()}
                         >
-                          Components
+                          Referral
                         </NavigationMenuLink>
                       </Link>
                     </NavigationMenuItem>
@@ -132,7 +132,7 @@ import Image from "next/image";
                 </Button>
               </a>
               <a href="/">
-                <Button className="bg-customAccent hover:bg-customSecondary rounded-lg">
+                <Button className="bg-customAccent hover:bg-customAccent/80 rounded-lg">
                     Contact Us
                 </Button>
               </a>
@@ -140,7 +140,7 @@ import Image from "next/image";
             <div className="lg:hidden flex items-center">
               <button
                 type="button"
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
                 <span className="sr-only">Open main menu</span>
@@ -155,19 +155,19 @@ import Image from "next/image";
         </div>
         {mobileMenuOpen && (
           <div
-            className="md:hidden fixed inset-0 z-40 bg-black bg-opacity-25"
+            className="lg:hidden fixed inset-0 z-40 bg-black bg-opacity-25"
             onClick={() => setMobileMenuOpen(false)}
           ></div>
         )}
         <div
-          className={`md:hidden fixed top-0 right-0 bottom-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
+          className={`lg:hidden fixed top-0 right-0 bottom-0 z-50 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${
             mobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
           <div className="flex items-center justify-end p-4">
             <button
               type="button"
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none"
               onClick={() => setMobileMenuOpen(false)}
             >
               <X className="block h-6 w-6" aria-hidden="true" />
@@ -248,12 +248,13 @@ import Image from "next/image";
                 Career
               </Link>
             </div>
-            <div className="px-5 py-4 mt-4">
+            <div className="px-5 py-4 mt-4 flex justify-center gap-2">
+              <Button variant={"outline"}>Login</Button>
               <a
-                href="/login"
-                className="block text-center w-full px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-              >
-                Login
+                href="/login">
+                <Button className="text-white bg-customAccent hover:bg-customAccent/80">
+                  Contact Us
+                </Button>
               </a>
             </div>
           </div>
