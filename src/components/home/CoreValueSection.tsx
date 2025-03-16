@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "../ui/button";
 import Image from "next/image";
 import ChalkTitle from "../ChalkTItle";
 
@@ -49,6 +48,47 @@ const CoreValueSection = () => {
                 fill
                 className="w-full h-full object-cover"
               />
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center justify-center gap-8 w-full h-[250px] relative mt-8">
+          <div className="relative w-1/2 h-full flex flex-col items-center justify-center">
+            <div className="relative z-10">
+              <h1 className="font-poppins text-2xl font-semibold text-white text-center">Our Vision</h1>
+              <p className="text-sm font-inter text-white font-light text-center">
+                To be the Most Trusted Care Provider. 
+              </p>
+            </div>
+            <div className="absolute top-0 left-0 w-full h-full rounded-xl overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-full z-[5] bg-gradient-to-t from-black to-black/40"></div>
+              <div className="absolute top-0 left-0 w-full h-full">
+                <Image
+                  src={"/images/vision01.jpg"}
+                  alt="Ably Care vision"
+                  fill
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="relative w-1/2 h-full flex flex-col items-center justify-center">
+            <div className="relative z-10">
+              <h1 className="font-poppins text-2xl font-semibold text-white text-center">Our Mission</h1>
+              <p className="text-sm font-inter text-white font-light text-center">
+                To Empower People with Disability.
+              </p>
+            </div>
+            <div className="absolute top-0 left-0 w-full h-full rounded-xl overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-full z-[5] bg-gradient-to-t from-black to-black/40"></div>
+              <div className="absolute top-0 left-0 w-full h-full">
+                <Image
+                  src={"/images/mission-stock.jpg"}
+                  alt="Ably Care vision"
+                  fill
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>
