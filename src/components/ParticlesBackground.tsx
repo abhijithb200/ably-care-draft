@@ -115,8 +115,8 @@ const ParticlesBackground: React.FC = () => {
         events: {
           onhover: { enable: false },
           onclick: { enable: false },
-          resize: true,
-        }, // No interactivity
+          resize: { enable: true },
+        },
       },
       particles: {
         number: { value: 50, density: { enable: true, value_area: 800 } }, // Reduced particle count
