@@ -12,7 +12,7 @@ export const metadata = {
 export default function Home() {
   return (
     <>
-      <main className="mx-auto p-2 w-full lg:max-w-7xl">
+      <main className="mx-auto p-2 w-full lg:max-w-7xl mt-20">
         <Hero />
       </main>
       <section className="mx-auto p-2 w-full lg:max-w-7xl mt-6">

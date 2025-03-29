@@ -15,6 +15,7 @@ import {
   import { ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import Image from "next/image";
+import { ourServicesData } from "@/data/serviceData";
   
   const NavBar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -36,16 +37,17 @@ import Image from "next/image";
     };
   
     return (
-      <header className="w-full bg-white border-b border-gray-100 font-poppins">
+      <header className="w-full bg-white border-b border-gray-100 font-poppins fixed top-0 z-50">
         <div className="mx-auto px-4 w-full lg:max-w-7xl">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-20">
             <div className="flex-shrink-0 flex items-center">
               <Link href="/" className="flex items-center">
                 <Image
                   src="/images/nav-logo.png"
                   alt="Ably Care Logo"
-                  width={100}
-                  height={100}/>
+                  width={120}
+                  height={100}
+                />
               </Link>
             </div>
             <div className="hidden lg:block ml-10">
@@ -66,22 +68,28 @@ import Image from "next/image";
                         Our Services
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-                          <ListItem href="/docs" title="Item Title">
-                            item
-                          </ListItem>
-                          <ListItem
-                            href="/docs/installation"
-                            title="Item Title"
-                          >
-                            item
-                          </ListItem>
-                          <ListItem
-                            href="/docs/primitives/typography"
-                            title="Item Title"
-                          >
-                            item
-                          </ListItem>
+                        <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[800px] lg:grid-cols-3">
+                          {ourServicesData.map((item, index) => (
+                            <ListItem href={item.title} key={index}>
+                              <div className="w-full flex gap-2">
+                                <div className="relative w-[50px] h-[50px]">
+                                  <Image
+                                    src={item.image}
+                                    alt={item.title}
+                                    fill
+                                    sizes="100%"
+                                    className="w-full h-full object-contain"
+                                  />
+                                </div>
+                                <div className="w-[60%]">
+                                  <h1 className="text-black text-sm">
+                                    {item.title}
+                                  </h1>
+                                  <p className="text-xs">{item.description}</p>
+                                </div>
+                              </div>
+                            </ListItem>
+                          ))}
                         </ul>
                       </NavigationMenuContent>
                     </NavigationMenuItem>
@@ -108,15 +116,6 @@ import Image from "next/image";
                         <NavigationMenuLink
                           className={navigationMenuTriggerStyle()}
                         >
-                          Blog
-                        </NavigationMenuLink>
-                      </Link>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                      <Link href="/docs" legacyBehavior passHref>
-                        <NavigationMenuLink
-                          className={navigationMenuTriggerStyle()}
-                        >
                           Career
                         </NavigationMenuLink>
                       </Link>
@@ -128,12 +127,12 @@ import Image from "next/image";
             <div className="hidden lg:flex items-center justify-end gap-2">
               <a href="/">
                 <Button variant={"outline"} className="rounded-xl">
-                    Login
+                  Login
                 </Button>
               </a>
               <a href="/">
                 <Button className="bg-customAccent hover:bg-customAccent/80 rounded-xl">
-                    Contact Us
+                  Contact Us
                 </Button>
               </a>
             </div>
@@ -202,24 +201,29 @@ import Image from "next/image";
                 </button>
                 {activeDropdown === "services" && (
                   <>
-                    <div className="pl-4 pr-3 py-2 space-y-2">
+                  {ourServicesData.map((item, index) => (
+                    <div className="pl-4 pr-3 py-2 space-y-2" key={index}>
                       <Link
-                        href={"/"}
+                        href={item.title}
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                       >
-                        <div className="font-medium">Title</div>
-                        <div className="text-xs text-gray-500">Description</div>
+                        <div className="w-full flex gap-2">
+                          <div className="relative w-[30px] h-[30px]">
+                            <Image
+                              src={item.image}
+                              alt={item.title}
+                              fill
+                              sizes="100%"
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                          <div>
+                            <h1 className="text-black text-sm">{item.title}</h1>
+                          </div>
+                        </div>
                       </Link>
                     </div>
-                    <div className="pl-4 pr-3 py-2 space-y-2">
-                      <Link
-                        href={"/"}
-                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                      >
-                        <div className="font-medium">Title</div>
-                        <div className="text-xs text-gray-500">Description</div>
-                      </Link>
-                    </div>
+                    ))}
                   </>
                 )}
               </div>
@@ -249,9 +253,10 @@ import Image from "next/image";
               </Link>
             </div>
             <div className="px-5 py-4 mt-4 flex justify-center gap-2">
-              <Button variant={"outline"} className="rounded-xl">Login</Button>
-              <a
-                href="/login">
+              <Button variant={"outline"} className="rounded-xl">
+                Login
+              </Button>
+              <a href="/login">
                 <Button className="text-white bg-customAccent hover:bg-customAccent/80 rounded-xl">
                   Contact Us
                 </Button>
