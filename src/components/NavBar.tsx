@@ -55,7 +55,7 @@ import { aboutUsData, ourServicesData } from "@/data/serviceData";
                 <NavigationMenu>
                   <NavigationMenuList>
                     <NavigationMenuItem>
-                      <Link href={"/"}>
+                      <Link href={"/ndis"}>
                         <NavigationMenuLink
                           className={navigationMenuTriggerStyle()}
                         >
@@ -70,7 +70,7 @@ import { aboutUsData, ourServicesData } from "@/data/serviceData";
                       <NavigationMenuContent>
                         <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[800px] lg:grid-cols-3">
                           {ourServicesData.map((item, index) => (
-                            <ListItem href={item.title} key={index}>
+                            <ListItem href={item.link} key={index}>
                               <div className="w-full flex gap-2">
                                 <div className="relative w-[50px] h-[50px]">
                                   <Image
@@ -94,7 +94,7 @@ import { aboutUsData, ourServicesData } from "@/data/serviceData";
                       </NavigationMenuContent>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                      <Link href="/docs" legacyBehavior passHref>
+                      <Link href="/referral" legacyBehavior passHref>
                         <NavigationMenuLink
                           className={navigationMenuTriggerStyle()}
                         >
@@ -109,7 +109,7 @@ import { aboutUsData, ourServicesData } from "@/data/serviceData";
                       <NavigationMenuContent>
                         <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[800px] lg:grid-cols-3">
                           {aboutUsData.map((item, index) => (
-                            <ListItem href={item.title} key={index}>
+                            <ListItem href={item.link} key={index}>
                               <div className="w-full flex gap-2">
                                 <div className="relative w-[50px] h-[50px]">
                                   <Image
@@ -133,7 +133,7 @@ import { aboutUsData, ourServicesData } from "@/data/serviceData";
                       </NavigationMenuContent>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                      <Link href="/docs" legacyBehavior passHref>
+                      <Link href="/career" legacyBehavior passHref>
                         <NavigationMenuLink
                           className={navigationMenuTriggerStyle()}
                         >
@@ -151,7 +151,7 @@ import { aboutUsData, ourServicesData } from "@/data/serviceData";
                   Login
                 </Button>
               </a>
-              <a href="/">
+              <a href="/contact">
                 <Button className="bg-customAccent hover:bg-customAccent/80 rounded-xl">
                   Contact Us
                 </Button>
@@ -196,7 +196,7 @@ import { aboutUsData, ourServicesData } from "@/data/serviceData";
           <div className="h-full overflow-y-auto">
             <div className="px-2 pt-2 pb-3 space-y-1">
               <div>
-                <Link href={"/"}>
+                <Link href={"/ndis"}>
                   <button className="w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
                     <span>NDIS</span>
                   </button>
@@ -225,7 +225,7 @@ import { aboutUsData, ourServicesData } from "@/data/serviceData";
                   {ourServicesData.map((item, index) => (
                     <div className="pl-4 pr-3 py-2 space-y-2" key={index}>
                       <Link
-                        href={item.title}
+                        href={item.link}
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                       >
                         <div className="w-full flex gap-2">
@@ -249,10 +249,10 @@ import { aboutUsData, ourServicesData } from "@/data/serviceData";
                 )}
               </div>
               <Link
-                href="/"
+                href="/referral"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
               >
-                Refarral
+                Referral
               </Link>
               <div>
                 <button
@@ -277,7 +277,7 @@ import { aboutUsData, ourServicesData } from "@/data/serviceData";
                   {aboutUsData.map((item, index) => (
                     <div className="pl-4 pr-3 py-2 space-y-2" key={index}>
                       <Link
-                        href={item.title}
+                        href={item.link}
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
                       >
                         <div className="w-full flex gap-2">
@@ -301,13 +301,13 @@ import { aboutUsData, ourServicesData } from "@/data/serviceData";
                 )}
               </div>
               <Link
-                href="/"
+                href="/blogs"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
               >
                 Blog
               </Link>
               <Link
-                href="/"
+                href="/career"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
               >
                 Career
@@ -317,7 +317,7 @@ import { aboutUsData, ourServicesData } from "@/data/serviceData";
               <Button variant={"outline"} className="rounded-xl">
                 Login
               </Button>
-              <a href="/login">
+              <a href="/contact">
                 <Button className="text-white bg-customAccent hover:bg-customAccent/80 rounded-xl">
                   Contact Us
                 </Button>
