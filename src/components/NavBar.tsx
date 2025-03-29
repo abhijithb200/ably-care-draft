@@ -15,7 +15,7 @@ import {
   import { ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import Image from "next/image";
-import { ourServicesData } from "@/data/serviceData";
+import { aboutUsData, ourServicesData } from "@/data/serviceData";
   
   const NavBar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -103,13 +103,34 @@ import { ourServicesData } from "@/data/serviceData";
                       </Link>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                      <Link href="/docs" legacyBehavior passHref>
-                        <NavigationMenuLink
-                          className={navigationMenuTriggerStyle()}
-                        >
-                          About Us
-                        </NavigationMenuLink>
-                      </Link>
+                      <NavigationMenuTrigger>
+                        About Us
+                      </NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                        <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[800px] lg:grid-cols-3">
+                          {aboutUsData.map((item, index) => (
+                            <ListItem href={item.title} key={index}>
+                              <div className="w-full flex gap-2">
+                                <div className="relative w-[50px] h-[50px]">
+                                  <Image
+                                    src={item.image}
+                                    alt={item.title}
+                                    fill
+                                    sizes="100%"
+                                    className="w-full h-full object-contain"
+                                  />
+                                </div>
+                                <div className="w-[60%]">
+                                  <h1 className="text-black text-sm">
+                                    {item.title}
+                                  </h1>
+                                  <p className="text-xs">{item.description}</p>
+                                </div>
+                              </div>
+                            </ListItem>
+                          ))}
+                        </ul>
+                      </NavigationMenuContent>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
                       <Link href="/docs" legacyBehavior passHref>
@@ -233,12 +254,52 @@ import { ourServicesData } from "@/data/serviceData";
               >
                 Refarral
               </Link>
-              <Link
-                href="/"
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-              >
-                About Us
-              </Link>
+              <div>
+                <button
+                  className="w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                  onClick={() => toggleDropdown("about")}
+                >
+                  <span>About Us</span>
+                  <span
+                    className="ml-2 transition-transform duration-200"
+                    style={{
+                      transform:
+                        activeDropdown === "about"
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
+                    }}
+                  >
+                    <ChevronDown />
+                  </span>
+                </button>
+                {activeDropdown === "about" && (
+                  <>
+                  {aboutUsData.map((item, index) => (
+                    <div className="pl-4 pr-3 py-2 space-y-2" key={index}>
+                      <Link
+                        href={item.title}
+                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                      >
+                        <div className="w-full flex gap-2">
+                          <div className="relative w-[30px] h-[30px]">
+                            <Image
+                              src={item.image}
+                              alt={item.title}
+                              fill
+                              sizes="100%"
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                          <div>
+                            <h1 className="text-black text-sm">{item.title}</h1>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                    ))}
+                  </>
+                )}
+              </div>
               <Link
                 href="/"
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"

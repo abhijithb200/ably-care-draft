@@ -54,3 +54,21 @@ export const ourServicesData = [
         description : "Understanding NDIS Funding eligibility, ensuring you"
     },
 ]
+
+export const aboutUsData = [
+    {
+        image : "/icons/about-us-icon.png",
+        title : "About Us",
+        description : " Ably Care is a leading provider of home and community care services."
+    },
+    {
+        image : "/icons/mission-vision-values-icon.png",
+        title : "Mission, Vision & Values",
+        description : "Ably Care is a leading provider of home and community care services."
+    },
+    {
+        image : "/icons/blog-icon.png", 
+        title : "Blogs",
+        description : "Ably Care is a leading provider of home and community care services."
+    },
+]
