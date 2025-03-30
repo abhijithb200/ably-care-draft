@@ -1,7 +1,11 @@
+import Hero from "@/components/referral/Hero"
+
 const Referral = () => {
   return (
     <>
-        <div className="mt-20">Referral Page</div>
+      <main className="mx-auto p-2 w-full lg:max-w-7xl mt-20">
+        <Hero/>
+      </main>
     </>
   )
 }
