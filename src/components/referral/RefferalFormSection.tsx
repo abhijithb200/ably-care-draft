@@ -72,7 +72,7 @@ const ReferralFormSection = () => {
     additionalInfo: "",
   });
 
-  const handleParticipantChange = (e) => {
+  const handleParticipantChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setParticipantForm({
       ...participantForm,
@@ -80,7 +80,7 @@ const ReferralFormSection = () => {
     });
   };
 
-  const handleReferrerChange = (e) => {
+  const handleReferrerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     const fieldName =
       id.replace("referrer", "").charAt(0).toLowerCase() +
