@@ -25,13 +25,60 @@ import {
 } from "../ui/select";
 import { useToast } from "@/hooks/use-toast";
 
+// Define interfaces for the form state
+interface IdentitiesState {
+  male: boolean;
+  female: boolean;
+  nonBinary: boolean;
+  differentIdentity: boolean;
+  aboriginal: boolean;
+  torresStrait: boolean;
+  aboriginalTorres: boolean;
+  other: boolean;
+}
+
+interface ReferralReasonsState {
+  ndisCoordination: boolean;
+  socialWork: boolean;
+  both: boolean;
+}
+
+interface ParticipantFormState {
+  firstName: string;
+  lastName: string;
+  identities: IdentitiesState;
+  email: string;
+  phone: string;
+  dateOfBirth: string;
+  address: string;
+  disability: string;
+  referralReasons: ReferralReasonsState;
+  additionalDetails: string;
+  ndisNumber: string;
+  planStartDate: string;
+  planEndDate: string;
+  fundingManagement: string;
+  guardian: string;
+  attachDocuments: string;
+}
+
+interface ReferrerFormState {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  relationship: string;
+  additionalInfo: string;
+}
+
 const ReferralFormSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { toast } = useToast?.() || {
-    toast: (props) => alert(props.description),
+    toast: (props: { title?: string; description: string; duration?: number; className?: string }) => 
+      alert(props.description),
   };
 
-  const [participantForm, setParticipantForm] = useState({
+  const [participantForm, setParticipantForm] = useState<ParticipantFormState>({
     firstName: "",
     lastName: "",
     identities: {
@@ -63,7 +110,7 @@ const ReferralFormSection = () => {
     attachDocuments: "",
   });
 
-  const [referrerForm, setReferrerForm] = useState({
+  const [referrerForm, setReferrerForm] = useState<ReferrerFormState>({
     firstName: "",
     lastName: "",
     email: "",
@@ -72,7 +119,7 @@ const ReferralFormSection = () => {
     additionalInfo: "",
   });
 
-  const handleParticipantChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleParticipantChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setParticipantForm({
       ...participantForm,
@@ -80,7 +127,7 @@ const ReferralFormSection = () => {
     });
   };
 
-  const handleReferrerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleReferrerChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     const fieldName =
       id.replace("referrer", "").charAt(0).toLowerCase() +
@@ -92,7 +139,7 @@ const ReferralFormSection = () => {
     });
   };
 
-  const handleIdentityCheckbox = (id) => {
+  const handleIdentityCheckbox = (id: keyof IdentitiesState) => {
     setParticipantForm({
       ...participantForm,
       identities: {
@@ -102,7 +149,7 @@ const ReferralFormSection = () => {
     });
   };
 
-  const handleReferralReasonCheckbox = (id) => {
+  const handleReferralReasonCheckbox = (id: keyof ReferralReasonsState) => {
     setParticipantForm({
       ...participantForm,
       referralReasons: {
@@ -112,14 +159,14 @@ const ReferralFormSection = () => {
     });
   };
 
-  const handleRadioChange = (field, value) => {
+  const handleRadioChange = (field: string, value: string) => {
     setParticipantForm({
       ...participantForm,
       [field]: value,
     });
   };
 
-  const handleRelationshipChange = (value) => {
+  const handleRelationshipChange = (value: string) => {
     setReferrerForm({
       ...referrerForm,
       relationship: value,
@@ -134,7 +181,7 @@ const ReferralFormSection = () => {
     setIsModalOpen(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     const formData = {
