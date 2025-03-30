@@ -25,7 +25,6 @@ import {
 } from "../ui/select";
 import { useToast } from "@/hooks/use-toast";
 
-// Define interfaces for the form state
 interface IdentitiesState {
   male: boolean;
   female: boolean;
