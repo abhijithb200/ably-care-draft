@@ -75,7 +75,7 @@ const ContactFormSection = () => {
   return (
     <>
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-12">
+      <main className="container mx-auto px-4 py-12" id="contact">
         <div className="grid md:grid-cols-2 gap-12 font-inter">
           {/* Contact Information */}
           <Card className='rounded-2xl'>
@@ -84,8 +84,8 @@ const ContactFormSection = () => {
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="flex items-start">
-                <div className="bg-blue-100 p-3 rounded-full mr-4">
-                  <MapPin className="text-customAccent" />
+                <div className="bg-complementary/15 p-3 rounded-full mr-4">
+                  <MapPin className="text-complementary" />
                 </div>
                 <div className='text-gray-600'>
                   <h3 className="font-semibold text-lg font-poppins text-gray-800">Address</h3>
@@ -95,32 +95,32 @@ const ContactFormSection = () => {
               </div>
               
               <div className="flex items-start">
-                <div className="bg-blue-100 p-3 rounded-full mr-4">
-                  <Mail className="text-blue-600" />
+                <div className="bg-complementary/15 p-3 rounded-full mr-4">
+                  <Mail className="text-complementary" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg">Email</h3>
-                  <a href="mailto:info@ablycare.com.au" className="text-customAccent hover:text-complementary hover:underline">
+                  <a href="mailto:info@ablycare.com.au" className="text-complementary hover:text-customAccent hover:underline">
                     info@ablycare.com.au
                   </a>
                 </div>
               </div>
               
               <div className="flex items-start">
-                <div className="bg-blue-100 p-3 rounded-full mr-4">
-                  <Phone className="text-customAccent" />
+                <div className="bg-complementary/15 p-3 rounded-full mr-4">
+                  <Phone className="text-complementary" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg text-gray-800">Phone</h3>
-                  <a href="tel:0403469451" className="text-customAccent hover:text-complementary hover:underline">
+                  <a href="tel:0403469451" className="text-complementary hover:text-customAccent hover:underline">
                     0403 469 451
                   </a>
                 </div>
               </div>
               
               <div className="flex items-start">
-                <div className="bg-blue-100 p-3 rounded-full mr-4">
-                  <Building className="text-customAccent" />
+                <div className="bg-complementary/15 p-3 rounded-full mr-4">
+                  <Building className="text-complementary" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg text-gray-800 font-poppins">ABN</h3>
@@ -240,7 +240,7 @@ const ContactFormSection = () => {
                     
                     <Button 
                       type="submit" 
-                      className="w-full bg-customAccent hover:bg-complementary text-white"
+                      className="w-full bg-complementary hover:bg-customAccent text-white"
                     >
                       Send Message
                     </Button>

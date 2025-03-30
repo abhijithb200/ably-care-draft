@@ -10,9 +10,11 @@ const Hero = () => {
                 <p className="font-inter text-xs text-center text-gray-600 w-[85%] md:w-[70%] lg:w-[500px] lg:text-start xl:text-sm">
                     We value your inquiries and are here to assist you. Please reach out to us through any of the following methods.
                 </p>
-                <Button variant={"default"} className="mt-5 bg-customAccent hover:bg-complementary text-white">
-                    Contact Us
-                </Button>
+                <a href="#contact">
+                    <Button variant={"default"} className="mt-5 bg-customAccent hover:bg-complementary text-white">
+                        Contact Us
+                    </Button>
+                </a>
             </div>
             <div className="hidden lg:flex w-[50%] h-full relative">
                 <Image 

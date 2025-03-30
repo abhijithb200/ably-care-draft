@@ -11,9 +11,11 @@ const Hero = () => {
                 <p className="font-inter text-xs text-center text-gray-600 w-[85%] md:w-[70%] lg:w-[500px] lg:text-start xl:text-sm">
                     At Ably Care, we believe in the power of community and the impact of personal recommendations. If you know someone who could benefit from our dedicated care services, refer them to us today!
                 </p>
-                <Button variant={"default"} className="mt-5 bg-customAccent hover:bg-complementary text-white">
-                    Refer Now
-                </Button>
+                <a href="#refer">
+                    <Button variant={"default"} className="mt-5 bg-customAccent hover:bg-complementary text-white">
+                        Refer Now
+                    </Button>
+                </a>
             </div>
             <div className="hidden lg:flex w-[50%] h-full relative">
                 <Image 

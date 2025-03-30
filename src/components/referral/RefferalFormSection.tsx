@@ -203,7 +203,7 @@ const ReferralFormSection = () => {
 
   return (
     <>
-      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="refer">
         <Card className="rounded-xl overflow-hidden bg-gray-50">
           <CardHeader className="pl-0">
             <div className="relative bg-customAccent rounded-xl rounded-l-none p-4 flex flex-col items-start justify-center">
