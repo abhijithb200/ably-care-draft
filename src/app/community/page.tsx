@@ -99,7 +99,7 @@ const Community = () => {
                 Take the next step towards a more independent, fulfilling life <br /> with our Home & Community Care services.
               </p>
               <Link
-                href={"/referral"}
+                href={"/contact"}
               >
                 <Button
                     variant={"default"}
