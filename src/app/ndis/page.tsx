@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import Hero from '@/components/ndis/hero';
+import Hero from '@/components/ndis/Hero';
 import ChalkTitle from '@/components/ChalkTItle';
 import { ndisJourneyBulletPoints, ndisPrinciplesData } from '@/data/serviceData';
 
