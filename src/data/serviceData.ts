@@ -28,7 +28,7 @@ export const ourServicesData = [
         image : "/icons/comfort-home.png",
         title : "Accomadations",
         description : "Beautifully appointed Supported Independent Living",
-        link : "/accommodation"
+        link : "/accomadations"
     },
     {
         image : "/icons/support_coordination.jpg.png",
