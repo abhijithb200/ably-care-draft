@@ -6,7 +6,7 @@ const CommunityHero = () => {
   return (
     <>
         <div className="relative w-full h-60 lg:h-96 xl:h-[450px] flex lg:rounded-2xl overflow-hidden">
-            <div className="absolute w-14 h-14 lg:w-24 lg:h-24 top-0 right-0 z-10">
+            <div className="absolute w-14 h-14 lg:w-24 lg:h-24 top-0 right-0 z-10 hidden md:block">
                 <Image
                     src={"/icons/ndis-logo.png"}
                     alt="NDIS Logo"
