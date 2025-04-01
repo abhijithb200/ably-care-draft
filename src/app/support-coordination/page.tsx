@@ -1,8 +1,18 @@
 import ChalkTitle from "@/components/ChalkTItle";
 import SupportCoordinationHero from "@/components/supportCoordination/SupportCoordinationHero";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { ndisJourneyBulletPoints } from "@/data/serviceData";
 import { supportCoordinationServices } from "@/data/supportCoordinationsData";
 import { CircleCheckBig } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const SupportCoordination = () => {
   return (
@@ -99,6 +109,96 @@ const SupportCoordination = () => {
                 </p>
               </div>
             ))}
+          </div>
+
+          <div className="w-full flex items-center justify-start lg:justify-center mt-24">
+            <ChalkTitle
+              title="Tailored Support Coordination Services"
+              className="mt-10"
+              underlineColor="#B97021"
+            />
+          </div>
+
+          <div className="w-full md:w-[600px] mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
+            {[
+                {
+                    title : "Support Coordination",
+                    subTitle : "Expert Navigation & Problem Solving",
+                    points : [
+                        " Ideal for those with multiple providers or complex needs.",
+                        "Helps resolve barriers to accessing services.",
+                        "Ongoing monitoring & evaluation to ensure effectiveness.",
+                        "Crisis resolution support to build stability and resilience."
+                    ]
+                },
+                {
+                    title : "Specialist Support Coordination",
+                    subTitle : "High-Risk & Complex Needs Support",
+                    points : [
+                        "A time-limited service for those facing significant challenges.",
+                        "Provides specialized intervention for individuals at high risk.",
+                        "Works to create a stable, long-term support environment."
+                    ]
+                }
+            ].map((item, index) => (
+              <Card
+                className="rounded-xl overflow-hidden bg-gray-50"
+                key={index}
+              >
+                <CardHeader className="pl-0">
+                  <div className="relative bg-customAccent rounded-xl rounded-l-none p-4 flex flex-col items-start justify-center">
+                    <CardTitle className="text-white font-poppins">
+                      {item.subTitle} .
+                    </CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="font-inter">
+                    <h1 className="mb-2 font-poppins text-gray-700 font-semibold text-lg">
+                      {item.subTitle}
+                    </h1>
+                    <ul>
+                      {item.points.map((point, i) => (
+                        <li key={i} className="text-gray-700 list-disc">
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                  </CardDescription>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="relative w-full h-96 flex justify-center items-center flex-col mt-24 overflow-hidden rounded-2xl">
+            <div className="flex flex-col items-center justify-start w-full p-4 relative z-10">
+              <h3 className="text-2xl lg:text-3xl font-poppins text-white font-semibold text-center">
+                Let’s Navigate Your NDIS Plan Together!
+              </h3>
+              <p className="text-xs font-inter text-white font-light text-center mt-1">
+                Our team is ready to guide you every step of the way helping you
+                feel <br className="hidden sm:block" /> confident, supported,
+                and in control.
+              </p>
+              <Link href={"/contact"}>
+                <Button
+                  variant={"default"}
+                  className="mt-6 lg:mt-3 bg-customAccent hover:bg-complementary text-white"
+                >
+                  Contact Us
+                </Button>
+              </Link>
+            </div>
+            <div className="absolute top-0 z-[5] w-full h-full">
+              <Image
+                src={"/images/team-bg.jpg"}
+                alt="Referral background"
+                fill
+                sizes="100%"
+                className="object-cover object-center w-full h-full"
+              />
+            </div>
+            <div className="absolute top-0 bg-gradient-to-t from-black to-transparent z-[7] w-full h-full"></div>
           </div>
         </div>
       </section>
