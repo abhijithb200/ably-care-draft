@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ndisJourneyBulletPoints } from "@/data/serviceData";
 import { supportCoordinationServices } from "@/data/supportCoordinationsData";
 import { CircleCheckBig } from "lucide-react";
 import Image from "next/image";
