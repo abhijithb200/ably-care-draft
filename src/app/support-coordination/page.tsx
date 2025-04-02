@@ -148,7 +148,7 @@ const SupportCoordination = () => {
                 <CardHeader className="pl-0">
                   <div className="relative bg-customAccent rounded-xl rounded-l-none p-4 flex flex-col items-start justify-center">
                     <CardTitle className="text-white font-poppins">
-                      {item.subTitle} .
+                      {item.title} .
                     </CardTitle>
                   </div>
                 </CardHeader>
