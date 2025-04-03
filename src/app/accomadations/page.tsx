@@ -204,8 +204,8 @@ const Accomadations = () => {
             </div>
             <div className="absolute top-0 z-[5] w-full h-full">
               <Image
-                src={"/images/team-bg.jpg"}
-                alt="Referral background"
+                src={"/images/accommadation-bg.jpg"}
+                alt="Accommodation background"
                 fill
                 sizes="100%"
                 className="object-cover object-center w-full h-full"

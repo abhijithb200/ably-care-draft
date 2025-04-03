@@ -291,7 +291,7 @@ const PlanManagement = () => {
             </div>
             <div className="absolute top-0 z-[5] w-full h-full">
               <Image
-                src={"/images/team-bg.jpg"}
+                src={"/images/management-bg.jpg"}
                 alt="Referral background"
                 fill
                 sizes="100%"

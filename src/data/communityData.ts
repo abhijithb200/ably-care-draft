@@ -1,6 +1,6 @@
 export const communityData = [
     {
-        image : "/icons/social-eco.png",
+        image : "/icons/clinic-icon.png",
         title : "Expert Clinical Support",
         points : [
             "Registered Nurses & Support Workers provide care at home",
@@ -9,7 +9,7 @@ export const communityData = [
         ]
     },
     {
-        image : "/icons/social-eco.png",
+        image : "/icons/psycho_social_recovery.webp",
         title : "Mental Health & Well-being",
         points : [
             "Overcoming isolation & loneliness through compassionate support",
@@ -18,7 +18,7 @@ export const communityData = [
         ]
     },
     {
-        image : "/icons/social-eco.png",
+        image : "/icons/shoping-icon.png",
         title : "Shopping & Meal Preparation",
         points : [
             "Assistance with cooking & meal planning for healthy eating",
@@ -26,7 +26,7 @@ export const communityData = [
         ]
     },
     {
-        image : "/icons/social-eco.png",
+        image : "/icons/nav.png",
         title : "Domestic Assistance",
         points : [
             "Respectful help with household chores & organization",
@@ -34,7 +34,7 @@ export const communityData = [
         ]
     },
     {
-        image : "/icons/social-eco.png",
+        image : "/icons/home_and_community.jpg.png",
         title : "Social & Community Access",
         points : [
             "Helping you engage in recreation, work, and study opportunities",
@@ -42,7 +42,7 @@ export const communityData = [
         ]
     },
     {
-        image : "/icons/social-eco.png",
+        image : "/icons/travel-icon.png",
         title : "Transport & Travel Assistance",
         points : [
             "Safe, reliable transportation for medical appointments & social outings",
@@ -50,7 +50,7 @@ export const communityData = [
         ]
     },
     {
-        image : "/icons/social-eco.png",
+        image : "/icons/health-icon.png",
         title : "Fitness & Health",
         points : [
             "Personalized fitness plans for strength & well-being",
@@ -58,7 +58,7 @@ export const communityData = [
         ]
     },
     {
-        image : "/icons/social-eco.png",
+        image : "/icons/independant.png",
         title : "Personal Care with Dignity",
         points : [
             "Respectful support for daily living activities & hygiene",

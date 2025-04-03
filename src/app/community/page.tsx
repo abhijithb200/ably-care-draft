@@ -111,8 +111,8 @@ const Community = () => {
             </div>
             <div className="absolute top-0 z-[5] w-full h-full">
               <Image
-                src={"/images/team-bg.jpg"}
-                alt="Referral background"
+                src={"/images/community-bg.jpg"}
+                alt="Community background"
                 fill
                 sizes="100%"
                 className="object-cover object-center w-full h-full"

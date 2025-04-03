@@ -122,15 +122,11 @@ const ParticlesBackground: React.FC = () => {
         number: { value: 50, density: { enable: true, value_area: 800 } }, // Reduced particle count
         color: {
           value: [
-            "#ffffff",
-            "#e6e6e6",
-            "#000033",
-            "#000066",
-            "#ffffcc",
-            "#ffff99",
-            "#333333",
-            "#666666",
-          ], // Color variations
+            "e3660e",
+            "0036a5",
+            "0795b7",
+            "4777c0",
+          ],
         },
         shape: { type: "circle" },
         opacity: { value: 1.5, random: true, anim: { enable: false } },
