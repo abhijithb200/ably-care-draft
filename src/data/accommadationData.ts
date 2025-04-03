@@ -1,6 +1,6 @@
 export const accommodationOptions = [
   {
-    image: "/icons/social-eco.png",
+    image: "/icons/short-house.png",
     title: "NDIS Short-term Accommodation (Temporary Support, Lasting Care)",
     points: [
       "Ideal for temporary housing needs with full support",
@@ -8,7 +8,7 @@ export const accommodationOptions = [
     ],
   },
   {
-    image: "/icons/social-eco.png",
+    image: "/icons/home-individuals.png",
     title: "Respite Accommodation (Support for Carers & Individuals)",
     points: [
       "Provides carers a much-needed break",
@@ -16,7 +16,7 @@ export const accommodationOptions = [
     ],
   },
   {
-    image: "/icons/social-eco.png",
+    image: "/icons/living-homes.png",
     title: "Assisted Living Homes (Independence with Support)",
     points: [
       "Assistance with daily tasks such as cooking, cleaning, and personal care",
@@ -24,7 +24,7 @@ export const accommodationOptions = [
     ],
   },
   {
-    image: "/icons/social-eco.png",
+    image: "/icons/living-homes.png",
     title: "Disability Group Homes (Community & Compatibility)",
     points: [
       "A shared living environment with like-minded individuals",
@@ -32,7 +32,7 @@ export const accommodationOptions = [
     ],
   },
   {
-    image: "/icons/social-eco.png",
+    image: "/icons/home-individuals.png",
     title: "Disability Independent Living (Empowering Self-Reliance)",
     points: [
       "Suitable for individuals who can live independently with some support",
@@ -40,7 +40,7 @@ export const accommodationOptions = [
     ],
   },
   {
-    image: "/icons/social-eco.png",
+    image: "/icons/short-house.png",
     title:
       "Specialist Disability Accommodation (SDA) (Tailored Housing Solutions)",
     points: [
