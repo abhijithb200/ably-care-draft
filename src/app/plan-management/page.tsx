@@ -131,17 +131,17 @@ const PlanManagement = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10 rounded-2xl overflow-hidden">
             {[
               {
-                image: "/icons/social-eco.png",
+                image: "/icons/fund-monitoring-icon.png",
                 title: "Instant Fund Monitoring",
                 description: "Track your remaining balance at any time.",
               },
               {
-                image: "/icons/social-eco.png",
+                image: "/icons/plan_management.png",
                 title: "Invoice Approval in One Tap",
                 description: "Approve or review payments instantly.",
               },
               {
-                image: "/icons/social-eco.png",
+                image: "/icons/ndis-pricing-elegibility.jpg.png",
                 title: "Full Financial Transparency",
                 description: "See where and how your funds are used.",
               },
