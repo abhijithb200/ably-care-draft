@@ -146,11 +146,6 @@ import { aboutUsData, ourServicesData } from "@/data/serviceData";
               </nav>
             </div>
             <div className="hidden lg:flex items-center justify-end gap-2">
-              <a href="/">
-                <Button variant={"outline"} className="rounded-xl">
-                  Login
-                </Button>
-              </a>
               <a href="/contact">
                 <Button className="bg-customAccent hover:bg-customAccent/80 rounded-xl">
                   Contact Us
@@ -314,9 +309,6 @@ import { aboutUsData, ourServicesData } from "@/data/serviceData";
               </Link>
             </div>
             <div className="px-5 py-4 mt-4 flex justify-center gap-2">
-              <Button variant={"outline"} className="rounded-xl">
-                Login
-              </Button>
               <a href="/contact">
                 <Button className="text-white bg-customAccent hover:bg-customAccent/80 rounded-xl">
                   Contact Us

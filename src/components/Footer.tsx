@@ -9,21 +9,21 @@ import Image from 'next/image';
 const Footer = () => {
   const mainLinks = [
     { title: 'About Us', href: '/about' },
-    { title: 'Jobs', href: '/jobs' },
-    { title: 'Blog', href: '/blog' },
+    { title: 'Careers', href: '/join-team' },
+    { title: 'Blogs', href: '/blogs' },
   ];
 
   const servicesLinks = [
-    { title: 'DISABILITY CARE', href: '/disability-care' },
-    { title: 'Home & Community Care', href: '/home-community-care' },
+    { title: 'Home & Community Care', href: '/community' },
     { title: 'Accommodation', href: '/accommodation' },
-    { title: 'Attendant Care Services', href: '/attendant-care' },
+    { title: 'Support Coordination', href: '/support-coordination' },
   ];
 
   const agedCareLinks = [
-    { title: 'AGED CARE', href: '/aged-care' },
-    { title: 'Home Care Packages', href: '/home-care-packages' },
-    { title: 'Private Care', href: '/private-care' },
+    { title: 'Plan Management', href: '/plan-management' },
+    { title: 'Psycho-Social Recovery', href: '/psycho-social-recovery' },
+    { title: 'NDIS Pricing Arrangements', href: '/ndis-pricing-arrangements' },
+    { title: 'NDIS Funding Eligibility', href: '/ndis-funding-eligibility' },
   ];
 
   const forLinks = [
@@ -37,13 +37,11 @@ const Footer = () => {
     { icon: <Facebook size={24} />, href: '#', label: 'Facebook' },
     { icon: <Instagram size={24} />, href: '#', label: 'Instagram' },
     { icon: <Linkedin size={24} />, href: '#', label: 'LinkedIn' },
-    { icon: <Music size={24} />, href: '#', label: 'TikTok' },
   ];
 
   return (
     <footer className="w-full bg-customAccent text-white font-inter mt-24">
       <div className="container mx-auto px-4 py-8">
-        {/* Main slogan */}
         <div className="mb-8">
           <div className='relative w-[200px] h-[200px] mb-2'>
             <Image
@@ -55,9 +53,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Links section */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {/* Column 1 */}
           <div className="space-y-2">
             {mainLinks.map((link) => (
               <div key={link.title}>
@@ -68,8 +64,8 @@ const Footer = () => {
             ))}
           </div>
 
-          {/* Column 2 */}
           <div className="space-y-2">
+            <h1 className='font-poppins text-lg font-semibold'>Our Services</h1>
             {servicesLinks.map((link) => (
               <div key={link.title}>
                 <Link 
@@ -84,7 +80,6 @@ const Footer = () => {
             ))}
           </div>
 
-          {/* Column 3 */}
           <div className="space-y-2">
             {agedCareLinks.map((link) => (
               <div key={link.title}>
@@ -101,7 +96,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Social icons */}
         <div className="flex flex-wrap justify-end gap-2 mb-8">
           {socialLinks.map((social) => (
             <Link 
@@ -117,19 +111,17 @@ const Footer = () => {
 
         <Separator className="bg-white/20 my-6" />
 
-        {/* Acknowledgement */}
         <div className="mb-8">
           <p className="text-sm">In the spirit of reconciliation we acknowledge the Traditional Custodians of country throughout Australia and their connections to land, sea and community. We pay our respect to their Elders past and present and extend that respect to all Aboriginal and Torres Strait Islander peoples today.</p>
         </div>
 
-        {/* Copyright and links */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center text-sm">
           <p>© Copyright Ably Care {new Date().getFullYear()}</p>
           <div className="flex gap-6 mt-2 md:mt-0">
-            <Link href="/privacy-policy" className="hover:underline">
+            <Link href="#" className="hover:underline">
               Privacy policy
             </Link>
-            <Link href="/disclaimer" className="hover:underline">
+            <Link href="#" className="hover:underline">
               Disclaimer
             </Link>
           </div>
