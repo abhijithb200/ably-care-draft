@@ -5,6 +5,10 @@ import { communityData } from "@/data/communityData";
 import Image from "next/image";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Home & Community Care | Ably Care",
+}
+
 
 const Community = () => {
   return (

@@ -6,6 +6,11 @@ import ChalkTitle from '@/components/ChalkTItle';
 import { ndisJourneyBulletPoints, ndisPrinciplesData } from '@/data/serviceData';
 
 
+export const metadata = {
+  title: "NDIS | Ably Care",
+}
+
+
 const Ndis =()=> {
   return (
     <>

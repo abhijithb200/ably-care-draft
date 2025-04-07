@@ -37,7 +37,7 @@ const Hero = () => {
               src={"/images/char-draft01.png"}
               alt="Ably Care Persona"
               fill
-              className="absolute w-full h-full object-cover"
+              className="absolute w-full h-full object-contain"
             />
           </div>
         </div>

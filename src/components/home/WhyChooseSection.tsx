@@ -25,7 +25,7 @@ const WhyChooseSection = () => {
               src={"/images/char-draft01.png"}
               alt="Ably Care Persona"
               fill
-              className="absolute w-full h-full object-cover"
+              className="absolute w-full h-full object-contain"
             />
           </div>
           <div className="z-10 w-full h-full flex flex-col items-start justify-end pl-6 pb-6 lg:p6 gap-3 lg:gap-6 lg:items-start lg:justify-center">

@@ -1,6 +1,9 @@
 import Hero from "@/components/referral/Hero"
 import RefferalFormSection from "@/components/referral/RefferalFormSection"
 
+export const metadata = {
+  title: "Referral | Ably Care",
+}
 
 const Referral = () => {
   return (

@@ -1,3 +1,8 @@
+export const metadata = {
+  title: "Career | Ably Care",
+}
+
+
 const Career = () => {
   return (
     <>

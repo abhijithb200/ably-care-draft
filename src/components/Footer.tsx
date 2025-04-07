@@ -40,7 +40,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="w-full bg-customAccent text-white font-inter mt-24 relative">
+    <footer className="w-full bg-customAccent text-white font-inter mt-56 relative">
       <div className="waves">
         <div className="wave" id="wave1"></div>
         <div className="wave" id="wave2"></div>

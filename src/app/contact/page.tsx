@@ -2,6 +2,10 @@ import ContactFormSection from "@/components/contact/ContactFormSection"
 import Hero from "@/components/contact/Hero"
 
 
+export const metadata = {
+  title: "Contact | Ably Care",
+}
+
 const Contact = () => {
   return (
     <>

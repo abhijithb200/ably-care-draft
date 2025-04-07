@@ -12,6 +12,12 @@ import { CircleCheckBig } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+
+export const metadata = {
+  title: "Plan Management | Ably Care",
+}
+
+
 const PlanManagement = () => {
   return (
     <>
