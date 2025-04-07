@@ -99,7 +99,7 @@ export const aboutUsData = [
     title: "Mission, Vision & Values",
     description:
       "Ably Care is a leading provider of home and community care services.",
-    link: "/about/mission-vision-values",
+    link: "/about",
   },
   {
     image: "/icons/blog-icon.png",
