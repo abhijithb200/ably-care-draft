@@ -71,6 +71,9 @@ interface ReferrerFormState {
 }
 
 const ReferralFormSection = () => {
+
+  const [ isAgreed, setIsAgreed ] = useState(false);
+
   const { toast } = useToast?.() || {
     toast: (props: {
       title?: string;
@@ -283,26 +286,23 @@ const ReferralFormSection = () => {
       <section className="mx-auto p-2 w-full md:max-w-4xl mt-12">
         <div className="flex flex-col gap-3 mb-12">
           <h1 className="text-lg font-poppins font-semibold text-gray-800">
-            Please note that the following information/documents will be needed when completing this referral form:
+            Please note that the following information/documents will be needed
+            when completing this referral form:
           </h1>
           <ul className="list-disc pl-5 text-gray-600 font-inter text-sm">
+            <li>NDIS Number</li>
+            <li>NDIS Plan</li>
             <li>
-              NDIS Number
+              Knowing if what services are NDIA Managed, Plan-Managed or
+              Self-Managed (outlined in your NDIS Plan)
             </li>
+            <li>Plan Manager contact and billing details if Plan-Managed</li>
+            <li>Support Coordinator contact details</li>
             <li>
-              NDIS Plan
-            </li>
-            <li>
-              Knowing if what services are NDIA Managed, Plan-Managed or Self-Managed (outlined in your NDIS Plan)
-            </li>
-            <li>
-              Plan Manager contact and billing details if Plan-Managed
-            </li>
-            <li>
-              Support Coordinator contact details
-            </li>
-            <li>
-              Knowing if your plan is on Proda (old NDIA computer system) or Pace (new NDIA computer system). You would have been advised of this in your most recent Plan Review if you have moved to the new computer system.
+              Knowing if your plan is on Proda (old NDIA computer system) or
+              Pace (new NDIA computer system). You would have been advised of
+              this in your most recent Plan Review if you have moved to the new
+              computer system.
             </li>
           </ul>
         </div>
@@ -399,9 +399,14 @@ const ReferralFormSection = () => {
                   <Checkbox
                     id="torresStrait"
                     checked={participantForm.identities.torresStrait}
-                    onCheckedChange={() => handleIdentityCheckbox("torresStrait")}
+                    onCheckedChange={() =>
+                      handleIdentityCheckbox("torresStrait")
+                    }
                   />
-                  <Label htmlFor="torres-strait" className="text-sm font-normal">
+                  <Label
+                    htmlFor="torres-strait"
+                    className="text-sm font-normal"
+                  >
                     Torres Strait Islander
                   </Label>
                 </div>
@@ -426,7 +431,10 @@ const ReferralFormSection = () => {
                     checked={participantForm.identities.other}
                     onCheckedChange={() => handleIdentityCheckbox("other")}
                   />
-                  <Label htmlFor="other-identity" className="text-sm font-normal">
+                  <Label
+                    htmlFor="other-identity"
+                    className="text-sm font-normal"
+                  >
                     Other
                   </Label>
                 </div>
@@ -502,7 +510,9 @@ const ReferralFormSection = () => {
             </div>
 
             <div>
-              <Label className="block text-sm mb-1">Reason for Referral *</Label>
+              <Label className="block text-sm mb-1">
+                Reason for Referral *
+              </Label>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <Checkbox
@@ -537,7 +547,10 @@ const ReferralFormSection = () => {
                     checked={participantForm.referralReasons.both}
                     onCheckedChange={() => handleReferralReasonCheckbox("both")}
                   />
-                  <Label htmlFor="both-services" className="text-sm font-normal">
+                  <Label
+                    htmlFor="both-services"
+                    className="text-sm font-normal"
+                  >
                     Both
                   </Label>
                 </div>
@@ -782,10 +795,34 @@ const ReferralFormSection = () => {
             </div>
           </div>
 
+          <div className="flex flex-col gap-3 mb-12">
+            <h1 className="text-lg font-poppins font-semibold text-gray-800">
+              Disclaimer
+            </h1>
+            <p className="text-sm text-gray-600 font-inter">
+              I confirm that I have obtained the participant's consent to submit
+              this referral form to Ably Care for processing. I also confirm
+              that the information provided is accurate and complete to the best
+              of my knowledge.
+            </p>
+            <div className="items-top flex space-x-2">
+              <Checkbox id="disclaimer" checked={isAgreed} onCheckedChange={() => setIsAgreed(!isAgreed)} />
+              <div className="grid gap-1.5 leading-none">
+                <label
+                  htmlFor="disclaimer"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  I agree to the above statement.
+                </label>
+              </div>
+            </div>
+          </div>
+
           <div className="flex justify-center pt-4">
             <Button
               type="submit"
               className="bg-customAccent hover:bg-complementary text-white font-poppins"
+              disabled={!isAgreed}
             >
               Submit
             </Button>
