@@ -11,7 +11,7 @@ const NdisPricingArrangements = () => {
         <NdisPricingArrangementsHero />
       </main>
 
-      <main className="mx-auto p-2 w-full lg:max-w-7xl mt-20">
+      <main className="mx-auto p-2 w-full lg:max-w-7xl mt-10 sm:mt-20">
         <div className="flex justify-start md:justify-center">
           <ChalkTitle
             title="How much do our services cost?"

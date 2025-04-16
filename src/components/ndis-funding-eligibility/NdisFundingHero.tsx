@@ -1,16 +1,16 @@
 import Image from "next/image";
 import { Button } from "../ui/button";
 
-const NdisPricingArrangementsHero = () => {
+const NdisFundingHero = () => {
   return (
     <>
-      <div className="w-full h-72 lg:h-96 xl:h-[450px] flex lg:rounded-2xl overflow-hidden justify-center">
+      <div className="w-full h-60 lg:h-96 xl:h-[450px] flex lg:rounded-2xl overflow-hidden justify-center">
         <div className="flex lg:p-4  flex-col justify-center items-center gap-2 lg:justify-center lg:items-start lg:w-[50%]">
           <h1 className="font-poppins text-4xl text-center font-semibold lg:text-start lg:text-4xl xl:text-5xl">
-            NDIS Pricing Arrangements and Price Limits
+            How do I get NDIS funding?
           </h1>
           <p className="font-inter text-xs text-center text-gray-600 w-[85%] md:w-[70%] lg:w-[500px] lg:text-start xl:text-sm">
-            As an NDIS registered provider, Leora Healthcare follows the NDIS Pricing Arrangements and Price Limits set by the National Disability Insurance Agency (NDIA).
+            If you have a permanent disability that affects your capacity to take part in day-to-day activities, you may be eligible for NDIS funding.
           </p>
           <a href="#contact">
             <Button
@@ -45,4 +45,4 @@ const NdisPricingArrangementsHero = () => {
   );
 };
 
-export default NdisPricingArrangementsHero;
+export default NdisFundingHero;
