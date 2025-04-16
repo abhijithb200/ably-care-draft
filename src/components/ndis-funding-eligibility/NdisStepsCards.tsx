@@ -8,7 +8,6 @@ import Image from 'next/image';
 import { Card, CardHeader, CardContent, CardDescription } from '@/components/ui/card';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ChalkTitle from '../ChalkTItle';
-import { Button } from '../ui/button';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
