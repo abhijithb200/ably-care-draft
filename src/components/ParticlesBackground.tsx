@@ -119,7 +119,7 @@ const ParticlesBackground: React.FC = () => {
         },
       },
       particles: {
-        number: { value: 50, density: { enable: true, value_area: 800 } }, // Reduced particle count
+        number: { value: 50, density: { enable: true, value_area: 800 } },
         color: {
           value: [
             "#d18149",
@@ -131,10 +131,10 @@ const ParticlesBackground: React.FC = () => {
         shape: { type: "circle" },
         opacity: { value: 1.5, random: true, anim: { enable: false } },
         size: { value: 8, random: true, anim: { enable: false } },
-        line_linked: { enable: false }, // No lines
+        line_linked: { enable: false },
         move: {
           enable: true,
-          speed: 2, // Reduced speed
+          speed: 2,
           direction: "none",
           random: true,
           straight: false,
