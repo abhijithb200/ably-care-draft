@@ -678,6 +678,81 @@ const ReferralFormSection = () => {
                 </div>
               </RadioGroup>
             </div>
+
+            <div>
+              <Label className="block text-sm mb-1">
+                Interpreter required
+              </Label>
+              <RadioGroup
+                value={participantForm.attachDocuments}
+                onValueChange={(value) =>
+                  handleRadioChange("attachDocuments", value)
+                }
+              >
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="yes-docs" value="yes" />
+                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                    Yes
+                  </Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="no-docs" value="no" />
+                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                    No
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div>
+              <Label className="block text-sm mb-1">
+                Communication preferences or requirements
+              </Label>
+              <RadioGroup
+                value={participantForm.attachDocuments}
+                onValueChange={(value) =>
+                  handleRadioChange("attachDocuments", value)
+                }
+              >
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="yes-docs" value="yes" />
+                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                    Yes
+                  </Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="no-docs" value="no" />
+                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                    No
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div>
+              <Label className="block text-sm mb-1">
+                Access requirements
+              </Label>
+              <RadioGroup
+                value={participantForm.attachDocuments}
+                onValueChange={(value) =>
+                  handleRadioChange("attachDocuments", value)
+                }
+              >
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="yes-docs" value="yes" />
+                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                    Yes
+                  </Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="no-docs" value="no" />
+                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                    No
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
           </div>
 
           {/* Person Making the Referral Section */}
@@ -792,6 +867,156 @@ const ReferralFormSection = () => {
                   })
                 }
               />
+            </div>
+
+            <div>
+              <Label className="block text-sm mb-1">
+              Are there any court orders applicable? e.g., parole, apprehended violence order etc.
+              </Label>
+              <RadioGroup
+                value={participantForm.attachDocuments}
+                onValueChange={(value) =>
+                  handleRadioChange("attachDocuments", value)
+                }
+              >
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="yes-docs" value="yes" />
+                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                    Yes
+                  </Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="no-docs" value="no" />
+                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                    No
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div>
+              <Label className="block text-sm mb-1">
+                  Has the participant ever been physically aggressive towards allied health, medical or support staff?
+              </Label>
+              <RadioGroup
+                value={participantForm.attachDocuments}
+                onValueChange={(value) =>
+                  handleRadioChange("attachDocuments", value)
+                }
+              >
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="yes-docs" value="yes" />
+                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                    Yes
+                  </Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="no-docs" value="no" />
+                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                    No
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div>
+              <Label className="block text-sm mb-1">
+                  Has the participant been incarcerated in a prison, juvenile detention centre or spent time in a forensic hospital for a violent or sexual offence?
+              </Label>
+              <RadioGroup
+                value={participantForm.attachDocuments}
+                onValueChange={(value) =>
+                  handleRadioChange("attachDocuments", value)
+                }
+              >
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="yes-docs" value="yes" />
+                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                    Yes
+                  </Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="no-docs" value="no" />
+                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                    No
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div>
+              <Label className="block text-sm mb-1">
+                  Is the participant currently engaging in alcohol or drug use?
+              </Label>
+              <RadioGroup
+                value={participantForm.attachDocuments}
+                onValueChange={(value) =>
+                  handleRadioChange("attachDocuments", value)
+                }
+              >
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="yes-docs" value="yes" />
+                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                    Yes
+                  </Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="no-docs" value="no" />
+                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                    No
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div>
+              <Label className="block text-sm mb-1">
+                Are there any known risks for visiting the participant in their own home?
+              </Label>
+              <RadioGroup
+                value={participantForm.attachDocuments}
+                onValueChange={(value) =>
+                  handleRadioChange("attachDocuments", value)
+                }
+              >
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="yes-docs" value="yes" />
+                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                    Yes
+                  </Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="no-docs" value="no" />
+                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                    No
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div>
+              <Label className="block text-sm mb-1">
+                  Is there any other information we need to know about the client? e.g., are there any topics that may trigger the client to become upset? Any specific likes or dislikes?
+              </Label>
+              <RadioGroup
+                value={participantForm.attachDocuments}
+                onValueChange={(value) =>
+                  handleRadioChange("attachDocuments", value)
+                }
+              >
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="yes-docs" value="yes" />
+                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                    Yes
+                  </Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="no-docs" value="no" />
+                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                    No
+                  </Label>
+                </div>
+              </RadioGroup>
             </div>
           </div>
 
