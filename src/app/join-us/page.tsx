@@ -18,7 +18,7 @@ const JoinUs = () => {
             underlineColor="#B97021"
           />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-14 rounded-2xl overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10 rounded-2xl gap-10 mb-36">
           {[
             {
               image: "/icons/clinic-icon.png",
@@ -71,12 +71,12 @@ const JoinUs = () => {
           ].map((item, index) => (
             <div
               key={index}
-              className={`flex flex-col items-start justify-center p-10 overflow-hidden group hover:bg-customAccent ${
+              className={`flex flex-col items-start justify-center p-10 overflow-hidden group hover:bg-customAccent min-h-[400px] rounded-2xl ${
                 index % 2 === 0 ? "bg-customAccent/20" : "bg-complementary/10"
-              }`}
+              } ${index % 3 === 0 || index % 3 === 2 ? "lg:translate-y-32" : ""}`}
             >
               <div className="w-full gap-3 flex flex-col items-start justify-center translate-y-5 group-hover:translate-y-0 transition-all duration-300 ease-in-out">
-                <div className="relative w-32 h-32 group-hover:w-20 group-hover:h-20 left-[50%] translate-x-[-50%] group-hover:translate-x-0 group-hover:left-0 transition-all duration-300 ease-out">
+                <div className="relative w-32 h-32 group-hover:w-20 group-hover:h-20 left-[50%] translate-x-[-50%] group-hover:translate-x-0 group-hover:left-[26%] transition-all duration-300 ease-out">
                   <Image
                     src={item.image}
                     alt={item.title}
