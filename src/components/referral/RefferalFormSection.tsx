@@ -1217,7 +1217,7 @@ const ReferralFormSection = () => {
               )}
               {invoiceField.area && (
                 <div className="flex flex-col gap-2">
-                  <div className="flex gap-4 mt-4">
+                  <div className="flex gap-4 mt-4 flex-col md:flex-row">
                     <div className="w-full flex flex-col gap-2">
                       <Label htmlFor="invoiceFieldOrganisation">
                         Organisation
@@ -1240,7 +1240,7 @@ const ReferralFormSection = () => {
                     </div>
                   </div>
 
-                  <div className="flex gap-4 mt-2">
+                  <div className="flex flex-col md:flex-row gap-4 mt-2">
                     <div className="w-full flex flex-col gap-2">
                       <Label htmlFor="invoiceFieldOrganisationEmail">
                         Organisation Email

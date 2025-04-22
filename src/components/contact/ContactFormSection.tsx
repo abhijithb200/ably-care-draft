@@ -44,9 +44,6 @@ const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email" }),
   phone: z.string().optional(),
   message: z.string().min(1, { message: "Message is required" }),
-  privacy: z.boolean().refine((val) => val === true, {
-    message: "You must agree to our privacy policy",
-  }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -54,6 +51,7 @@ type FormValues = z.infer<typeof formSchema>;
 const ContactFormSection = () => {
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [fileAttachment, setFileAttachment] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -74,11 +72,46 @@ const ContactFormSection = () => {
     }
   };
 
-  const onSubmit = (data: FormValues) => {
-    console.log({ ...data, attachment: fileAttachment });
-    setSubmitted(true);
-    form.reset();
-    setFileAttachment(null);
+  const onSubmit = async (data: FormValues) => {
+    setLoading(true);
+
+    try {
+      let fileBase64 = null;
+
+      if (fileAttachment) {
+        fileBase64 = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result as string);
+          reader.onerror = reject;
+          reader.readAsDataURL(fileAttachment);
+        });
+      }
+
+      const response = await fetch("/api/contact-submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...data,
+          file: fileBase64,
+          fileName: fileAttachment?.name || "",
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitted(true);
+        form.reset();
+        setFileAttachment(null);
+      } else {
+        alert("Something went wrong while submitting. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+      alert("Submission failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -283,8 +316,9 @@ const ContactFormSection = () => {
                     <Button
                       type="submit"
                       className="w-full bg-customAccent hover:bg-complementary text-white"
+                      disabled={loading}
                     >
-                      Send Message
+                      {loading ? "Sending..." : "Send Message"}
                     </Button>
                   </form>
                 </Form>
