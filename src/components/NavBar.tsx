@@ -56,12 +56,48 @@ const NavBar = () => {
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <Link href={"/ndis"}>
-                      <NavigationMenuLink
-                        className={navigationMenuTriggerStyle()}
-                      >
-                        NDIS
-                      </NavigationMenuLink>
+                      <NavigationMenuTrigger>NDIS</NavigationMenuTrigger>
                     </Link>
+                    <NavigationMenuContent>
+                      <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[800px] lg:grid-cols-3">
+                        {[
+                          {
+                            image: "/icons/ndis-pricing-elegibility.jpg.png",
+                            title: "NDIS Pricing Arrangements",
+                            description:
+                              "Understanding NDIS Pricing arrangements, ensuring you",
+                            link: "/ndis-pricing-arrangements",
+                          },
+                          {
+                            image: "/icons/ndis-funding.png",
+                            title: "NDIS Funding Eligibility",
+                            description:
+                              "Understanding NDIS Funding eligibility, ensuring you",
+                            link: "/ndis-funding-eligibility",
+                          },
+                        ].map((item, index) => (
+                          <ListItem href={item.link} key={index}>
+                            <div className="w-full flex gap-2">
+                              <div className="relative w-[50px] h-[50px]">
+                                <Image
+                                  src={item.image}
+                                  alt={item.title}
+                                  fill
+                                  sizes="100%"
+                                  className="w-full h-full object-contain"
+                                />
+                              </div>
+                              <div className="w-[60%]">
+                                <h1 className="text-black text-sm">
+                                  {item.title}
+                                </h1>
+                                <p className="text-xs">{item.description}</p>
+                              </div>
+                            </div>
+                          </ListItem>
+                        ))}
+                      </ul>
+                    </NavigationMenuContent>
                   </NavigationMenuItem>
                   <NavigationMenuItem>
                     <NavigationMenuTrigger>Our Services</NavigationMenuTrigger>
@@ -220,12 +256,67 @@ const NavBar = () => {
         </div>
         <div className="h-full overflow-y-auto">
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <div>
-              <Link href={"/ndis"}>
-                <button className="w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
-                  <span>NDIS</span>
-                </button>
-              </Link>
+          <div>
+            <div className="w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+              <button
+                className="w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                onClick={() =>window.location.href = "/ndis"}
+              >
+                <span>NDIS</span>
+              </button>
+                <span
+                  className="ml-2 transition-transform duration-200"
+                  style={{
+                    transform:
+                      activeDropdown === "ndis"
+                        ? "rotate(180deg)"
+                        : "rotate(0deg)",
+                  }}
+                  onClick={() => toggleDropdown("ndis")}
+                >
+                  <ChevronDown />
+                </span>
+            </div>
+              {activeDropdown === "ndis" && (
+                <>
+                  {[
+                      {
+                        image: "/icons/ndis-pricing-elegibility.jpg.png",
+                        title: "NDIS Pricing Arrangements",
+                        description: "Understanding NDIS Pricing arrangements, ensuring you",
+                        link: "/ndis-pricing-arrangements",
+                      },
+                      {
+                        image: "/icons/ndis-funding.png",
+                        title: "NDIS Funding Eligibility",
+                        description: "Understanding NDIS Funding eligibility, ensuring you",
+                        link: "/ndis-funding-eligibility",
+                      },
+                  ].map((item, index) => (
+                    <div className="pl-4 pr-3 py-2 space-y-2" key={index}>
+                      <Link
+                        href={item.link}
+                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                      >
+                        <div className="w-full flex gap-2">
+                          <div className="relative w-[30px] h-[30px]">
+                            <Image
+                              src={item.image}
+                              alt={item.title}
+                              fill
+                              sizes="100%"
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                          <div>
+                            <h1 className="text-black text-sm">{item.title}</h1>
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
             <div>
               <button

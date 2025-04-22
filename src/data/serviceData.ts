@@ -72,18 +72,6 @@ export const ourServicesData = [
     description: "Psycho-Social Recovery Coaching, empowering individuals",
     link: "/psycho-social-recovery",
   },
-  {
-    image: "/icons/ndis-pricing-elegibility.jpg.png",
-    title: "NDIS Pricing Arrangements",
-    description: "Understanding NDIS Pricing arrangements, ensuring you",
-    link: "/ndis-pricing-arrangements",
-  },
-  {
-    image: "/icons/ndis-funding.png",
-    title: "NDIS Funding Eligibility",
-    description: "Understanding NDIS Funding eligibility, ensuring you",
-    link: "/ndis-funding-eligibility",
-  },
 ];
 
 export const aboutUsData = [
