@@ -59,7 +59,7 @@ const SupportWorkerApplicationForm = () => {
         submitData.append('resume', resume);
       }
 
-      const response = await fetch('/api/support-worker-application', {
+      const response = await fetch('/api/career-submit', {
         method: 'POST',
         body: submitData,
       });
