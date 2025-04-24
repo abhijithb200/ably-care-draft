@@ -45,7 +45,7 @@ const NavBar = () => {
               <Image
                 src="/images/nav-logo.png"
                 alt="Ably Care Logo"
-                width={120}
+                width={170}
                 height={100}
               />
             </Link>
