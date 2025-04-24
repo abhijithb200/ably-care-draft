@@ -17,7 +17,7 @@ const SupportWorker = () => {
             <ChalkTitle
               title="What does a support worker do?"
               className="mt-10"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <div className="font-inter text-gray-600 my-5 text-sm lg:text-lg">
               <p>
@@ -45,7 +45,7 @@ const SupportWorker = () => {
           <ChalkTitle
             title="Why join Ably Care Healthcare?"
             className="mt-10 lg:w-[65%] text-start lg:text-center"
-            underlineColor="#B97021"
+            underlineColor="#f8ab39"
           />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10 rounded-2xl gap-10 mb-36">

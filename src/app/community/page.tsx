@@ -22,7 +22,7 @@ const Community = () => {
             <ChalkTitle
               title="About Our Home & Community Care"
               className="mt-10"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               At the heart of our mission is the unwavering commitment to
@@ -38,7 +38,7 @@ const Community = () => {
             <ChalkTitle
               title="Our Services"
               className="mt-10"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               Supporting You at Every Step
@@ -83,7 +83,7 @@ const Community = () => {
             <ChalkTitle
               title="A Collaborative Approach"
               className="mt-10"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               Our home and community care services are delivered by a diverse

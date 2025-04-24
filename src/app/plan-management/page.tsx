@@ -30,7 +30,7 @@ const PlanManagement = () => {
             <ChalkTitle
               title="Unlocking Choice & Control"
               className="mt-10 md:w-2/3 lg:text-center"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               Managing your NDIS plan shouldn’t be overwhelming.
@@ -76,7 +76,7 @@ const PlanManagement = () => {
             <ChalkTitle
               title="How Our Plan Management Services Work"
               className="mt-10"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
 
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
@@ -128,7 +128,7 @@ const PlanManagement = () => {
             <ChalkTitle
               title="Real-Time Insights with Our Mobile App"
               className="mt-10 lg:w-[55%] text-start lg:text-center"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               Our intuitive budget tracking app puts control in your hands
@@ -185,7 +185,7 @@ const PlanManagement = () => {
             <ChalkTitle
               title="Expert Guidance & Personalized Support"
               className="mt-10"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
 
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
@@ -235,7 +235,7 @@ const PlanManagement = () => {
             <ChalkTitle
               title="Beyond Financials"
               className="mt-10 md:w-2/3 lg:text-center"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               Helping You Build Capacity We don’t just manage your

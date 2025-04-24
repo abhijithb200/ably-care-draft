@@ -28,7 +28,7 @@ const PsychoSocialRecovery = () => {
             <ChalkTitle
               title="What is Psychosocial Recovery Coaching?"
               className="mt-10 md:w-2/3 lg:text-center"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               Psychosocial Recovery Coaching is a NDIS-funded support service
@@ -71,7 +71,7 @@ const PsychoSocialRecovery = () => {
             <ChalkTitle
               title="The Role of a Psychosocial Recovery Coach"
               className="mt-10 md:w-2/3 lg:text-center"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               At Ably Care, our Recovery Coaches bring either lived experience
@@ -111,7 +111,7 @@ const PsychoSocialRecovery = () => {
               <ChalkTitle
                 title="How We Support You"
                 className="mt-10 lg:w-[65%] text-start lg:text-center"
-                underlineColor="#B97021"
+                underlineColor="#f8ab39"
               />
               <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
                 Our approach to Psychosocial Recovery Coaching includes
@@ -157,7 +157,7 @@ const PsychoSocialRecovery = () => {
             <ChalkTitle
               title="Key Outcomes of Recovery Coaching"
               className="mt-10 md:w-2/3 lg:text-center"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
           </div>
           <div className="w-full lg:w-[500px] mx-auto flex flex-col rounded-2xl overflow-hidden mt-12">
@@ -188,7 +188,7 @@ const PsychoSocialRecovery = () => {
             <ChalkTitle
               title="Partnering with You on Your Journey"
               className="mt-10"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
           </div>
           <p className="text-gray-600 my-8 text-center max-w-3xl mx-auto font-inter text-sm">

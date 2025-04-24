@@ -17,7 +17,7 @@ const NdisFunding = () => {
             <ChalkTitle
               title="NDIS Funding Eligibility"
               className="mt-10"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <div className="font-inter text-gray-600 my-5 text-sm lg:text-base">
               <p>To get funding under the NDIS, you must:</p>
@@ -45,7 +45,7 @@ const NdisFunding = () => {
             <ChalkTitle
               title="Thinking about your goals"
               className="mt-10"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <div className="font-inter text-gray-600 my-5 text-sm lg:text-base">
               <p>The NDIS takes a lifetime approach. It is in place to help people with a disability learn the skills to live independently and to support them with daily tasks. Setting goals is an important element of every NDIS plan, as it gives both you and the NDIA an idea of what actions to take in order to improve your future</p>
@@ -79,7 +79,7 @@ const NdisFunding = () => {
             <ChalkTitle
               title="Preparing for your application"
               className="mt-10"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <div className="font-inter text-gray-600 my-5 text-sm lg:text-base">
               <p>Preparing before you apply for NDIS funding will make the application process a little easier.</p>

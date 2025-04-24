@@ -20,9 +20,6 @@ const Hero = () => {
           </div>
           <div className="absolute top-0 left-0 w-full h-full lg:max-w-7xl rounded-3xl overflow-hidden z-[-1]">
             <div className="absolute w-full h-full bg-gradient-to-t from-black/70 to-transparent z-[3]"></div>
-            <div className="absolute w-full h-full z-[2] overflow-hidden">
-              <ParticlesBackground/>
-            </div>
             <div className="absolute w-full h-full z-[1]">
               <Image
                 src="/images/hero-bg.jpg"

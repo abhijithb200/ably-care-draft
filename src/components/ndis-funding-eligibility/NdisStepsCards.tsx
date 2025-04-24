@@ -53,7 +53,7 @@ const NdisStepsCards = () => {
           <ChalkTitle
             title="How to Apply for NDIS Funding"
             className="mt-10"
-            underlineColor="#B97021"
+            underlineColor="#f8ab39"
           />
         </div>
         <div className="mt-10 relative" id="refer">

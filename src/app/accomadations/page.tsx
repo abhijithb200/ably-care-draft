@@ -25,7 +25,7 @@ const Accomadations = () => {
             <ChalkTitle
               title="About Our Accommodation Services"
               className="mt-10"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               Ably Care is committed to providing NDIS-funded Supported
@@ -41,7 +41,7 @@ const Accomadations = () => {
             <ChalkTitle
               title="Understanding NDIS Supported Independent Living (SIL)"
               className="mt-10 md:w-2/3 lg:text-center"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               Supported Independent Living (SIL) is a core component of NDIS
@@ -73,7 +73,7 @@ const Accomadations = () => {
             <ChalkTitle
               title="Accommodation Options"
               className="mt-10"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               Find the Perfect Fit
@@ -118,7 +118,7 @@ const Accomadations = () => {
               <ChalkTitle
                 title='For Those Just Starting Their NDIS Journey'
                 className="mt-10"
-                underlineColor="#B97021"
+                underlineColor="#f8ab39"
               />
             </div>
             <p className="text-gray-600 my-8 text-center max-w-3xl mx-auto font-inter text-sm">
@@ -151,7 +151,7 @@ const Accomadations = () => {
             <ChalkTitle
               title="Accommodation Choices"
               className="mt-10 md:w-2/3 lg:text-center"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               SIL & SDA

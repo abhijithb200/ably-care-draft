@@ -40,7 +40,7 @@ const StepsCards = ({ stepsData, title }: StepsCardsProps) => {
   return (
     <>
       <div className="flex justify-start md:justify-center">
-        <ChalkTitle title={title} className="mt-10" underlineColor="#B97021" />
+        <ChalkTitle title={title} className="mt-10" underlineColor="#f8ab39" />
       </div>
       <div className="mt-10 relative" id="refer">
         <Swiper

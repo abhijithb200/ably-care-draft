@@ -12,7 +12,7 @@ const ChalkTitle: React.FC<ChalkTitleProps> = ({
   title,
   className = "",
   color = "text-gray-900",
-  underlineColor = "#000000",
+  underlineColor = "#f8ab39",
   underlineWidth = 2,
 }) => {
   return (

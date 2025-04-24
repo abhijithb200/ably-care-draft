@@ -15,7 +15,7 @@ const JoinUs = () => {
           <ChalkTitle
             title="What makes Ably Care a great place to work?"
             className="mt-10 lg:w-[65%] text-start lg:text-center"
-            underlineColor="#B97021"
+            underlineColor="#f8ab39"
           />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10 rounded-2xl gap-10 mb-36">

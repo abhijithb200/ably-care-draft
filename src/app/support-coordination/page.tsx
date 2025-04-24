@@ -31,7 +31,7 @@ const SupportCoordination = () => {
             <ChalkTitle
               title="What is Support Coordination?"
               className="mt-10"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               Support Coordination helps NDIS participants navigate, organize,
@@ -46,7 +46,7 @@ const SupportCoordination = () => {
             <ChalkTitle
               title="Comprehensive Support Coordination Services"
               className="mt-10 lg:w-[65%] text-start lg:text-center"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               We provide a holistic approach to support, covering informal,
@@ -88,7 +88,7 @@ const SupportCoordination = () => {
             <ChalkTitle
               title="Empowering You to Take Control"
               className="mt-10 md:w-2/3 lg:text-center"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               Our Support Coordinators are committed to helping you
@@ -120,7 +120,7 @@ const SupportCoordination = () => {
             <ChalkTitle
               title="Tailored Support Coordination Services"
               className="mt-10"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
           </div>
 

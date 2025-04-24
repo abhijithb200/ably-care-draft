@@ -20,7 +20,7 @@ const About = () => {
             <ChalkTitle
               title="Our Story"
               className="mt-10 md:w-2/3 lg:text-center"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               We are inspired by the best in the sector, but driven by the
@@ -110,7 +110,7 @@ const About = () => {
             <ChalkTitle
               title="Our Values"
               className="mt-10 lg:w-[65%] text-start lg:text-center"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               We live our values every day in the way we listen, support, and
@@ -152,7 +152,7 @@ const About = () => {
             <ChalkTitle
               title="Why It Matters"
               className="mt-10 md:w-2/3 lg:text-center"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               At Ably Care, we believe that great care goes beyond service

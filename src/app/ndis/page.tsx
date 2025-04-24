@@ -24,7 +24,7 @@ const Ndis =()=> {
             <ChalkTitle
               title="What is the NDIS?"
               className="mt-10"
-              underlineColor="#B97021"
+              underlineColor="#f8ab39"
             />
             <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
               The National Disability Insurance Scheme (NDIS) is a significant
@@ -42,7 +42,7 @@ const Ndis =()=> {
               <ChalkTitle
                 title="Key Principles of the NDIS"
                 className="mt-10"
-                underlineColor="#B97021"
+                underlineColor="#f8ab39"
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10 rounded-2xl overflow-hidden">
@@ -78,7 +78,7 @@ const Ndis =()=> {
               <ChalkTitle
                 title='For Those Just Starting Their NDIS Journey'
                 className="mt-10"
-                underlineColor="#B97021"
+                underlineColor="#f8ab39"
               />
             </div>
             <p className="text-gray-600 my-8 text-center max-w-3xl mx-auto font-inter text-sm">

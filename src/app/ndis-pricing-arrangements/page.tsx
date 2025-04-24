@@ -16,7 +16,7 @@ const NdisPricingArrangements = () => {
           <ChalkTitle
             title="How much do our services cost?"
             className="mt-10"
-            underlineColor="#B97021"
+            underlineColor="#f8ab39"
           />
         </div>
         <div className="mt-7 flex flex-col items-center justify-center">

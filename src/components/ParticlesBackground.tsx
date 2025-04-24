@@ -129,8 +129,8 @@ const ParticlesBackground: React.FC = () => {
           ],
         },
         shape: { type: "circle" },
-        opacity: { value: 1.5, random: true, anim: { enable: false } },
-        size: { value: 8, random: true, anim: { enable: false } },
+        opacity: { value: .5, random: true, anim: { enable: false } },
+        size: { value: 5, random: true, anim: { enable: false } },
         line_linked: { enable: false },
         move: {
           enable: true,

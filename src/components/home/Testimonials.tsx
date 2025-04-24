@@ -34,7 +34,7 @@ const Testimonials = () => {
   return (
     <>
       <div className="flex justify-start md:justify-center">
-        <ChalkTitle title="Testimonials" className="mt-10" underlineColor="#B97021" />
+        <ChalkTitle title="Testimonials" className="mt-10" underlineColor="#f8ab39"/>
       </div>
       <div className="mt-10 relative" id="refer">
         <Swiper

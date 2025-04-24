@@ -50,9 +50,9 @@ const config: Config = {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			},
-			customAccent : '#216AB9',
-			customSecondary : '#98C1E4',
-			complementary : '#B97021',
+			customAccent : '#4cc6f7',
+			customSecondary : '#84cfec',
+			complementary : '#f8ab39',
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
