@@ -551,7 +551,7 @@ const ReferralFormSection = () => {
               </Label>
               <Textarea
                 id="disability"
-                className="h-24"
+                className="h-24 rounded-xl"
                 value={participantForm.disability}
                 onChange={handleParticipantChange}
               />
@@ -611,7 +611,7 @@ const ReferralFormSection = () => {
               </Label>
               <Textarea
                 id="additionalDetails"
-                className="h-24"
+                className="h-24 rounded-xl"
                 value={participantForm.additionalDetails}
                 onChange={handleParticipantChange}
               />
@@ -1038,7 +1038,7 @@ const ReferralFormSection = () => {
               </Label>
               <Textarea
                 id="additionalInfo"
-                className="h-24"
+                className="h-24 rounded-xl"
                 value={referrerForm.additionalInfo}
                 onChange={(e) =>
                   setReferrerForm({
