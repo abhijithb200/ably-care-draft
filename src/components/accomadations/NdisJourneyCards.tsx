@@ -1,9 +1,9 @@
 "use client";
 
-import { testimonialsData } from "@/data/testimonialsData"
+import { testimonialsData } from "@/data/testimonialsData";
 import { useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation,Autoplay } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import Image from "next/image";
 import {
@@ -11,15 +11,16 @@ import {
   CardHeader,
   CardContent,
   CardDescription,
+  CardTitle,
 } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import ChalkTitle from "../ChalkTItle";
+import { supportServices } from "@/data/accommadationsSupport";
 
-
-const Testimonials = () => {
+const NdisJourneyCards = () => {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
   const swiperRef = useRef<SwiperType | null>(null);
@@ -33,13 +34,9 @@ const Testimonials = () => {
 
   return (
     <>
-      <div className="flex justify-start md:justify-center">
-        <ChalkTitle title="Testimonials" className="mt-10" underlineColor="#f8ab39"/>
-      </div>
       <div className="mt-10 relative" id="refer">
         <Swiper
-          className="min-w-[250px] max-w-[500px]"
-          modules={[Navigation,Autoplay]}
+          modules={[Navigation, Autoplay]}
           spaceBetween={24}
           slidesPerView={1}
           allowTouchMove={true}
@@ -51,7 +48,15 @@ const Testimonials = () => {
             delay: 2000,
             disableOnInteraction: false,
           }}
-        loop={true}
+          breakpoints={{
+            768: {
+              slidesPerView: 2,
+            },
+            1024: {
+              slidesPerView: 3,
+            },
+          }}
+          loop={true}
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
             if (prevRef.current && nextRef.current) {
@@ -65,18 +70,25 @@ const Testimonials = () => {
             }
           }}
         >
-          {testimonialsData.map((item, index) => (
-            <SwiperSlide key={item.id}>
-              <Card className="rounded-xl overflow-hidden bg-gray-50 min-h-[200px]">
+          {supportServices.map((item, index) => (
+            <SwiperSlide key={index}>
+              <Card
+                className="rounded-xl overflow-hidden bg-gray-50"
+                key={index}
+              >
                 <CardHeader className="pl-0">
                   <div className="relative bg-customAccent rounded-xl rounded-l-none p-4 flex flex-col items-start justify-center">
-                    <h2 className="text-2xl font-bold text-white font-poppins">{item.name}</h2>
-                    <p className="text-sm text-white/70 text-inter font-medium">{item.position}</p>
+                    <CardTitle className="text-white font-poppins">
+                      {index + 1} .
+                    </CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="font-inter text-base">
-                    {item.description}
+                  <CardDescription className="font-inter">
+                    <h1 className="mb-2 font-poppins text-gray-700 font-semibold text-lg">
+                      {item.title}
+                    </h1>
+                    <p className="text-gray-700 text-sm">{item.description}</p>
                   </CardDescription>
                 </CardContent>
               </Card>
@@ -103,4 +115,4 @@ const Testimonials = () => {
   );
 };
 
-export default Testimonials;
+export default NdisJourneyCards;

@@ -1,4 +1,5 @@
 import AccomadationsHero from "@/components/accomadations/AccomadationsHero";
+import NdisJourneyCards from "@/components/accomadations/NdisJourneyCards";
 import ChalkTitle from "@/components/ChalkTItle";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,6 +8,7 @@ import { supportServices } from "@/data/accommadationsSupport";
 import { CircleCheckBig } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+
 
 export const metadata = {
   title: "Accomadations | Ably Care",
@@ -127,24 +129,8 @@ const Accomadations = () => {
               a detailed breakdown of how our NDIS staff can assist:
             </p>
 
-            <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {supportServices.map((item, index) => (
-                <Card className="rounded-xl overflow-hidden bg-gray-50" key={index}>
-                  <CardHeader className="pl-0">
-                    <div className="relative bg-customAccent rounded-xl rounded-l-none p-4 flex flex-col items-start justify-center">
-                      <CardTitle className="text-white font-poppins">{ index + 1 } .</CardTitle>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="font-inter">
-                      <h1 className="mb-2 font-poppins text-gray-700 font-semibold text-lg">
-                        {item.title}
-                      </h1>
-                      <p className="text-gray-700 text-sm">{item.description}</p>
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              ))}
+            <div className="w-full">
+              <NdisJourneyCards/>
             </div>
 
             <div className="mb-7 flex flex-col items-start justify-center lg:items-center mt-20">

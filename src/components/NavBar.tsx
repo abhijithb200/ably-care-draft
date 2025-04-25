@@ -56,7 +56,9 @@ const NavBar = () => {
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <Link href={"/ndis"}>
-                      <NavigationMenuTrigger>NDIS</NavigationMenuTrigger>
+                      <NavigationMenuTrigger className="text-base">
+                        NDIS
+                      </NavigationMenuTrigger>
                     </Link>
                     <NavigationMenuContent>
                       <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-2">
@@ -88,10 +90,10 @@ const NavBar = () => {
                                 />
                               </div>
                               <div className="w-[60%]">
-                                <h1 className="text-black text-sm">
+                                <h1 className="text-black text-lg">
                                   {item.title}
                                 </h1>
-                                <p className="text-xs">{item.description}</p>
+                                <p className="text-sm">{item.description}</p>
                               </div>
                             </div>
                           </ListItem>
@@ -100,7 +102,9 @@ const NavBar = () => {
                     </NavigationMenuContent>
                   </NavigationMenuItem>
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger>Our Services</NavigationMenuTrigger>
+                    <NavigationMenuTrigger className="text-base">
+                      Our Services
+                    </NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[800px] lg:grid-cols-3">
                         {ourServicesData.map((item, index) => (
@@ -116,10 +120,10 @@ const NavBar = () => {
                                 />
                               </div>
                               <div className="w-[60%]">
-                                <h1 className="text-black text-sm">
+                                <h1 className="text-black text-lg">
                                   {item.title}
                                 </h1>
-                                <p className="text-xs">{item.description}</p>
+                                <p className="text-sm">{item.description}</p>
                               </div>
                             </div>
                           </ListItem>
@@ -128,16 +132,23 @@ const NavBar = () => {
                     </NavigationMenuContent>
                   </NavigationMenuItem>
                   <NavigationMenuItem>
-                    <Link href="/referral" legacyBehavior passHref>
+                    <Link
+                      href="/referral"
+                      legacyBehavior
+                      passHref
+                      className="text-base"
+                    >
                       <NavigationMenuLink
-                        className={navigationMenuTriggerStyle()}
+                        className={`${navigationMenuTriggerStyle()}`}
                       >
-                        Referral
+                        <span className="text-base">Referral</span>
                       </NavigationMenuLink>
                     </Link>
                   </NavigationMenuItem>
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger>About Us</NavigationMenuTrigger>
+                    <NavigationMenuTrigger className="text-base">
+                      About Us
+                    </NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[800px] lg:grid-cols-3">
                         {aboutUsData.map((item, index) => (
@@ -153,10 +164,10 @@ const NavBar = () => {
                                 />
                               </div>
                               <div className="w-[60%]">
-                                <h1 className="text-black text-sm">
+                                <h1 className="text-black text-lg">
                                   {item.title}
                                 </h1>
-                                <p className="text-xs">{item.description}</p>
+                                <p className="text-sm">{item.description}</p>
                               </div>
                             </div>
                           </ListItem>
@@ -165,7 +176,9 @@ const NavBar = () => {
                     </NavigationMenuContent>
                   </NavigationMenuItem>
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger>Career</NavigationMenuTrigger>
+                    <NavigationMenuTrigger className="text-base">
+                      Career
+                    </NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-2">
                         {[
@@ -196,10 +209,10 @@ const NavBar = () => {
                                 />
                               </div>
                               <div className="w-[60%]">
-                                <h1 className="text-black text-sm">
+                                <h1 className="text-black text-lg">
                                   {item.title}
                                 </h1>
-                                <p className="text-xs">{item.description}</p>
+                                <p className="text-sm">{item.description}</p>
                               </div>
                             </div>
                           </ListItem>
@@ -213,8 +226,10 @@ const NavBar = () => {
           </div>
           <div className="hidden lg:flex items-center justify-end gap-2">
             <a href="/contact">
-              <Button className="bg-customAccent hover:bg-customAccent/80 rounded-xl">
-                Contact Us
+              <Button className="bg-customAccent hover:bg-complementary rounded-xl transition-all duration-300 ease-in-out relative overflow-hidden group">
+                <span className="relative z-10 text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-complementary group-hover:via-white group-hover:to-complementary group-hover:animate-shine">
+                  Contact Us
+                </span>
               </Button>
             </a>
           </div>
@@ -256,14 +271,14 @@ const NavBar = () => {
         </div>
         <div className="h-full overflow-y-auto">
           <div className="px-2 pt-2 pb-3 space-y-1">
-          <div>
-            <div className="w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
-              <button
-                className="w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                onClick={() =>window.location.href = "/ndis"}
-              >
-                <span>NDIS</span>
-              </button>
+            <div>
+              <div className="w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50">
+                <button
+                  className="w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
+                  onClick={() => (window.location.href = "/ndis")}
+                >
+                  <span>NDIS</span>
+                </button>
                 <span
                   className="ml-2 transition-transform duration-200"
                   style={{
@@ -276,22 +291,24 @@ const NavBar = () => {
                 >
                   <ChevronDown />
                 </span>
-            </div>
+              </div>
               {activeDropdown === "ndis" && (
                 <>
                   {[
-                      {
-                        image: "/icons/ndis-pricing-elegibility.jpg.png",
-                        title: "NDIS Pricing Arrangements",
-                        description: "Understanding NDIS Pricing arrangements, ensuring you",
-                        link: "/ndis-pricing-arrangements",
-                      },
-                      {
-                        image: "/icons/ndis-funding.png",
-                        title: "NDIS Funding Eligibility",
-                        description: "Understanding NDIS Funding eligibility, ensuring you",
-                        link: "/ndis-funding-eligibility",
-                      },
+                    {
+                      image: "/icons/ndis-pricing-elegibility.jpg.png",
+                      title: "NDIS Pricing Arrangements",
+                      description:
+                        "Understanding NDIS Pricing arrangements, ensuring you",
+                      link: "/ndis-pricing-arrangements",
+                    },
+                    {
+                      image: "/icons/ndis-funding.png",
+                      title: "NDIS Funding Eligibility",
+                      description:
+                        "Understanding NDIS Funding eligibility, ensuring you",
+                      link: "/ndis-funding-eligibility",
+                    },
                   ].map((item, index) => (
                     <div className="pl-4 pr-3 py-2 space-y-2" key={index}>
                       <Link

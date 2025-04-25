@@ -16,7 +16,7 @@ const Hero = () => {
               provide personalized home and disability support, crafted with empathy and 
               expertise. Discover a partner who truly cares. 
             </p>
-            <Button className="bg-customAccent text-white hover:bg-customAccent/80 rounded-xl">See More</Button>
+            <Button className="bg-customAccent text-white hover:bg-complementary rounded-xl transition-all duration-300 ease-in-out">See More</Button>
           </div>
           <div className="absolute top-0 left-0 w-full h-full lg:max-w-7xl rounded-3xl overflow-hidden z-[-1]">
             <div className="absolute w-full h-full bg-gradient-to-t from-black/70 to-transparent z-[3]"></div>

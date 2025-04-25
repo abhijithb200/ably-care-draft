@@ -135,3 +135,7 @@
     background-positon-x: 0px;
   }
 }
+
+.group-hover\:animate-shine {
+  background-size: 200% auto;
+}
