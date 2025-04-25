@@ -432,9 +432,11 @@ const ReferralFormSection = () => {
         </div>
         <form onSubmit={handleSubmit} className="space-y-6 font-inter">
           {/* Person Requiring NDIS Support Section */}
-          <div className="space-y-4">
-            <h3 className="font-medium text-lg border-b pb-2 font-poppins mb-8">
-              Details of Person Requiring NDIS Support
+          <div className="flex flex-col gap-6 mb-12 w-full">
+            <h3 className="font-medium text-lg font-poppins">
+              <span className="bg-customAccent text-white rounded-xl px-4 py-2">
+                Participant Details
+              </span>
             </h3>
 
             <div>
@@ -459,153 +461,75 @@ const ReferralFormSection = () => {
               </div>
             </div>
 
-            <div>
-              <Label className="block text-sm mb-1">
-                Participant Identifies as (Please tick any that is applicable) *
-              </Label>
-              <div className="grid grid-cols-2 gap-2">
-                <div className="flex items-center gap-2">
-                  <Checkbox
-                    id="male"
-                    checked={participantForm.identities.male}
-                    onCheckedChange={() => handleIdentityCheckbox("male")}
-                  />
-                  <Label htmlFor="male" className="text-sm font-normal">
-                    Male
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Checkbox
-                    id="female"
-                    checked={participantForm.identities.female}
-                    onCheckedChange={() => handleIdentityCheckbox("female")}
-                  />
-                  <Label htmlFor="female" className="text-sm font-normal">
-                    Female
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Checkbox
-                    id="nonBinary"
-                    checked={participantForm.identities.nonBinary}
-                    onCheckedChange={() => handleIdentityCheckbox("nonBinary")}
-                  />
-                  <Label htmlFor="non-binary" className="text-sm font-normal">
-                    Non-binary/Gender Fluid
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Checkbox
-                    id="differentIdentity"
-                    checked={participantForm.identities.differentIdentity}
-                    onCheckedChange={() =>
-                      handleIdentityCheckbox("differentIdentity")
-                    }
-                  />
-                  <Label
-                    htmlFor="different-identity"
-                    className="text-sm font-normal"
-                  >
-                    Different Identity
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Checkbox
-                    id="aboriginal"
-                    checked={participantForm.identities.aboriginal}
-                    onCheckedChange={() => handleIdentityCheckbox("aboriginal")}
-                  />
-                  <Label htmlFor="aboriginal" className="text-sm font-normal">
-                    Aboriginal
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Checkbox
-                    id="torresStrait"
-                    checked={participantForm.identities.torresStrait}
-                    onCheckedChange={() =>
-                      handleIdentityCheckbox("torresStrait")
-                    }
-                  />
-                  <Label
-                    htmlFor="torres-strait"
-                    className="text-sm font-normal"
-                  >
-                    Torres Strait Islander
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Checkbox
-                    id="aboriginalTorres"
-                    checked={participantForm.identities.aboriginalTorres}
-                    onCheckedChange={() =>
-                      handleIdentityCheckbox("aboriginalTorres")
-                    }
-                  />
-                  <Label
-                    htmlFor="aboriginal-torres"
-                    className="text-sm font-normal"
-                  >
-                    Aboriginal & Torres Strait Islander
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Checkbox
-                    id="other"
-                    checked={participantForm.identities.other}
-                    onCheckedChange={() => handleIdentityCheckbox("other")}
-                  />
-                  <Label
-                    htmlFor="other-identity"
-                    className="text-sm font-normal"
-                  >
-                    Other
-                  </Label>
-                </div>
+            <div className="flex flex-col md:flex-row gap-3 w-full">
+              <div className="w-full">
+                <Label className="block text-sm mb-1">Gender *</Label>
+                <Select required>
+                  <SelectTrigger className="rounded-xl">
+                    <SelectValue placeholder="Plese select" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="male">Male</SelectItem>
+                    <SelectItem value="female">Female</SelectItem>
+                    <SelectItem value="different-identity">
+                      Different Identity
+                    </SelectItem>
+                    <SelectItem value="non-binary">
+                      Non-binary/Gender Fluid
+                    </SelectItem>
+                    <SelectItem value="aboriginal">Aboriginal</SelectItem>
+                    <SelectItem value="torres-strait">
+                      Torres Strait Islander
+                    </SelectItem>
+                    <SelectItem value="aboriginal-torres">
+                      Aboriginal & Torres Strait Islander
+                    </SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="w-full">
+                <Label htmlFor="email" className="block text-sm mb-1">
+                  Participant Email *
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="example@example.com"
+                  value={participantForm.email}
+                  onChange={handleParticipantChange}
+                />
               </div>
             </div>
 
-            <div>
-              <Label htmlFor="email" className="block text-sm mb-1">
-                Participant Email
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="example@example.com"
-                value={participantForm.email}
-                onChange={handleParticipantChange}
-              />
-            </div>
+            <div className="flex flex-col md:flex-row gap-3 w-full">
+              <div className="w-full">
+                <Label htmlFor="phone" className="block text-sm mb-1">
+                  Participant Phone Number *
+                </Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  placeholder="0000000000"
+                  required
+                  value={participantForm.phone}
+                  onChange={handleParticipantChange}
+                />
+              </div>
 
-            <div>
-              <Label htmlFor="phone" className="block text-sm mb-1">
-                Participant Phone Number *
-              </Label>
-              <Input
-                id="phone"
-                type="tel"
-                placeholder="0000000000"
-                required
-                value={participantForm.phone}
-                onChange={handleParticipantChange}
-              />
-              <p className="text-xs text-gray-500 mt-1">
-                Please enter a valid phone number
-              </p>
-            </div>
-
-            <div>
-              <Label htmlFor="dateOfBirth" className="block text-sm mb-1">
-                Participant Date of Birth *
-              </Label>
-              <Input
-                id="dateOfBirth"
-                type="date"
-                required
-                value={participantForm.dateOfBirth}
-                onChange={handleParticipantChange}
-              />
+              <div className="w-full">
+                <Label htmlFor="dateOfBirth" className="block text-sm mb-1">
+                  Participant Date of Birth *
+                </Label>
+                <Input
+                  id="dateOfBirth"
+                  type="date"
+                  required
+                  value={participantForm.dateOfBirth}
+                  onChange={handleParticipantChange}
+                />
+              </div>
             </div>
 
             <div>
@@ -699,12 +623,11 @@ const ReferralFormSection = () => {
               </Label>
               <Input
                 id="ndisNumber"
-                placeholder="Eg. 43454354"
+                placeholder="NDIS Plan Number"
                 required
                 value={participantForm.ndisNumber}
                 onChange={handleParticipantChange}
               />
-              <p className="text-xs text-gray-500 mt-1">NDIS Plan Number</p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -733,6 +656,117 @@ const ReferralFormSection = () => {
                 />
               </div>
             </div>
+            <div>
+              <Label className="block text-sm mb-1">Origin</Label>
+              <div className="flex flex-col md:flex-row gap-3">
+                <div>
+                  <Checkbox id="firstNationPeople" className="mr-2" />
+                  <Label
+                    htmlFor="firstNationPeople"
+                    className="text-sm font-normal"
+                  >
+                    First Nations People
+                  </Label>
+                </div>
+                <div>
+                  <Checkbox id="culturallylinguistically" className="mr-2" />
+                  <Label
+                    htmlFor="culturallylinguistically"
+                    className="text-sm font-normal"
+                  >
+                    Culturally and linguistically diverse
+                  </Label>
+                </div>
+                <div>
+                  <Checkbox id="naOrigin" className="mr-2" />
+                  <Label htmlFor="naOrigin" className="text-sm font-normal">
+                    N/A
+                  </Label>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <Label className="block text-sm mb-1">
+                Interpreter required *
+              </Label>
+              <RadioGroup
+                className="flex flex-col md:flex-row gap-2"
+                value={participantForm.interpreterRequired}
+                onValueChange={(value) =>
+                  handleRadioChange("interpreterRequired", value)
+                }
+              >
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="yes-interpreter" value="yes" />
+                  <Label
+                    htmlFor="yes-interpreter"
+                    className="text-sm font-normal"
+                  >
+                    Yes
+                  </Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="no-interpreter" value="no" />
+                  <Label
+                    htmlFor="no-interpreter"
+                    className="text-sm font-normal"
+                  >
+                    No
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
+            <div>
+              <Label className="block text-sm mb-1">
+                Communication preferences or requirements *
+              </Label>
+              <RadioGroup
+                className="flex flex-col md:flex-row gap-2"
+                value={participantForm.communicationPreferences}
+                onValueChange={(value) =>
+                  handleRadioChange("communicationPreferences", value)
+                }
+              >
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="yes-docs" value="yes" />
+                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                    Yes
+                  </Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="no-docs" value="no" />
+                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                    No
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
+            <div>
+              <Label className="block text-sm mb-1">
+                Access requirements *
+              </Label>
+              <RadioGroup
+                className="flex flex-col md:flex-row gap-2"
+                value={participantForm.accessRequirements}
+                onValueChange={(value) =>
+                  handleRadioChange("accessRequirements", value)
+                }
+              >
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="yes-docs" value="yes" />
+                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                    Yes
+                  </Label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <RadioGroupItem id="no-docs" value="no" />
+                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                    No
+                  </Label>
+                </div>
+              </RadioGroup>
+            </div>
 
             <div>
               <Label className="block text-sm mb-1">
@@ -743,6 +777,7 @@ const ReferralFormSection = () => {
                 onValueChange={(value) =>
                   handleRadioChange("fundingManagement", value)
                 }
+                className="flex flex-col md:flex-row gap-2"
               >
                 <div className="flex items-center gap-2">
                   <RadioGroupItem id="plan-managed" value="plan-managed" />
@@ -763,18 +798,6 @@ const ReferralFormSection = () => {
                   </Label>
                 </div>
               </RadioGroup>
-            </div>
-
-            <div>
-              <Label htmlFor="guardian" className="block text-sm mb-1">
-                Guardian or Plan Nominee (if applicable)
-              </Label>
-              <Input
-                id="guardian"
-                placeholder="Name / Email / Phone number"
-                value={participantForm.guardian}
-                onChange={handleParticipantChange}
-              />
             </div>
 
             <div>
@@ -879,12 +902,26 @@ const ReferralFormSection = () => {
                 </div>
               </RadioGroup>
             </div>
+
+            <div>
+              <Label htmlFor="guardian" className="block text-sm mb-1">
+                Guardian or Plan Nominee (if applicable)
+              </Label>
+              <Input
+                id="guardian"
+                placeholder="Name / Email / Phone number"
+                value={participantForm.guardian}
+                onChange={handleParticipantChange}
+              />
+            </div>
           </div>
 
           {/* Person Making the Referral Section */}
           <div className="space-y-4">
-            <h3 className="font-medium text-lg border-b pb-2 font-poppins mb-7 mt-10">
-              Person Making the Referral
+            <h3 className="font-medium text-lg font-poppins">
+              <span className="bg-customAccent text-white rounded-xl px-4 py-2">
+                Referrer Information
+              </span>
             </h3>
 
             <div>
@@ -919,65 +956,82 @@ const ReferralFormSection = () => {
               </div>
             </div>
 
-            <div>
-              <Label htmlFor="referrerEmail" className="block text-sm mb-1">
-                Referrer Email *
-              </Label>
-              <Input
-                id="referrerEmail"
-                type="email"
-                placeholder="example@example.com"
-                required
-                value={referrerForm.email}
-                onChange={(e) =>
-                  setReferrerForm({ ...referrerForm, email: e.target.value })
-                }
-              />
+            <div className="flex flex-col md:flex-row gap-3 w-full">
+              <div className="w-full">
+                <Label htmlFor="referrerEmail" className="block text-sm mb-1">
+                  Referrer Email *
+                </Label>
+                <Input
+                  id="referrerEmail"
+                  type="email"
+                  placeholder="example@example.com"
+                  required
+                  value={referrerForm.email}
+                  onChange={(e) =>
+                    setReferrerForm({ ...referrerForm, email: e.target.value })
+                  }
+                />
+              </div>
+
+              <div className="w-full">
+                <Label htmlFor="referrerPhone" className="block text-sm mb-1">
+                  Referrer Phone Number *
+                </Label>
+                <Input
+                  id="referrerPhone"
+                  type="tel"
+                  placeholder="0000000000"
+                  required
+                  value={referrerForm.phone}
+                  onChange={(e) =>
+                    setReferrerForm({ ...referrerForm, phone: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="w-full flex flex-col gap-3  md:flex-row">
+              <div className="w-full">
+                <Label htmlFor="relationship" className="block text-sm mb-1">
+                  Relationship with Participant
+                </Label>
+                <Select
+                  value={referrerForm.relationship}
+                  onValueChange={handleRelationshipChange}
+                >
+                  <SelectTrigger className="rounded-xl">
+                    <SelectValue placeholder="Please Select" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="family">Family Member</SelectItem>
+                    <SelectItem value="guardian">Guardian</SelectItem>
+                    <SelectItem value="friend">Friend</SelectItem>
+                    <SelectItem value="healthcare">
+                      Healthcare Professional
+                    </SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="w-full">
+                <Label htmlFor="reffererAddress" className="block text-sm mb-1">
+                  Address
+                </Label>
+                <Input
+                  id="reffererAddress"
+                  placeholder="Street Address, Suburb, State and Postcode"
+                  required
+                />
+              </div>
             </div>
 
             <div>
-              <Label htmlFor="referrerPhone" className="block text-sm mb-1">
-                Referrer Phone Number *
-              </Label>
-              <Input
-                id="referrerPhone"
-                type="tel"
-                placeholder="0000000000"
-                required
-                value={referrerForm.phone}
-                onChange={(e) =>
-                  setReferrerForm({ ...referrerForm, phone: e.target.value })
-                }
-              />
-              <p className="text-xs text-gray-500 mt-1">
-                Please enter a valid phone number
-              </p>
-            </div>
-
-            <div>
-              <Label htmlFor="relationship" className="block text-sm mb-1">
-                Relationship with Participant
-              </Label>
-              <Select
-                value={referrerForm.relationship}
-                onValueChange={handleRelationshipChange}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Please Select" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="family">Family Member</SelectItem>
-                  <SelectItem value="guardian">Guardian</SelectItem>
-                  <SelectItem value="friend">Friend</SelectItem>
-                  <SelectItem value="healthcare">
-                    Healthcare Professional
-                  </SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div>
+              <h3 className="font-medium text-lg font-poppins my-4 mt-7">
+                <span className="bg-customAccent text-white rounded-xl px-4 py-2">
+                  Additinal Information
+                </span>
+              </h3>
               <Label htmlFor="additionalInfo" className="block text-sm mb-1">
                 Any Additional Information (i.e., Security/safety concerns,
                 attendees for assessment)
@@ -996,6 +1050,11 @@ const ReferralFormSection = () => {
             </div>
 
             <div>
+              <h3 className="font-medium text-lg font-poppins my-4 mt-7">
+                <span className="bg-customAccent text-white rounded-xl px-4 py-2">
+                  Risk & Safety
+                </span>
+              </h3>
               <Label className="block text-sm mb-1">
                 Are there any court orders applicable? e.g., parole, apprehended
                 violence order etc.
@@ -1151,7 +1210,12 @@ const ReferralFormSection = () => {
             </div>
 
             <div>
-              Who does ORS invoice? (please select all that apply)
+              <h3 className="font-medium text-lg font-poppins my-4 mt-7">
+                <span className="bg-customAccent text-white rounded-xl px-4 py-2">
+                  Payment Method
+                </span>
+              </h3>
+              Who does Ably Care invoice? (please select all that apply)
               <div className="flex gap-5 mb-6 mt-2">
                 <div className="flex items-center gap-2">
                   <Checkbox
@@ -1269,15 +1333,38 @@ const ReferralFormSection = () => {
             </div>
           </div>
 
+          <div>
+            <h3 className="font-medium text-lg font-poppins my-4 mt-7">
+              <span className="bg-customAccent text-white rounded-xl px-4 py-2">
+                Further Information
+              </span>
+            </h3>
+            <Textarea
+              id="furtherInfo"
+              className="h-24 rounded-xl"
+              placeholder="Relevant information not previously mentioned"
+            />
+          </div>
+
           <div className="flex flex-col gap-3 mb-12">
             <h1 className="text-lg font-poppins font-semibold text-gray-800">
               Disclaimer
             </h1>
             <p className="text-sm text-gray-600 font-inter">
-              I confirm that I have obtained the participant's consent to submit
-              this referral form to Ably Care for processing. I also confirm
-              that the information provided is accurate and complete to the best
-              of my knowledge.
+              Ably Care will attempt to contact the nominated person in the
+              referral form as soon as the referral has been processed to
+              schedule an appointment at the earliest and most convenient time.
+              If we are unable to contact you via telephone and you have
+              indicated a preferred appointment day and time when completing the
+              referral, we will do our best to schedule at, or around this time
+              and send you an SMS and email with these details. If no
+              appointment day and time were indicated on the referral form, we
+              will need to make contact to confirm a suitable day and time for
+              the appointment and will send you an SMS and email which can be
+              responded to outlining preferred days and times. If we do not hear
+              back from you within ten business days after attempting our first
+              contact, we will be required to close the case to make space for
+              other clients requiring Ably Care services.
             </p>
             <div className="items-top flex space-x-2">
               <Checkbox
@@ -1290,7 +1377,7 @@ const ReferralFormSection = () => {
                   htmlFor="disclaimer"
                   className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  I agree to the above statement.
+                  I agree that I have obtained the participant's consent to submit this referral form to Ablycare for processing.
                 </label>
               </div>
             </div>
