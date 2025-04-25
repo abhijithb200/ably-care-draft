@@ -16,6 +16,25 @@ const About = () => {
       </main>
       <div className="flex flex-col min-h-screen" id="learn-more">
         <section className="py-6 md:py-16 container mx-auto px-4 max-w-6xl">
+
+        <div className="mb-7 flex flex-col items-start justify-center lg:items-center">
+            <ChalkTitle
+              title="About us"
+              className="mt-10 lg:w-[65%] text-start lg:text-center"
+              underlineColor="#f8ab39"
+            />
+            <p className="text-gray-700 max-w-3xl lg:mx-auto text-left lg:text-center font-inter text-sm mt-5">
+              At Ably Care, we are proud to be a values-driven, NDIS-registered provider delivering high-quality disability and mental health supports. We are passionate about helping people of all ages and backgrounds to live more independently, with dignity, confidence, and choice.
+              <br /><br />
+              Inspired by leading organisations across the sector, Ably Care puts people first. Our team is built on compassion, innovation, and professionalism—ensuring participants receive the right support, at the right time, in the way that works best for them.
+              <br /><br />
+              With services spanning Supported Independent Living, short and medium-term accommodation, early childhood intervention, plan management, community participation, and support coordination. We work alongside participants and their families to deliver flexible, tailored supports that reflect their unique goals and lifestyles.
+              <br /><br />
+              We are committed to inclusion, cultural responsiveness, and strong community connections—because great care goes beyond service delivery; it’s about building trust, creating opportunities, and making every life better.
+            </p>
+          </div>
+
+
           <div className="mb-7 flex flex-col items-start justify-center lg:items-center">
             <ChalkTitle
               title="Our Story"
@@ -64,9 +83,7 @@ const About = () => {
                   Our Vision
                 </h1>
                 <p className="text-xs font-inter text-white font-light text-center">
-                  To be the most trusted care provider, recognized for our
-                  unwavering commitment to excellence, inclusivity, and respect
-                  in delivering disability and mental health services.
+                  Our vision is to be the most trusted care provider, recognized for our unwavering commitment to excellence, inclusivity, and respect in delivering disability and mental health services.
                 </p>
               </div>
               <div className="absolute top-0 left-0 w-full h-full rounded-xl overflow-hidden">
@@ -88,8 +105,7 @@ const About = () => {
                   Our Mission
                 </h1>
                 <p className="text-xs font-inter text-white font-light text-center">
-                  To empower people by providing compassionate, individualized
-                  care that enhances their independence and quality of life.
+                  Our mission is to empower people by providing compassionate, individualized care that enhances their independence and quality of life. 
                 </p>
               </div>
               <div className="absolute top-0 left-0 w-full h-full rounded-xl overflow-hidden">
