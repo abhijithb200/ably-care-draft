@@ -105,6 +105,7 @@ interface InvoiceDetailsState {
 const ReferralFormSection = () => {
   const [isAgreed, setIsAgreed] = useState(false);
   const [furtherInfo, setFurtherInfo] = useState("");
+  const [ loading, setLoading ] = useState(false);
 
   const { toast } = useToast?.() || {
     toast: (props: {
@@ -366,6 +367,7 @@ const ReferralFormSection = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = {
       participant: participantForm,
@@ -414,6 +416,8 @@ const ReferralFormSection = () => {
         duration: 5000,
         className: "bg-red-500 text-white border-none",
       });
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -1441,7 +1445,7 @@ const ReferralFormSection = () => {
               className="bg-customAccent hover:bg-complementary text-white font-poppins"
               disabled={!isAgreed}
             >
-              Submit
+              { loading ? "Submitting..." : "Submit"}
             </Button>
           </div>
         </form>
