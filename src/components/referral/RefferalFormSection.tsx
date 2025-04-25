@@ -36,6 +36,12 @@ interface IdentitiesState {
   other: boolean;
 }
 
+interface OriginState {
+  firstNationPeople: boolean;
+  culturallyLinguistically: boolean;
+  naOrigin: boolean;
+}
+
 interface ReferralReasonsState {
   ndisCoordination: boolean;
   socialWork: boolean;
@@ -45,6 +51,7 @@ interface ReferralReasonsState {
 interface ParticipantFormState {
   firstName: string;
   lastName: string;
+  gender: string;
   identities: IdentitiesState;
   email: string;
   phone: string;
@@ -68,6 +75,7 @@ interface ParticipantFormState {
   drugUse: string;
   homeVisitRisks: string;
   triggerInformation: string;
+  origin: OriginState;
 }
 
 interface InvoiceOptionsState {
@@ -82,6 +90,7 @@ interface ReferrerFormState {
   email: string;
   phone: string;
   relationship: string;
+  address: string;
   additionalInfo: string;
 }
 
@@ -90,10 +99,12 @@ interface InvoiceDetailsState {
   fullName: string;
   organisationEmail: string;
   organisationPhone: string;
+  servicesManagedNdia: string;
 }
 
 const ReferralFormSection = () => {
   const [isAgreed, setIsAgreed] = useState(false);
+  const [furtherInfo, setFurtherInfo] = useState("");
 
   const { toast } = useToast?.() || {
     toast: (props: {
@@ -104,25 +115,27 @@ const ReferralFormSection = () => {
     }) => alert(props.description),
   };
 
-  const [ invoiceField, setInvoiceField ] = useState({
+  const [invoiceField, setInvoiceField] = useState({
     ndia: false,
     selfManaged: false,
     planManaged: false,
-    area : false,
+    area: false,
   });
 
-  const [ isNdis, setIsNdis ] = useState<boolean>(false);
+  const [isNdis, setIsNdis] = useState<boolean>(false);
 
   const [invoiceDetails, setInvoiceDetails] = useState<InvoiceDetailsState>({
     organisation: "",
     fullName: "",
     organisationEmail: "",
     organisationPhone: "",
+    servicesManagedNdia: "",
   });
 
   const [participantForm, setParticipantForm] = useState<ParticipantFormState>({
     firstName: "",
     lastName: "",
+    gender: "",
     identities: {
       male: false,
       female: false,
@@ -159,6 +172,11 @@ const ReferralFormSection = () => {
     drugUse: "",
     homeVisitRisks: "",
     triggerInformation: "",
+    origin: {
+      firstNationPeople: false,
+      culturallyLinguistically: false,
+      naOrigin: false,
+    },
   });
 
   const [invoiceOptions, setInvoiceOptions] = useState<InvoiceOptionsState>({
@@ -173,6 +191,7 @@ const ReferralFormSection = () => {
     email: "",
     phone: "",
     relationship: "",
+    address: "",
     additionalInfo: "",
   });
 
@@ -193,18 +212,49 @@ const ReferralFormSection = () => {
     });
   };
 
+  const handleParticipantGenderChange = (value: string) => {
+    setParticipantForm({
+      ...participantForm,
+      gender: value,
+    });
+  };
+
   const handleReferrerChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { id, value } = e.target;
-    const fieldName =
-      id.replace("referrer", "").charAt(0).toLowerCase() +
-      id.replace("referrer", "").slice(1);
 
-    setReferrerForm({
-      ...referrerForm,
-      [fieldName]: value,
-    });
+    if (id === "referrerFirstName") {
+      setReferrerForm({
+        ...referrerForm,
+        firstName: value,
+      });
+    } else if (id === "referrerLastName") {
+      setReferrerForm({
+        ...referrerForm,
+        lastName: value,
+      });
+    } else if (id === "referrerEmail") {
+      setReferrerForm({
+        ...referrerForm,
+        email: value,
+      });
+    } else if (id === "referrerPhone") {
+      setReferrerForm({
+        ...referrerForm,
+        phone: value,
+      });
+    } else if (id === "referrerAddress") {
+      setReferrerForm({
+        ...referrerForm,
+        address: value,
+      });
+    } else if (id === "additionalInfo") {
+      setReferrerForm({
+        ...referrerForm,
+        additionalInfo: value,
+      });
+    }
   };
 
   const handleIdentityCheckbox = (id: keyof IdentitiesState) => {
@@ -213,6 +263,16 @@ const ReferralFormSection = () => {
       identities: {
         ...participantForm.identities,
         [id]: !participantForm.identities[id],
+      },
+    });
+  };
+
+  const handleOriginCheckbox = (id: keyof OriginState) => {
+    setParticipantForm({
+      ...participantForm,
+      origin: {
+        ...participantForm.origin,
+        [id]: !participantForm.origin[id],
       },
     });
   };
@@ -242,75 +302,105 @@ const ReferralFormSection = () => {
   };
 
   const handleInvoiceFieldChange = (option?: string) => {
-    let anyChecked
-    setInvoiceField(prev => {
-      const updated = {
-        ...prev,
-        [option as keyof typeof prev]: !prev[option as keyof typeof prev],
-      };
+    if (option) {
+      setInvoiceField((prev) => {
+        const updated = {
+          ...prev,
+          [option as keyof typeof prev]: !prev[option as keyof typeof prev],
+        };
 
-      anyChecked =
-        updated.ndia || updated.selfManaged || updated.planManaged;
-  
-      return {
-        ...updated,
-        area: anyChecked,
-      };
-    });
+        const anyChecked =
+          updated.ndia || updated.selfManaged || updated.planManaged;
 
-    if (option === "ndia") {
-      setIsNdis(!isNdis);
+        return {
+          ...updated,
+          area: anyChecked,
+        };
+      });
+
+      if (option === "ndia") {
+        setIsNdis(!isNdis);
+      }
     }
   };
 
   const handleInvoiceDetailsChange = (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { id, value } = e.target;
-    const fieldName =
-      id.replace("invoiceField", "").charAt(0).toLowerCase() +
-      id.replace("invoiceField", "").slice(1);
 
+    if (id === "invoiceFieldOrganisation") {
+      setInvoiceDetails({
+        ...invoiceDetails,
+        organisation: value,
+      });
+    } else if (id === "invoiceFieldFullName") {
+      setInvoiceDetails({
+        ...invoiceDetails,
+        fullName: value,
+      });
+    } else if (id === "invoiceFieldOrganisationEmail") {
+      setInvoiceDetails({
+        ...invoiceDetails,
+        organisationEmail: value,
+      });
+    } else if (id === "invoiceFieldOrganisationPhone") {
+      setInvoiceDetails({
+        ...invoiceDetails,
+        organisationPhone: value,
+      });
+    } else if (id === "servicesManagedNdia") {
+      setInvoiceDetails({
+        ...invoiceDetails,
+        servicesManagedNdia: value,
+      });
+    }
+  };
+
+  const handleServicesManagedNdiaChange = (value: string) => {
     setInvoiceDetails({
       ...invoiceDetails,
-      [fieldName]: value,
+      servicesManagedNdia: value,
     });
   };
 
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     const formData = {
       participant: participantForm,
       referrer: referrerForm,
       invoiceOptions: invoiceOptions,
       invoiceDetails: invoiceDetails,
+      furtherInfo: furtherInfo,
       timestamp: new Date().toISOString(),
     };
-  
+
     try {
-      const response = await fetch('/api/refferal-submit', {
-        method: 'POST',
+      const response = await fetch("/api/refferal-submit", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
-  
+
       const data = await response.json();
-  
+
       if (data.success) {
         toast({
           title: "Referral Submitted",
-          description: "Thank you! Your referral has been submitted successfully.",
+          description:
+            "Thank you! Your referral has been submitted successfully.",
           duration: 3000,
           className: "bg-green-500 text-white border-none",
         });
       } else {
         toast({
           title: "Submission Failed",
-          description: data.message || "There was an error submitting your referral. Please try again.",
+          description:
+            data.message ||
+            "There was an error submitting your referral. Please try again.",
           duration: 5000,
           className: "bg-red-500 text-white border-none",
         });
@@ -319,7 +409,8 @@ const ReferralFormSection = () => {
       console.error("Error submitting form:", error);
       toast({
         title: "Submission Error",
-        description: "There was an error connecting to our server. Please try again later.",
+        description:
+          "There was an error connecting to our server. Please try again later.",
         duration: 5000,
         className: "bg-red-500 text-white border-none",
       });
@@ -464,9 +555,13 @@ const ReferralFormSection = () => {
             <div className="flex flex-col md:flex-row gap-3 w-full">
               <div className="w-full">
                 <Label className="block text-sm mb-1">Gender *</Label>
-                <Select required>
+                <Select
+                  value={participantForm.gender}
+                  onValueChange={handleParticipantGenderChange}
+                  required
+                >
                   <SelectTrigger className="rounded-xl">
-                    <SelectValue placeholder="Plese select" />
+                    <SelectValue placeholder="Please select" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="male">Male</SelectItem>
@@ -499,6 +594,7 @@ const ReferralFormSection = () => {
                   placeholder="example@example.com"
                   value={participantForm.email}
                   onChange={handleParticipantChange}
+                  required
                 />
               </div>
             </div>
@@ -571,7 +667,7 @@ const ReferralFormSection = () => {
                     }
                   />
                   <Label
-                    htmlFor="ndis-coordination"
+                    htmlFor="ndisCoordination"
                     className="text-sm font-normal"
                   >
                     NDIS Coordination Services
@@ -585,7 +681,7 @@ const ReferralFormSection = () => {
                       handleReferralReasonCheckbox("socialWork")
                     }
                   />
-                  <Label htmlFor="social-work" className="text-sm font-normal">
+                  <Label htmlFor="socialWork" className="text-sm font-normal">
                     Social Work Services
                   </Label>
                 </div>
@@ -595,10 +691,7 @@ const ReferralFormSection = () => {
                     checked={participantForm.referralReasons.both}
                     onCheckedChange={() => handleReferralReasonCheckbox("both")}
                   />
-                  <Label
-                    htmlFor="both-services"
-                    className="text-sm font-normal"
-                  >
+                  <Label htmlFor="both" className="text-sm font-normal">
                     Both
                   </Label>
                 </div>
@@ -660,7 +753,14 @@ const ReferralFormSection = () => {
               <Label className="block text-sm mb-1">Origin</Label>
               <div className="flex flex-col md:flex-row gap-3">
                 <div>
-                  <Checkbox id="firstNationPeople" className="mr-2" />
+                  <Checkbox
+                    id="firstNationPeople"
+                    className="mr-2"
+                    checked={participantForm.origin.firstNationPeople}
+                    onCheckedChange={() =>
+                      handleOriginCheckbox("firstNationPeople")
+                    }
+                  />
                   <Label
                     htmlFor="firstNationPeople"
                     className="text-sm font-normal"
@@ -669,16 +769,28 @@ const ReferralFormSection = () => {
                   </Label>
                 </div>
                 <div>
-                  <Checkbox id="culturallylinguistically" className="mr-2" />
+                  <Checkbox
+                    id="culturallyLinguistically"
+                    className="mr-2"
+                    checked={participantForm.origin.culturallyLinguistically}
+                    onCheckedChange={() =>
+                      handleOriginCheckbox("culturallyLinguistically")
+                    }
+                  />
                   <Label
-                    htmlFor="culturallylinguistically"
+                    htmlFor="culturallyLinguistically"
                     className="text-sm font-normal"
                   >
                     Culturally and linguistically diverse
                   </Label>
                 </div>
                 <div>
-                  <Checkbox id="naOrigin" className="mr-2" />
+                  <Checkbox
+                    id="naOrigin"
+                    className="mr-2"
+                    checked={participantForm.origin.naOrigin}
+                    onCheckedChange={() => handleOriginCheckbox("naOrigin")}
+                  />
                   <Label htmlFor="naOrigin" className="text-sm font-normal">
                     N/A
                   </Label>
@@ -729,14 +841,14 @@ const ReferralFormSection = () => {
                 }
               >
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="yes-docs" value="yes" />
-                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                  <RadioGroupItem id="yes-comm" value="yes" />
+                  <Label htmlFor="yes-comm" className="text-sm font-normal">
                     Yes
                   </Label>
                 </div>
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="no-docs" value="no" />
-                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                  <RadioGroupItem id="no-comm" value="no" />
+                  <Label htmlFor="no-comm" className="text-sm font-normal">
                     No
                   </Label>
                 </div>
@@ -754,14 +866,14 @@ const ReferralFormSection = () => {
                 }
               >
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="yes-docs" value="yes" />
-                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                  <RadioGroupItem id="yes-access" value="yes" />
+                  <Label htmlFor="yes-access" className="text-sm font-normal">
                     Yes
                   </Label>
                 </div>
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="no-docs" value="no" />
-                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                  <RadioGroupItem id="no-access" value="no" />
+                  <Label htmlFor="no-access" className="text-sm font-normal">
                     No
                   </Label>
                 </div>
@@ -827,83 +939,6 @@ const ReferralFormSection = () => {
             </div>
 
             <div>
-              <Label className="block text-sm mb-1">Interpreter required</Label>
-              <RadioGroup
-                value={participantForm.interpreterRequired}
-                onValueChange={(value) =>
-                  handleRadioChange("interpreterRequired", value)
-                }
-              >
-                <div className="flex items-center gap-2">
-                  <RadioGroupItem id="yes-interpreter" value="yes" />
-                  <Label
-                    htmlFor="yes-interpreter"
-                    className="text-sm font-normal"
-                  >
-                    Yes
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <RadioGroupItem id="no-interpreter" value="no" />
-                  <Label
-                    htmlFor="no-interpreter"
-                    className="text-sm font-normal"
-                  >
-                    No
-                  </Label>
-                </div>
-              </RadioGroup>
-            </div>
-
-            <div>
-              <Label className="block text-sm mb-1">
-                Communication preferences or requirements
-              </Label>
-              <RadioGroup
-                value={participantForm.communicationPreferences}
-                onValueChange={(value) =>
-                  handleRadioChange("communicationPreferences", value)
-                }
-              >
-                <div className="flex items-center gap-2">
-                  <RadioGroupItem id="yes-docs" value="yes" />
-                  <Label htmlFor="yes-docs" className="text-sm font-normal">
-                    Yes
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <RadioGroupItem id="no-docs" value="no" />
-                  <Label htmlFor="no-docs" className="text-sm font-normal">
-                    No
-                  </Label>
-                </div>
-              </RadioGroup>
-            </div>
-
-            <div>
-              <Label className="block text-sm mb-1">Access requirements</Label>
-              <RadioGroup
-                value={participantForm.accessRequirements}
-                onValueChange={(value) =>
-                  handleRadioChange("accessRequirements", value)
-                }
-              >
-                <div className="flex items-center gap-2">
-                  <RadioGroupItem id="yes-docs" value="yes" />
-                  <Label htmlFor="yes-docs" className="text-sm font-normal">
-                    Yes
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <RadioGroupItem id="no-docs" value="no" />
-                  <Label htmlFor="no-docs" className="text-sm font-normal">
-                    No
-                  </Label>
-                </div>
-              </RadioGroup>
-            </div>
-
-            <div>
               <Label htmlFor="guardian" className="block text-sm mb-1">
                 Guardian or Plan Nominee (if applicable)
               </Label>
@@ -934,24 +969,14 @@ const ReferralFormSection = () => {
                   placeholder="First Name"
                   required
                   value={referrerForm.firstName}
-                  onChange={(e) =>
-                    setReferrerForm({
-                      ...referrerForm,
-                      firstName: e.target.value,
-                    })
-                  }
+                  onChange={handleReferrerChange}
                 />
                 <Input
                   id="referrerLastName"
                   placeholder="Last Name"
                   required
                   value={referrerForm.lastName}
-                  onChange={(e) =>
-                    setReferrerForm({
-                      ...referrerForm,
-                      lastName: e.target.value,
-                    })
-                  }
+                  onChange={handleReferrerChange}
                 />
               </div>
             </div>
@@ -967,9 +992,7 @@ const ReferralFormSection = () => {
                   placeholder="example@example.com"
                   required
                   value={referrerForm.email}
-                  onChange={(e) =>
-                    setReferrerForm({ ...referrerForm, email: e.target.value })
-                  }
+                  onChange={handleReferrerChange}
                 />
               </div>
 
@@ -983,14 +1006,12 @@ const ReferralFormSection = () => {
                   placeholder="0000000000"
                   required
                   value={referrerForm.phone}
-                  onChange={(e) =>
-                    setReferrerForm({ ...referrerForm, phone: e.target.value })
-                  }
+                  onChange={handleReferrerChange}
                 />
               </div>
             </div>
 
-            <div className="w-full flex flex-col gap-3  md:flex-row">
+            <div className="w-full flex flex-col gap-3 md:flex-row">
               <div className="w-full">
                 <Label htmlFor="relationship" className="block text-sm mb-1">
                   Relationship with Participant
@@ -1015,13 +1036,15 @@ const ReferralFormSection = () => {
               </div>
 
               <div className="w-full">
-                <Label htmlFor="reffererAddress" className="block text-sm mb-1">
+                <Label htmlFor="referrerAddress" className="block text-sm mb-1">
                   Address
                 </Label>
                 <Input
-                  id="reffererAddress"
+                  id="referrerAddress"
                   placeholder="Street Address, Suburb, State and Postcode"
                   required
+                  value={referrerForm.address}
+                  onChange={handleReferrerChange}
                 />
               </div>
             </div>
@@ -1029,7 +1052,7 @@ const ReferralFormSection = () => {
             <div>
               <h3 className="font-medium text-lg font-poppins my-4 mt-7">
                 <span className="bg-customAccent text-white rounded-xl px-4 py-2">
-                  Additinal Information
+                  Additional Information
                 </span>
               </h3>
               <Label htmlFor="additionalInfo" className="block text-sm mb-1">
@@ -1040,12 +1063,7 @@ const ReferralFormSection = () => {
                 id="additionalInfo"
                 className="h-24 rounded-xl"
                 value={referrerForm.additionalInfo}
-                onChange={(e) =>
-                  setReferrerForm({
-                    ...referrerForm,
-                    additionalInfo: e.target.value,
-                  })
-                }
+                onChange={handleReferrerChange}
               />
             </div>
 
@@ -1066,14 +1084,14 @@ const ReferralFormSection = () => {
                 }
               >
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="yes-docs" value="yes" />
-                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                  <RadioGroupItem id="yes-court" value="yes" />
+                  <Label htmlFor="yes-court" className="text-sm font-normal">
                     Yes
                   </Label>
                 </div>
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="no-docs" value="no" />
-                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                  <RadioGroupItem id="no-court" value="no" />
+                  <Label htmlFor="no-court" className="text-sm font-normal">
                     No
                   </Label>
                 </div>
@@ -1092,14 +1110,20 @@ const ReferralFormSection = () => {
                 }
               >
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="yes-docs" value="yes" />
-                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                  <RadioGroupItem id="yes-aggression" value="yes" />
+                  <Label
+                    htmlFor="yes-aggression"
+                    className="text-sm font-normal"
+                  >
                     Yes
                   </Label>
                 </div>
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="no-docs" value="no" />
-                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                  <RadioGroupItem id="no-aggression" value="no" />
+                  <Label
+                    htmlFor="no-aggression"
+                    className="text-sm font-normal"
+                  >
                     No
                   </Label>
                 </div>
@@ -1119,14 +1143,20 @@ const ReferralFormSection = () => {
                 }
               >
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="yes-docs" value="yes" />
-                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                  <RadioGroupItem id="yes-incarceration" value="yes" />
+                  <Label
+                    htmlFor="yes-incarceration"
+                    className="text-sm font-normal"
+                  >
                     Yes
                   </Label>
                 </div>
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="no-docs" value="no" />
-                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                  <RadioGroupItem id="no-incarceration" value="no" />
+                  <Label
+                    htmlFor="no-incarceration"
+                    className="text-sm font-normal"
+                  >
                     No
                   </Label>
                 </div>
@@ -1142,14 +1172,14 @@ const ReferralFormSection = () => {
                 onValueChange={(value) => handleRadioChange("drugUse", value)}
               >
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="yes-docs" value="yes" />
-                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                  <RadioGroupItem id="yes-drug" value="yes" />
+                  <Label htmlFor="yes-drug" className="text-sm font-normal">
                     Yes
                   </Label>
                 </div>
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="no-docs" value="no" />
-                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                  <RadioGroupItem id="no-drug" value="no" />
+                  <Label htmlFor="no-drug" className="text-sm font-normal">
                     No
                   </Label>
                 </div>
@@ -1168,14 +1198,17 @@ const ReferralFormSection = () => {
                 }
               >
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="yes-docs" value="yes" />
-                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                  <RadioGroupItem id="yes-home-risk" value="yes" />
+                  <Label
+                    htmlFor="yes-home-risk"
+                    className="text-sm font-normal"
+                  >
                     Yes
                   </Label>
                 </div>
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="no-docs" value="no" />
-                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                  <RadioGroupItem id="no-home-risk" value="no" />
+                  <Label htmlFor="no-home-risk" className="text-sm font-normal">
                     No
                   </Label>
                 </div>
@@ -1195,14 +1228,14 @@ const ReferralFormSection = () => {
                 }
               >
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="yes-docs" value="yes" />
-                  <Label htmlFor="yes-docs" className="text-sm font-normal">
+                  <RadioGroupItem id="yes-trigger" value="yes" />
+                  <Label htmlFor="yes-trigger" className="text-sm font-normal">
                     Yes
                   </Label>
                 </div>
                 <div className="flex items-center gap-2">
-                  <RadioGroupItem id="no-docs" value="no" />
-                  <Label htmlFor="no-docs" className="text-sm font-normal">
+                  <RadioGroupItem id="no-trigger" value="no" />
+                  <Label htmlFor="no-trigger" className="text-sm font-normal">
                     No
                   </Label>
                 </div>
@@ -1268,12 +1301,28 @@ const ReferralFormSection = () => {
                     <Label htmlFor="servicesManagedNdia">
                       Services NDIA Managed
                     </Label>
-                    <Select>
-                      <SelectTrigger id="servicesManagedNdia">
+                    <Select
+                      value={invoiceDetails.servicesManagedNdia}
+                      onValueChange={handleServicesManagedNdiaChange}
+                    >
+                      <SelectTrigger
+                        id="servicesManagedNdia"
+                        className="rounded-xl"
+                      >
                         <SelectValue placeholder="Please Select" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="1">Option-1</SelectItem>
+                        <SelectItem value="support-coordination">
+                          Support Coordination
+                        </SelectItem>
+                        <SelectItem value="social-work">Social Work</SelectItem>
+                        <SelectItem value="behavior-support">
+                          Behavior Support
+                        </SelectItem>
+                        <SelectItem value="therapy-services">
+                          Therapy Services
+                        </SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -1343,6 +1392,8 @@ const ReferralFormSection = () => {
               id="furtherInfo"
               className="h-24 rounded-xl"
               placeholder="Relevant information not previously mentioned"
+              value={furtherInfo}
+              onChange={(e) => setFurtherInfo(e.target.value)}
             />
           </div>
 
@@ -1377,7 +1428,8 @@ const ReferralFormSection = () => {
                   htmlFor="disclaimer"
                   className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  I agree that I have obtained the participant's consent to submit this referral form to Ablycare for processing.
+                  I agree that I have obtained the participant's consent to
+                  submit this referral form to Ablycare for processing.
                 </label>
               </div>
             </div>

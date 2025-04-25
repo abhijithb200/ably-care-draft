@@ -12,6 +12,12 @@ interface IdentitiesState {
   other: boolean;
 }
 
+interface OriginState {
+  firstNationPeople: boolean;
+  culturallyLinguistically: boolean;
+  naOrigin: boolean;
+}
+
 interface ReferralReasonsState {
   ndisCoordination: boolean;
   socialWork: boolean;
@@ -21,6 +27,7 @@ interface ReferralReasonsState {
 interface ParticipantFormState {
   firstName: string;
   lastName: string;
+  gender: string;
   identities: IdentitiesState;
   email: string;
   phone: string;
@@ -44,6 +51,7 @@ interface ParticipantFormState {
   drugUse: string;
   homeVisitRisks: string;
   triggerInformation: string;
+  origin: OriginState;
 }
 
 interface ReferrerFormState {
@@ -52,6 +60,7 @@ interface ReferrerFormState {
   email: string;
   phone: string;
   relationship: string;
+  address: string;
   additionalInfo: string;
 }
 
@@ -61,20 +70,22 @@ interface InvoiceOptionsState {
   planManaged: boolean;
 }
 
+interface InvoiceDetailsState {
+  organisation: string;
+  fullName: string;
+  organisationEmail: string;
+  organisationPhone: string;
+  servicesManagedNdia: string;
+}
+
 interface FormData {
   participant: ParticipantFormState;
   referrer: ReferrerFormState;
   invoiceOptions: InvoiceOptionsState;
   invoiceDetails: InvoiceDetailsState;
+  furtherInfo: string;
   timestamp: string;
 }
-
-interface InvoiceDetailsState {
-    organisation: string;
-    fullName: string;
-    organisationEmail: string;
-    organisationPhone: string;
-  }
 
 const formatBoolean = (value: boolean): string => value ? 'Yes' : 'No';
 
@@ -84,6 +95,19 @@ const formatIdentities = (identities: IdentitiesState): string => {
     .map(([key, _]) => {
       const formatted = key.replace(/([A-Z])/g, ' $1');
       return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+    });
+  
+  return selected.length > 0 ? selected.join(', ') : 'None selected';
+};
+
+const formatOrigin = (origin: OriginState): string => {
+  const selected = Object.entries(origin)
+    .filter(([_, value]) => value)
+    .map(([key, _]) => {
+      if (key === 'firstNationPeople') return 'First Nations People';
+      if (key === 'culturallyLinguistically') return 'Culturally and linguistically diverse';
+      if (key === 'naOrigin') return 'N/A';
+      return key;
     });
   
   return selected.length > 0 ? selected.join(', ') : 'None selected';
@@ -116,101 +140,111 @@ const formatInvoiceOptions = (options: InvoiceOptionsState): string => {
 };
 
 export async function POST(request: Request) {
-    try {
-      const formData: FormData = await request.json();
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASS
-        }
-      });
-  
-      const { participant, referrer, invoiceOptions, invoiceDetails, timestamp } = formData;
+  try {
+    const formData: FormData = await request.json();
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      }
+    });
+
+    const { participant, referrer, invoiceOptions, invoiceDetails, furtherInfo, timestamp } = formData;
+    
+    const emailContent = `
+      <h2>New Referral Form Submission</h2>
+      <p>Submitted on: ${new Date(timestamp).toLocaleString()}</p>
       
-      const emailContent = `
-        <h2>New Referral Form Submission</h2>
-        <p>Submitted on: ${new Date(timestamp).toLocaleString()}</p>
-        
-        <h3>Participant Details</h3>
-        <ul>
-          <li><strong>Name:</strong> ${participant.firstName} ${participant.lastName}</li>
-          <li><strong>Email:</strong> ${participant.email || 'Not provided'}</li>
-          <li><strong>Phone:</strong> ${participant.phone}</li>
-          <li><strong>Date of Birth:</strong> ${participant.dateOfBirth}</li>
-          <li><strong>Address:</strong> ${participant.address}</li>
-          <li><strong>Identities:</strong> ${formatIdentities(participant.identities)}</li>
-          <li><strong>Disability/Diagnosis:</strong> ${participant.disability || 'Not provided'}</li>
-          <li><strong>Referral Reasons:</strong> ${formatReferralReasons(participant.referralReasons)}</li>
-          <li><strong>Additional Details:</strong> ${participant.additionalDetails || 'Not provided'}</li>
-          <li><strong>NDIS Number:</strong> ${participant.ndisNumber}</li>
-          <li><strong>NDIS Plan Period:</strong> ${participant.planStartDate} to ${participant.planEndDate}</li>
-          <li><strong>Funding Management:</strong> ${participant.fundingManagement}</li>
-          <li><strong>Guardian/Nominee:</strong> ${participant.guardian || 'Not provided'}</li>
-          <li><strong>Attach Documents:</strong> ${participant.attachDocuments}</li>
-          <li><strong>Interpreter Required:</strong> ${participant.interpreterRequired}</li>
-          <li><strong>Communication Preferences:</strong> ${participant.communicationPreferences}</li>
-          <li><strong>Access Requirements:</strong> ${participant.accessRequirements}</li>
-        </ul>
-        
-        <h3>Referrer Details</h3>
-        <ul>
-          <li><strong>Name:</strong> ${referrer.firstName} ${referrer.lastName}</li>
-          <li><strong>Email:</strong> ${referrer.email}</li>
-          <li><strong>Phone:</strong> ${referrer.phone}</li>
-          <li><strong>Relationship with Participant:</strong> ${referrer.relationship}</li>
-          <li><strong>Additional Info:</strong> ${referrer.additionalInfo || 'Not provided'}</li>
-          <li><strong>Court Orders Applicable:</strong> ${participant.courtOrders}</li>
-          <li><strong>History of Physical Aggression:</strong> ${participant.physicalAggression}</li>
-          <li><strong>Incarceration History:</strong> ${participant.incarceration}</li>
-          <li><strong>Current Drug/Alcohol Use:</strong> ${participant.drugUse}</li>
-          <li><strong>Home Visit Risks:</strong> ${participant.homeVisitRisks}</li>
-          <li><strong>Trigger Information:</strong> ${participant.triggerInformation}</li>
-        </ul>
-        
-        <h3>Invoice Options</h3>
-        <p>${formatInvoiceOptions(invoiceOptions)}</p>
-        
-        <!-- Add this new section -->
-        <h3>Invoice Contact Details</h3>
-        <ul>
-          <li><strong>Organisation:</strong> ${invoiceDetails.organisation || 'Not provided'}</li>
-          <li><strong>Full Name:</strong> ${invoiceDetails.fullName || 'Not provided'}</li>
-          <li><strong>Organisation Email:</strong> ${invoiceDetails.organisationEmail || 'Not provided'}</li>
-          <li><strong>Organisation Phone:</strong> ${invoiceDetails.organisationPhone || 'Not provided'}</li>
-        </ul>
-      `;
-  
-      const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: process.env.EMAIL_RECEIVER,
-        subject: `New Referral: ${participant.firstName} ${participant.lastName}`,
-        html: emailContent
-      };
-  
-      await transporter.sendMail(mailOptions);
-  
-      const confirmationMailOptions = {
-        from: process.env.EMAIL_USER,
-        to: referrer.email,
-        subject: 'Thank you for your referral',
-        html: `
-          <h2>Thank you for your referral</h2>
-          <p>Dear ${referrer.firstName} ${referrer.lastName},</p>
-          <p>We have received your referral for ${participant.firstName} ${participant.lastName}. Our team will review the information and contact you soon regarding the next steps.</p>
-          <p>If you have any questions or need to provide additional information, please don't hesitate to contact us.</p>
-          <p>Best regards,<br>Your Organization Name</p>
-        `
-      };
-  
-      await transporter.sendMail(confirmationMailOptions);
-  
-      return NextResponse.json({ success: true, message: 'Referral submitted successfully' });
-    } catch (error) {
-      console.error('Error in referral form submission:', error);
-      return NextResponse.json(
-        { success: false, message: 'Failed to submit referral', error: String(error) },
-        { status: 500 }
-      );
-    }
+      <h3>Participant Details</h3>
+      <ul>
+        <li><strong>Name:</strong> ${participant.firstName} ${participant.lastName}</li>
+        <li><strong>Gender:</strong> ${participant.gender}</li>
+        <li><strong>Email:</strong> ${participant.email || 'Not provided'}</li>
+        <li><strong>Phone:</strong> ${participant.phone}</li>
+        <li><strong>Date of Birth:</strong> ${participant.dateOfBirth}</li>
+        <li><strong>Address:</strong> ${participant.address}</li>
+        <li><strong>Identities:</strong> ${formatIdentities(participant.identities)}</li>
+        <li><strong>Origin:</strong> ${formatOrigin(participant.origin)}</li>
+        <li><strong>Disability/Diagnosis:</strong> ${participant.disability || 'Not provided'}</li>
+        <li><strong>Referral Reasons:</strong> ${formatReferralReasons(participant.referralReasons)}</li>
+        <li><strong>Additional Details:</strong> ${participant.additionalDetails || 'Not provided'}</li>
+        <li><strong>NDIS Number:</strong> ${participant.ndisNumber}</li>
+        <li><strong>NDIS Plan Period:</strong> ${participant.planStartDate} to ${participant.planEndDate}</li>
+        <li><strong>Funding Management:</strong> ${participant.fundingManagement}</li>
+        <li><strong>Guardian/Nominee:</strong> ${participant.guardian || 'Not provided'}</li>
+        <li><strong>Attach Documents:</strong> ${participant.attachDocuments}</li>
+        <li><strong>Interpreter Required:</strong> ${participant.interpreterRequired}</li>
+        <li><strong>Communication Preferences:</strong> ${participant.communicationPreferences}</li>
+        <li><strong>Access Requirements:</strong> ${participant.accessRequirements}</li>
+      </ul>
+      
+      <h3>Referrer Details</h3>
+      <ul>
+        <li><strong>Name:</strong> ${referrer.firstName} ${referrer.lastName}</li>
+        <li><strong>Email:</strong> ${referrer.email}</li>
+        <li><strong>Phone:</strong> ${referrer.phone}</li>
+        <li><strong>Relationship with Participant:</strong> ${referrer.relationship}</li>
+        <li><strong>Address:</strong> ${referrer.address || 'Not provided'}</li>
+        <li><strong>Additional Info:</strong> ${referrer.additionalInfo || 'Not provided'}</li>
+      </ul>
+      
+      <h3>Risk & Safety</h3>
+      <ul>
+        <li><strong>Court Orders Applicable:</strong> ${participant.courtOrders}</li>
+        <li><strong>History of Physical Aggression:</strong> ${participant.physicalAggression}</li>
+        <li><strong>Incarceration History:</strong> ${participant.incarceration}</li>
+        <li><strong>Current Drug/Alcohol Use:</strong> ${participant.drugUse}</li>
+        <li><strong>Home Visit Risks:</strong> ${participant.homeVisitRisks}</li>
+        <li><strong>Trigger Information:</strong> ${participant.triggerInformation}</li>
+      </ul>
+      
+      <h3>Invoice Options</h3>
+      <p>${formatInvoiceOptions(invoiceOptions)}</p>
+      
+      <h3>Invoice Contact Details</h3>
+      <ul>
+        <li><strong>Organisation:</strong> ${invoiceDetails.organisation || 'Not provided'}</li>
+        <li><strong>Full Name:</strong> ${invoiceDetails.fullName || 'Not provided'}</li>
+        <li><strong>Organisation Email:</strong> ${invoiceDetails.organisationEmail || 'Not provided'}</li>
+        <li><strong>Organisation Phone:</strong> ${invoiceDetails.organisationPhone || 'Not provided'}</li>
+        <li><strong>Services NDIA Managed:</strong> ${invoiceDetails.servicesManagedNdia || 'Not provided'}</li>
+      </ul>
+      
+      <h3>Further Information</h3>
+      <p>${furtherInfo || 'No additional information provided'}</p>
+    `;
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_RECEIVER,
+      subject: `New Referral: ${participant.firstName} ${participant.lastName}`,
+      html: emailContent
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    const confirmationMailOptions = {
+      from: process.env.EMAIL_USER,
+      to: referrer.email,
+      subject: 'Thank you for your referral',
+      html: `
+        <h2>Thank you for your referral</h2>
+        <p>Dear ${referrer.firstName} ${referrer.lastName},</p>
+        <p>We have received your referral for ${participant.firstName} ${participant.lastName}. Our team will review the information and contact you soon regarding the next steps.</p>
+        <p>If you have any questions or need to provide additional information, please don't hesitate to contact us.</p>
+        <p>Best regards,<br>Ably Care Team</p>
+      `
+    };
+
+    await transporter.sendMail(confirmationMailOptions);
+
+    return NextResponse.json({ success: true, message: 'Referral submitted successfully' });
+  } catch (error) {
+    console.error('Error in referral form submission:', error);
+    return NextResponse.json(
+      { success: false, message: 'Failed to submit referral', error: String(error) },
+      { status: 500 }
+    );
   }
+}
