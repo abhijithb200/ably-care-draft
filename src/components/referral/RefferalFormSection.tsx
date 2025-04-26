@@ -24,6 +24,8 @@ import {
   SelectValue,
 } from "../ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { Trash2, Upload } from "lucide-react";
+
 
 interface IdentitiesState {
   male: boolean;
@@ -106,6 +108,7 @@ const ReferralFormSection = () => {
   const [isAgreed, setIsAgreed] = useState(false);
   const [furtherInfo, setFurtherInfo] = useState("");
   const [ loading, setLoading ] = useState(false);
+  
 
   const { toast } = useToast?.() || {
     toast: (props: {
@@ -196,12 +199,66 @@ const ReferralFormSection = () => {
     additionalInfo: "",
   });
 
+  const [ isServicesAgreementSomeone, setIsServicesAgreementSomeone ] = useState(false);
+
   const handleInvoiceOptionCheckbox = (id: keyof InvoiceOptionsState) => {
     setInvoiceOptions({
       ...invoiceOptions,
       [id]: !invoiceOptions[id],
     });
   };
+
+  const [ whoSignedServiceAgreement, setWhoSignedServiceAgreement ] = useState("");
+
+  const [serviceAgreementForm, setServiceAgreementForm] = useState({
+    organisation: "",
+    fullName: "",
+    phone: "",
+    email: "",
+    address: ""
+  });
+
+  const [files, setFiles] = useState<File[]>([]);
+  const maxFileSize = 10 * 1024 * 1024;
+
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFiles = e.target.files;
+    if (!selectedFiles) return;
+    
+    const newFiles: File[] = [];
+    let hasError = false;
+    
+    for (let i = 0; i < selectedFiles.length; i++) {
+      const file = selectedFiles[i];
+      if (file.size > maxFileSize) {
+        toast({
+          title: "File Too Large",
+          description: `${file.name} exceeds the 10MB limit`,
+          duration: 3000,
+          className: "bg-red-500 text-white border-none",
+        });
+        hasError = true;
+        continue;
+      }
+      newFiles.push(file);
+    }
+    
+    if (!hasError) {
+      setFiles(prev => [...prev, ...newFiles]);
+    }
+  };
+
+  const handleServiceAgreementChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { id, value } = e.target;
+    setServiceAgreementForm({
+      ...serviceAgreementForm,
+      [id.replace("service-agreement-", "")]: value,
+    });
+  };
+
 
   const handleParticipantChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -368,17 +425,41 @@ const ReferralFormSection = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
-    const formData = {
-      participant: participantForm,
-      referrer: referrerForm,
-      invoiceOptions: invoiceOptions,
-      invoiceDetails: invoiceDetails,
-      furtherInfo: furtherInfo,
-      timestamp: new Date().toISOString(),
+  
+    const fileToBase64 = (file : File) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
+      });
     };
-
+  
     try {
+      const filePromises = files.map(async (file) => {
+        const base64 = await fileToBase64(file);
+        return {
+          name: file.name,
+          type: file.type,
+          size: file.size,
+          content: base64
+        };
+      });
+  
+      const fileData = await Promise.all(filePromises);
+  
+      const formData = {
+        participant: participantForm,
+        referrer: referrerForm,
+        invoiceOptions: invoiceOptions,
+        invoiceDetails: invoiceDetails,
+        serviceAgreementForm: serviceAgreementForm,
+        whoSignedServiceAgreement: whoSignedServiceAgreement,
+        furtherInfo: furtherInfo,
+        files: fileData,
+        timestamp: new Date().toISOString(),
+      };
+  
       const response = await fetch("/api/refferal-submit", {
         method: "POST",
         headers: {
@@ -386,9 +467,9 @@ const ReferralFormSection = () => {
         },
         body: JSON.stringify(formData),
       });
-
+  
       const data = await response.json();
-
+  
       if (data.success) {
         toast({
           title: "Referral Submitted",
@@ -416,7 +497,7 @@ const ReferralFormSection = () => {
         duration: 5000,
         className: "bg-red-500 text-white border-none",
       });
-    }finally{
+    } finally {
       setLoading(false);
     }
   };
@@ -534,11 +615,50 @@ const ReferralFormSection = () => {
               </span>
             </h3>
 
-            <div>
-              <Label htmlFor="firstName" className="block text-sm mb-1">
-                Participant Name *
-              </Label>
-              <div className="grid grid-cols-2 gap-3">
+            <div className="flex flex-col sm:flex-row gap-3 w-full">
+              <div className="w-full">
+                <Label className="block text-sm mb-1">
+                  Pronunce{" "}
+                  <span className="text-red-600">
+                    <span className="text-red-600">*</span>
+                  </span>
+                </Label>
+                <Select onValueChange={handleParticipantGenderChange} required>
+                  <SelectTrigger className="rounded-xl">
+                    <SelectValue placeholder="Please select" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="she/her">She/Her</SelectItem>
+                    <SelectItem value="he/him">He/Him</SelectItem>
+                    <SelectItem value="they/them">They/Them</SelectItem>
+                    <SelectItem value="ze/zir">Ze/Zir</SelectItem>
+                    <SelectItem value="xe/xem">Xe/Xem</SelectItem>
+                    <SelectItem value="sie/hir">Sie/Hir</SelectItem>
+                    <SelectItem value="prefer-not-to-say">
+                      Prefer not to say
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="w-full">
+                <Label htmlFor="preferedName" className="block text-sm mb-1">
+                  Preferred Name <span className="text-red-600">*</span>
+                </Label>
+                <Input
+                  id="preferedName"
+                  placeholder="Preferred Name"
+                  required
+                  onChange={handleParticipantChange}
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3 w-full">
+              <div className="w-full">
+                <Label htmlFor="firstName" className="block text-sm mb-1">
+                  First Name <span className="text-red-600">*</span>
+                </Label>
                 <Input
                   id="firstName"
                   placeholder="First Name"
@@ -546,6 +666,11 @@ const ReferralFormSection = () => {
                   value={participantForm.firstName}
                   onChange={handleParticipantChange}
                 />
+              </div>
+              <div className="w-full">
+                <Label className="block text-sm mb-1" htmlFor="lastName">
+                  Last Name <span className="text-red-600">*</span>
+                </Label>
                 <Input
                   id="lastName"
                   placeholder="Last Name"
@@ -556,9 +681,11 @@ const ReferralFormSection = () => {
               </div>
             </div>
 
-            <div className="flex flex-col md:flex-row gap-3 w-full">
+            <div className="flex flex-col sm:flex-row gap-3 w-full">
               <div className="w-full">
-                <Label className="block text-sm mb-1">Gender *</Label>
+                <Label className="block text-sm mb-1">
+                  Gender <span className="text-red-600">*</span>
+                </Label>
                 <Select
                   value={participantForm.gender}
                   onValueChange={handleParticipantGenderChange}
@@ -590,7 +717,7 @@ const ReferralFormSection = () => {
 
               <div className="w-full">
                 <Label htmlFor="email" className="block text-sm mb-1">
-                  Participant Email *
+                  Participant Email <span className="text-red-600">*</span>
                 </Label>
                 <Input
                   id="email"
@@ -603,10 +730,11 @@ const ReferralFormSection = () => {
               </div>
             </div>
 
-            <div className="flex flex-col md:flex-row gap-3 w-full">
+            <div className="flex flex-col sm:flex-row gap-3 w-full">
               <div className="w-full">
                 <Label htmlFor="phone" className="block text-sm mb-1">
-                  Participant Phone Number *
+                  Participant Phone Number{" "}
+                  <span className="text-red-600">*</span>
                 </Label>
                 <Input
                   id="phone"
@@ -620,7 +748,8 @@ const ReferralFormSection = () => {
 
               <div className="w-full">
                 <Label htmlFor="dateOfBirth" className="block text-sm mb-1">
-                  Participant Date of Birth *
+                  Participant Date of Birth{" "}
+                  <span className="text-red-600">*</span>
                 </Label>
                 <Input
                   id="dateOfBirth"
@@ -634,7 +763,7 @@ const ReferralFormSection = () => {
 
             <div>
               <Label htmlFor="address" className="block text-sm mb-1">
-                Participant Address *
+                Participant Address <span className="text-red-600">*</span>
               </Label>
               <Input
                 id="address"
@@ -646,77 +775,8 @@ const ReferralFormSection = () => {
             </div>
 
             <div>
-              <Label htmlFor="disability" className="block text-sm mb-1">
-                Disability/Diagnosis
-              </Label>
-              <Textarea
-                id="disability"
-                className="h-24 rounded-xl"
-                value={participantForm.disability}
-                onChange={handleParticipantChange}
-              />
-            </div>
-
-            <div>
-              <Label className="block text-sm mb-1">
-                Reason for Referral *
-              </Label>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <Checkbox
-                    id="ndisCoordination"
-                    checked={participantForm.referralReasons.ndisCoordination}
-                    onCheckedChange={() =>
-                      handleReferralReasonCheckbox("ndisCoordination")
-                    }
-                  />
-                  <Label
-                    htmlFor="ndisCoordination"
-                    className="text-sm font-normal"
-                  >
-                    NDIS Coordination Services
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Checkbox
-                    id="socialWork"
-                    checked={participantForm.referralReasons.socialWork}
-                    onCheckedChange={() =>
-                      handleReferralReasonCheckbox("socialWork")
-                    }
-                  />
-                  <Label htmlFor="socialWork" className="text-sm font-normal">
-                    Social Work Services
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Checkbox
-                    id="both"
-                    checked={participantForm.referralReasons.both}
-                    onCheckedChange={() => handleReferralReasonCheckbox("both")}
-                  />
-                  <Label htmlFor="both" className="text-sm font-normal">
-                    Both
-                  </Label>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <Label htmlFor="additionalDetails" className="block text-sm mb-1">
-                Additional Details for Referral
-              </Label>
-              <Textarea
-                id="additionalDetails"
-                className="h-24 rounded-xl"
-                value={participantForm.additionalDetails}
-                onChange={handleParticipantChange}
-              />
-            </div>
-
-            <div>
               <Label htmlFor="ndisNumber" className="block text-sm mb-1">
-                NDIS Number *
+                NDIS Number <span className="text-red-600">*</span>
               </Label>
               <Input
                 id="ndisNumber"
@@ -730,7 +790,7 @@ const ReferralFormSection = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="planStartDate" className="block text-sm mb-1">
-                  NDIS Plan Start Date *
+                  NDIS Plan Start Date <span className="text-red-600">*</span>
                 </Label>
                 <Input
                   id="planStartDate"
@@ -742,7 +802,7 @@ const ReferralFormSection = () => {
               </div>
               <div>
                 <Label htmlFor="planEndDate" className="block text-sm mb-1">
-                  NDIS Plan End Date *
+                  NDIS Plan End Date <span className="text-red-600">*</span>
                 </Label>
                 <Input
                   id="planEndDate"
@@ -755,7 +815,7 @@ const ReferralFormSection = () => {
             </div>
             <div>
               <Label className="block text-sm mb-1">Origin</Label>
-              <div className="flex flex-col md:flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <div>
                   <Checkbox
                     id="firstNationPeople"
@@ -804,10 +864,10 @@ const ReferralFormSection = () => {
 
             <div>
               <Label className="block text-sm mb-1">
-                Interpreter required *
+                Interpreter required <span className="text-red-600">*</span>
               </Label>
               <RadioGroup
-                className="flex flex-col md:flex-row gap-2"
+                className="flex flex-col sm:flex-row gap-2"
                 value={participantForm.interpreterRequired}
                 onValueChange={(value) =>
                   handleRadioChange("interpreterRequired", value)
@@ -835,10 +895,11 @@ const ReferralFormSection = () => {
             </div>
             <div>
               <Label className="block text-sm mb-1">
-                Communication preferences or requirements *
+                Communication preferences or requirements{" "}
+                <span className="text-red-600">*</span>
               </Label>
               <RadioGroup
-                className="flex flex-col md:flex-row gap-2"
+                className="flex flex-col sm:flex-row gap-2"
                 value={participantForm.communicationPreferences}
                 onValueChange={(value) =>
                   handleRadioChange("communicationPreferences", value)
@@ -860,10 +921,10 @@ const ReferralFormSection = () => {
             </div>
             <div>
               <Label className="block text-sm mb-1">
-                Access requirements *
+                Access requirements <span className="text-red-600">*</span>
               </Label>
               <RadioGroup
-                className="flex flex-col md:flex-row gap-2"
+                className="flex flex-col sm:flex-row gap-2"
                 value={participantForm.accessRequirements}
                 onValueChange={(value) =>
                   handleRadioChange("accessRequirements", value)
@@ -883,76 +944,6 @@ const ReferralFormSection = () => {
                 </div>
               </RadioGroup>
             </div>
-
-            <div>
-              <Label className="block text-sm mb-1">
-                How is your NDIS funding managed? *
-              </Label>
-              <RadioGroup
-                value={participantForm.fundingManagement}
-                onValueChange={(value) =>
-                  handleRadioChange("fundingManagement", value)
-                }
-                className="flex flex-col md:flex-row gap-2"
-              >
-                <div className="flex items-center gap-2">
-                  <RadioGroupItem id="plan-managed" value="plan-managed" />
-                  <Label htmlFor="plan-managed" className="text-sm font-normal">
-                    Plan managed
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <RadioGroupItem id="self-managed" value="self-managed" />
-                  <Label htmlFor="self-managed" className="text-sm font-normal">
-                    Self managed
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <RadioGroupItem id="ndia-managed" value="ndia-managed" />
-                  <Label htmlFor="ndia-managed" className="text-sm font-normal">
-                    NDIA managed
-                  </Label>
-                </div>
-              </RadioGroup>
-            </div>
-
-            <div>
-              <Label className="block text-sm mb-1">
-                Do you want to attach any documents? (NDIS plan, support plan,
-                behavioral plan etc.)
-              </Label>
-              <RadioGroup
-                value={participantForm.attachDocuments}
-                onValueChange={(value) =>
-                  handleRadioChange("attachDocuments", value)
-                }
-              >
-                <div className="flex items-center gap-2">
-                  <RadioGroupItem id="yes-docs" value="yes" />
-                  <Label htmlFor="yes-docs" className="text-sm font-normal">
-                    Yes
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <RadioGroupItem id="no-docs" value="no" />
-                  <Label htmlFor="no-docs" className="text-sm font-normal">
-                    No
-                  </Label>
-                </div>
-              </RadioGroup>
-            </div>
-
-            <div>
-              <Label htmlFor="guardian" className="block text-sm mb-1">
-                Guardian or Plan Nominee (if applicable)
-              </Label>
-              <Input
-                id="guardian"
-                placeholder="Name / Email / Phone number"
-                value={participantForm.guardian}
-                onChange={handleParticipantChange}
-              />
-            </div>
           </div>
 
           {/* Person Making the Referral Section */}
@@ -963,11 +954,54 @@ const ReferralFormSection = () => {
               </span>
             </h3>
 
-            <div>
-              <Label htmlFor="referrerFirstName" className="block text-sm mb-1">
-                Referrer Name *
-              </Label>
-              <div className="grid grid-cols-2 gap-3">
+            <div className="flex flex-col sm:flex-row gap-3 w-full">
+              <div className="w-full">
+                <Label className="block text-sm mb-1">
+                  Referrer type <span className="text-red-600">*</span>
+                </Label>
+                <Select required>
+                  <SelectTrigger className="rounded-xl">
+                    <SelectValue placeholder="Please select" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="case-manager">Case Manager</SelectItem>
+                    <SelectItem value="early-childhood-partner">
+                      Early Childhood Partner
+                    </SelectItem>
+                    <SelectItem value="family-member">Family Member</SelectItem>
+                    <SelectItem value="participant">Participant</SelectItem>
+                    <SelectItem value="parent-of-participant">
+                      Parent of Participant
+                    </SelectItem>
+                    <SelectItem value="support-coordinator">
+                      Support Coordinator
+                    </SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="w-full">
+                <Label
+                  htmlFor="referrerOrganisation"
+                  className="block text-sm mb-1"
+                >
+                  Referrer Organisation <span className="text-red-600">*</span>
+                </Label>
+                <Input
+                  id="referrerOrganisation"
+                  placeholder="Organisation Name"
+                  required
+                />
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 w-full">
+              <div className="w-full">
+                <Label
+                  htmlFor="referrerFirstName"
+                  className="block text-sm mb-1"
+                >
+                  Referrer First Name <span className="text-red-600">*</span>
+                </Label>
                 <Input
                   id="referrerFirstName"
                   placeholder="First Name"
@@ -975,6 +1009,14 @@ const ReferralFormSection = () => {
                   value={referrerForm.firstName}
                   onChange={handleReferrerChange}
                 />
+              </div>
+              <div className="w-full">
+                <Label
+                  htmlFor="referrerLastName"
+                  className="block text-sm mb-1"
+                >
+                  Referrer Last Name <span className="text-red-600">*</span>
+                </Label>
                 <Input
                   id="referrerLastName"
                   placeholder="Last Name"
@@ -985,10 +1027,10 @@ const ReferralFormSection = () => {
               </div>
             </div>
 
-            <div className="flex flex-col md:flex-row gap-3 w-full">
+            <div className="flex flex-col sm:flex-row gap-3 w-full">
               <div className="w-full">
                 <Label htmlFor="referrerEmail" className="block text-sm mb-1">
-                  Referrer Email *
+                  Referrer Email <span className="text-red-600">*</span>
                 </Label>
                 <Input
                   id="referrerEmail"
@@ -1002,7 +1044,7 @@ const ReferralFormSection = () => {
 
               <div className="w-full">
                 <Label htmlFor="referrerPhone" className="block text-sm mb-1">
-                  Referrer Phone Number *
+                  Referrer Phone Number <span className="text-red-600">*</span>
                 </Label>
                 <Input
                   id="referrerPhone"
@@ -1015,33 +1057,10 @@ const ReferralFormSection = () => {
               </div>
             </div>
 
-            <div className="w-full flex flex-col gap-3 md:flex-row">
-              <div className="w-full">
-                <Label htmlFor="relationship" className="block text-sm mb-1">
-                  Relationship with Participant
-                </Label>
-                <Select
-                  value={referrerForm.relationship}
-                  onValueChange={handleRelationshipChange}
-                >
-                  <SelectTrigger className="rounded-xl">
-                    <SelectValue placeholder="Please Select" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="family">Family Member</SelectItem>
-                    <SelectItem value="guardian">Guardian</SelectItem>
-                    <SelectItem value="friend">Friend</SelectItem>
-                    <SelectItem value="healthcare">
-                      Healthcare Professional
-                    </SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
+            <div className="w-full flex flex-col gap-3 sm:flex-row">
               <div className="w-full">
                 <Label htmlFor="referrerAddress" className="block text-sm mb-1">
-                  Address
+                  Address <span className="text-red-600">*</span>
                 </Label>
                 <Input
                   id="referrerAddress"
@@ -1056,19 +1075,74 @@ const ReferralFormSection = () => {
             <div>
               <h3 className="font-medium text-lg font-poppins my-4 mt-7">
                 <span className="bg-customAccent text-white rounded-xl px-4 py-2">
-                  Additional Information
+                  Diagnosis and Background
                 </span>
               </h3>
-              <Label htmlFor="additionalInfo" className="block text-sm mb-1">
-                Any Additional Information (i.e., Security/safety concerns,
-                attendees for assessment)
+              <Label
+                htmlFor="diagnosisBackground"
+                className="block text-sm mb-1"
+              >
+                Please detail all diagnoses, disabilities, and/or health
+                conditions
               </Label>
-              <Textarea
-                id="additionalInfo"
-                className="h-24 rounded-xl"
-                value={referrerForm.additionalInfo}
-                onChange={handleReferrerChange}
-              />
+              <Textarea id="diagnosisBackground" className="h-24 rounded-xl" />
+            </div>
+            <div>
+              <h3 className="font-medium text-lg font-poppins my-4 mt-7">
+                <span className="bg-customAccent text-white rounded-xl px-4 py-2">
+                  Documentation
+                </span>
+              </h3>
+              <Label htmlFor="documentation" className="block text-sm mb-1">
+                Please provide a copy of the most recent NDIS plan and any
+                previous allied health and medical reports, if available.
+              </Label>
+
+              <div className="w-full rounded-xl border border-dashed border-gray-700 h-36 flex flex-col items-center justify-center">
+                <label
+                  htmlFor="file-upload"
+                  className="relative cursor-pointer rounded-xl font-semibold text-white hover:bg-complementary bg-customAccent px-4 py-2 transition duration-200 ease-in-out "
+                >
+                  <span> <Upload className="w-4 h-4 inline-block mr-2" /> Upload a file</span>
+                  <Input
+                    id="file-upload"
+                    name="file-upload"
+                    type="file"
+                    className="sr-only"
+                    onChange={handleFileUpload}
+                    multiple
+                  />
+                </label>
+
+                {files.length > 0 && (
+                  <div className="mt-3">
+                    <ul className="list-disc pl-5 text-sm text-gray-600">
+                      {files.map((file, index) => (
+                        <li
+                          key={index}
+                          className="flex justify-between items-center"
+                        >
+                          <span>{file.name}</span>
+                          <Button
+                            type="button"
+                            className="bg-transparent text-red-600 hover:bg-transparent"
+                            onClick={() =>
+                              setFiles(files.filter((_, i) => i !== index))
+                            }
+                          >
+                            <Trash2 className="w-4 h-4"/>
+                          </Button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+
+              <p className="text-xs text-gray-500 font-inter mt-2">
+                Please Note: If you encounter upload issues, please remove the
+                affected file/files and retry uploading.
+              </p>
             </div>
 
             <div>
@@ -1249,6 +1323,160 @@ const ReferralFormSection = () => {
             <div>
               <h3 className="font-medium text-lg font-poppins my-4 mt-7">
                 <span className="bg-customAccent text-white rounded-xl px-4 py-2">
+                  Service Agreement
+                </span>
+              </h3>
+              <div>
+                <p>
+                  Who will sign the service agreement?{" "}
+                  <span className="text-red-600">*</span>
+                </p>
+                <RadioGroup
+                  className="flex flex-col sm:flex-row gap-2 mt-2"
+                  onValueChange={(value) => {
+                    value === "someone-else"
+                      ? setIsServicesAgreementSomeone(true)
+                      : setIsServicesAgreementSomeone(false);
+                    setWhoSignedServiceAgreement(value);
+                  }}
+                >
+                  <div className="flex items-center gap-2">
+                    <RadioGroupItem
+                      id="participant"
+                      value="participant-myself"
+                    />
+                    <Label
+                      htmlFor="participant-myself"
+                      className="text-sm font-normal"
+                    >
+                      Participant/myself
+                    </Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <RadioGroupItem id="referrer" value="referrer" />
+                    <Label htmlFor="referrer" className="text-sm font-normal">
+                      Referrer
+                    </Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <RadioGroupItem id="advocate" value="advocate" />
+                    <Label htmlFor="advocate" className="text-sm font-normal">
+                      Advocate
+                    </Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <RadioGroupItem id="Guardian" value="Guardian" />
+                    <Label htmlFor="Guardian" className="text-sm font-normal">
+                      Guardian
+                    </Label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <RadioGroupItem id="someone-else" value="someone-else" />
+                    <Label
+                      htmlFor="someone-else"
+                      className="text-sm font-normal"
+                    >
+                      Someone else
+                    </Label>
+                  </div>
+                </RadioGroup>
+              </div>
+              {isServicesAgreementSomeone && (
+                <>
+                  <div className="w-full flex flex-col mt-6">
+                    <div className="flex flex-col gap-3 sm:flex-row">
+                      <div className="flex flex-col gap-2 w-full">
+                        <Label
+                          htmlFor="service-agreement-organisation"
+                          className="block text-sm mb-1"
+                        >
+                          Organisation
+                        </Label>
+                        <Input
+                          id="service-agreement-organisation"
+                          placeholder="Organisation"
+                          required
+                          className="rounded-xl"
+                          value={serviceAgreementForm.organisation}
+                          onChange={handleServiceAgreementChange}
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2 w-full">
+                        <Label
+                          htmlFor="service-agreement-full-name"
+                          className="block text-sm mb-1"
+                        >
+                          Full name
+                        </Label>
+                        <Input
+                          id="service-agreement-full-name"
+                          placeholder="Full name"
+                          required
+                          className="rounded-xl"
+                          value={serviceAgreementForm.fullName}
+                          onChange={handleServiceAgreementChange}
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-3 sm:flex-row mt-3">
+                      <div className="flex flex-col gap-2 w-full">
+                        <Label
+                          htmlFor="service-agreement-phone"
+                          className="block text-sm mb-1"
+                        >
+                          Phone
+                        </Label>
+                        <Input
+                          id="service-agreement-phone"
+                          placeholder="Phone"
+                          required
+                          className="rounded-xl"
+                          value={serviceAgreementForm.phone}
+                          onChange={handleServiceAgreementChange}
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2 w-full">
+                        <Label
+                          htmlFor="service-agreement-email"
+                          className="block text-sm mb-1"
+                        >
+                          Email
+                        </Label>
+                        <Input
+                          id="service-agreement-email"
+                          placeholder="Email"
+                          type="email"
+                          required
+                          className="rounded-xl"
+                          value={serviceAgreementForm.email}
+                          onChange={handleServiceAgreementChange}
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-2 mt-3 w-full">
+                      <Label
+                        htmlFor="service-agreement-address"
+                        className="block text-sm mb-1"
+                      >
+                        Address
+                      </Label>
+                      <Input
+                        id="service-agreement-address"
+                        placeholder="Address"
+                        required
+                        className="rounded-xl"
+                        value={serviceAgreementForm.address}
+                        onChange={handleServiceAgreementChange}
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+
+            <div>
+              <h3 className="font-medium text-lg font-poppins my-4 mt-7">
+                <span className="bg-customAccent text-white rounded-xl px-4 py-2">
                   Payment Method
                 </span>
               </h3>
@@ -1316,17 +1544,26 @@ const ReferralFormSection = () => {
                         <SelectValue placeholder="Please Select" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="support-coordination">
-                          Support Coordination
+                        <SelectItem value="positive-behavior-support">
+                          POSITIVE BEHAVIOR SUPPORT
                         </SelectItem>
-                        <SelectItem value="social-work">Social Work</SelectItem>
-                        <SelectItem value="behavior-support">
-                          Behavior Support
+                        <SelectItem value="psychology">PSYCHOLOGY</SelectItem>
+                        <SelectItem value="occupational-therapy">
+                          OCCUPATIONAL THERAPY
                         </SelectItem>
-                        <SelectItem value="therapy-services">
-                          Therapy Services
+                        <SelectItem value="physiotherapy">
+                          PHYSIOTHERAPY
                         </SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
+                        <SelectItem value="speech-pathology">
+                          SPEECH PATHOLOGY
+                        </SelectItem>
+                        <SelectItem value="exercise-physiology">
+                          EXERCISE PHYSIOLOGY
+                        </SelectItem>
+                        <SelectItem value="diabetes">DIABETES</SelectItem>
+                        <SelectItem value="key-worker-early-child-supports">
+                          KEY WORKER EARLY CHILDHOOD SUPPORTS
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -1334,7 +1571,7 @@ const ReferralFormSection = () => {
               )}
               {invoiceField.area && (
                 <div className="flex flex-col gap-2">
-                  <div className="flex gap-4 mt-4 flex-col md:flex-row">
+                  <div className="flex gap-4 mt-4 flex-col sm:flex-row">
                     <div className="w-full flex flex-col gap-2">
                       <Label htmlFor="invoiceFieldOrganisation">
                         Organisation
@@ -1357,7 +1594,7 @@ const ReferralFormSection = () => {
                     </div>
                   </div>
 
-                  <div className="flex flex-col md:flex-row gap-4 mt-2">
+                  <div className="flex flex-col sm:flex-row gap-4 mt-2">
                     <div className="w-full flex flex-col gap-2">
                       <Label htmlFor="invoiceFieldOrganisationEmail">
                         Organisation Email
@@ -1399,6 +1636,38 @@ const ReferralFormSection = () => {
               value={furtherInfo}
               onChange={(e) => setFurtherInfo(e.target.value)}
             />
+          </div>
+          <div>
+            <Label htmlFor="how-hear" className="block text-sm mb-1">
+              How did you hear about Ably Care?
+            </Label>
+            <Select>
+              <SelectTrigger id="how-hear" className="rounded-xl">
+                <SelectValue placeholder="Please Select" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="have-used-ably-care">
+                  Have used Ably Care before
+                </SelectItem>
+                <SelectItem value="support-coordinator">
+                  Support Coordinator
+                </SelectItem>
+                <SelectItem value="ably-care-staff-member">
+                  Ably Care Staff Member
+                </SelectItem>
+                <SelectItem value="friends-family">Friends/Family</SelectItem>
+                <SelectItem value="online-search">Online Search</SelectItem>
+                <SelectItem value="ably-care-website">
+                  Ably Care Website
+                </SelectItem>
+                <SelectItem value="social-media">Social Media</SelectItem>
+                <SelectItem value="expo-or-other-event">
+                  Expo or other event
+                </SelectItem>
+                <SelectItem value="newsletter">Newsletter</SelectItem>
+                <SelectItem value="other">Other</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="flex flex-col gap-3 mb-12">
@@ -1445,7 +1714,7 @@ const ReferralFormSection = () => {
               className="bg-customAccent hover:bg-complementary text-white font-poppins"
               disabled={!isAgreed}
             >
-              { loading ? "Submitting..." : "Submit"}
+              {loading ? "Submitting..." : "Submit"}
             </Button>
           </div>
         </form>

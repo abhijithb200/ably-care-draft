@@ -78,12 +78,30 @@ interface InvoiceDetailsState {
   servicesManagedNdia: string;
 }
 
+interface ServiceAgreementFormState {
+  organisation: string;
+  fullName: string;
+  phone: string;
+  email: string;
+  address: string;
+}
+
+interface FileData {
+  name: string;
+  type: string;
+  size: number;
+  content: string;
+}
+
 interface FormData {
   participant: ParticipantFormState;
   referrer: ReferrerFormState;
   invoiceOptions: InvoiceOptionsState;
   invoiceDetails: InvoiceDetailsState;
+  serviceAgreementForm: ServiceAgreementFormState;
+  whoSignedServiceAgreement: string;
   furtherInfo: string;
+  files: FileData[];
   timestamp: string;
 }
 
@@ -150,7 +168,21 @@ export async function POST(request: Request) {
       }
     });
 
-    const { participant, referrer, invoiceOptions, invoiceDetails, furtherInfo, timestamp } = formData;
+    const { participant, referrer, invoiceOptions, invoiceDetails, serviceAgreementForm, whoSignedServiceAgreement, furtherInfo, files, timestamp } = formData;
+    
+    const attachments = files && files.length > 0 ? files.map(file => {
+      const base64Data = file.content.split(';base64,').pop() || '';
+      
+      return {
+        filename: file.name,
+        content: Buffer.from(base64Data, 'base64'),
+        contentType: file.type
+      };
+    }) : [];
+
+    const fileList = files && files.length > 0 
+      ? files.map(file => `<li>${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)</li>`).join('')
+      : '<li>No files attached</li>';
     
     const emailContent = `
       <h2>New Referral Form Submission</h2>
@@ -211,15 +243,31 @@ export async function POST(request: Request) {
         <li><strong>Services NDIA Managed:</strong> ${invoiceDetails.servicesManagedNdia || 'Not provided'}</li>
       </ul>
       
+      <h3>Service Agreement Details</h3>
+      <ul>
+        <li><strong>Who Signed Service Agreement:</strong> ${whoSignedServiceAgreement || 'Not provided'}</li>
+        <li><strong>Organisation:</strong> ${serviceAgreementForm.organisation || 'Not provided'}</li>
+        <li><strong>Full Name:</strong> ${serviceAgreementForm.fullName || 'Not provided'}</li>
+        <li><strong>Phone:</strong> ${serviceAgreementForm.phone || 'Not provided'}</li>
+        <li><strong>Email:</strong> ${serviceAgreementForm.email || 'Not provided'}</li>
+        <li><strong>Address:</strong> ${serviceAgreementForm.address || 'Not provided'}</li>
+      </ul>
+      
       <h3>Further Information</h3>
       <p>${furtherInfo || 'No additional information provided'}</p>
+      
+      <h3>Attached Files</h3>
+      <ul>
+        ${fileList}
+      </ul>
     `;
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_RECEIVER,
       subject: `New Referral: ${participant.firstName} ${participant.lastName}`,
-      html: emailContent
+      html: emailContent,
+      attachments: attachments
     };
 
     await transporter.sendMail(mailOptions);
