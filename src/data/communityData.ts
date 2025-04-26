@@ -9,7 +9,7 @@ export const communityData = [
         ]
     },
     {
-        image : "/icons/psycho_social_recovery.webp",
+        image : "/icons/mentel-health-new.png",
         title : "Mental Health & Well-being",
         points : [
             "Overcoming isolation & loneliness through compassionate support",
@@ -18,7 +18,7 @@ export const communityData = [
         ]
     },
     {
-        image : "/icons/shoping-icon.png",
+        image : "/icons/shopping-new-icon.png",
         title : "Shopping & Meal Preparation",
         points : [
             "Assistance with cooking & meal planning for healthy eating",
@@ -42,7 +42,7 @@ export const communityData = [
         ]
     },
     {
-        image : "/icons/travel-icon.png",
+        image : "/icons/travel-new.png",
         title : "Transport & Travel Assistance",
         points : [
             "Safe, reliable transportation for medical appointments & social outings",
@@ -50,7 +50,7 @@ export const communityData = [
         ]
     },
     {
-        image : "/icons/health-icon.png",
+        image : "/icons/training-new.png",
         title : "Fitness & Health",
         points : [
             "Personalized fitness plans for strength & well-being",

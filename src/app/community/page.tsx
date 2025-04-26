@@ -17,7 +17,7 @@ const Community = () => {
         <CommunityHero />
       </main>
       <div className="mx-auto p-2 w-full lg:max-w-7xl">
-        <section className="py-6 md:py-16 container mx-auto px-4 max-w-6xl">
+        <section className="py-6 md:py-16 container mx-auto px-4 max-w-6xl" id="learn-more">
           <div className="mb-7 flex flex-col items-start justify-center lg:items-center">
             <ChalkTitle
               title="About Our Home & Community Care"
