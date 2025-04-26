@@ -12,11 +12,12 @@ import {
   CardContent,
   CardDescription,
 } from "@/components/ui/card";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import ChalkTitle from "../ChalkTItle";
+
 
 
 const Testimonials = () => {
@@ -34,69 +35,82 @@ const Testimonials = () => {
   return (
     <>
       <div className="flex justify-start md:justify-center">
-        <ChalkTitle title="Testimonials" className="mt-10" underlineColor="#f8ab39"/>
+        <ChalkTitle
+          title="Testimonials"
+          className="mt-10"
+          underlineColor="#f8ab39"
+        />
       </div>
-      <div className="mt-10 relative" id="refer">
-        <Swiper
-          className="min-w-[250px] max-w-[500px]"
-          modules={[Navigation,Autoplay]}
-          spaceBetween={24}
-          slidesPerView={1}
-          allowTouchMove={true}
-          navigation={{
-            prevEl: prevRef.current,
-            nextEl: nextRef.current,
-          }}
-          autoplay={{
-            delay: 2000,
-            disableOnInteraction: false,
-          }}
-        loop={true}
-          onSwiper={(swiper) => {
-            swiperRef.current = swiper;
-            if (prevRef.current && nextRef.current) {
-              const navigation = swiper.params.navigation;
-              if (navigation && typeof navigation === "object") {
-                navigation.prevEl = prevRef.current;
-                navigation.nextEl = nextRef.current;
-              }
-              swiper.navigation.init();
-              swiper.navigation.update();
-            }
-          }}
-        >
-          {testimonialsData.map((item, index) => (
-            <SwiperSlide key={item.id}>
-              <Card className="rounded-xl overflow-hidden bg-gray-50 min-h-[200px]">
-                <CardHeader className="pl-0">
-                  <div className="relative bg-customAccent rounded-xl rounded-l-none p-4 flex flex-col items-start justify-center">
-                    <h2 className="text-2xl font-bold text-white font-poppins">{item.name}</h2>
-                    <p className="text-sm text-white/70 text-inter font-medium">{item.position}</p>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="font-inter text-base">
-                    {item.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+      <div className="flex flex-col md:flex-row gap-3 w-full mt-10">
+        <div className="w-full flex flex-col justify-center items-start md:items-center gap-4">
+          <div className="flex flex-col gap-2 items-center justify-center">
+            <h1 className="font-extrabold text-gray-800 font-poppins text-4xl">From our Clients</h1>
+            <p className="text-gray-500 text-base font-medium text-inter md:w-1/2">
+              Hear straight from our clients about their experience with our
+              services.
+            </p>
+            <div className="flex md:justify-center gap-4">
+              <button
+                ref={prevRef}
+                className="flex items-center justify-center w-12 h-12 rounded-full bg-transparent text-customAccent hover:bg-complementary/10 transition-all duration-300 ease-in-out focus-visible:outline-none focus:outline-none"
+              >
+                <ChevronLeft className="w-7 h-7" />
+              </button>
+              <button
+                ref={nextRef}
+                className="flex items-center justify-center w-12 h-12 rounded-full bg-transparent text-customAccent hover:bg-complementary/10 transition-all duration-300 ease-in-out focus-visible:outline-none focus:outline-none"
+              >
+                <ChevronRight className="w-7 h-7" />
+              </button>
+            </div>
+          </div>
+        </div>
 
-        <div className="flex justify-center mt-6 gap-4">
-          <button
-            ref={prevRef}
-            className="flex items-center justify-center w-12 h-12 rounded-full bg-customAccent text-white shadow-md hover:bg-complementary transition-all duration-300 ease-in-out focus:outline-none"
+        <div className="relative" id="refer">
+          <Swiper
+            className="min-w-[250px] max-w-[700px]"
+            modules={[Navigation, Autoplay]}
+            spaceBetween={24}
+            slidesPerView={1}
+            allowTouchMove={true}
+            navigation={{
+              prevEl: prevRef.current,
+              nextEl: nextRef.current,
+            }}
+            autoplay={{
+              delay: 2000,
+              disableOnInteraction: false,
+            }}
+            loop={true}
+            onSwiper={(swiper) => {
+              swiperRef.current = swiper;
+              if (prevRef.current && nextRef.current) {
+                const navigation = swiper.params.navigation;
+                if (navigation && typeof navigation === "object") {
+                  navigation.prevEl = prevRef.current;
+                  navigation.nextEl = nextRef.current;
+                }
+                swiper.navigation.init();
+                swiper.navigation.update();
+              }
+            }}
           >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-          <button
-            ref={nextRef}
-            className="flex items-center justify-center w-12 h-12 rounded-full bg-customAccent text-white shadow-md hover:bg-complementary transition-all duration-300 ease-in-out focus:outline-none"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
+            {testimonialsData.map((item) => (
+              <SwiperSlide key={item.id}>
+                <div className={`min-h-[200px] relative flex flex-col gap-5 items-start justify-center p-4 md:p-16 md:rounded-2xl rounded-xl h-full ${ item.id % 2 === 0 ? "bg-customAccent/10" : "bg-complementary/10"}`}>
+                  <Quote className="absolute top-0 right-0 w-[120px] h-[120px] text-black/5"/>
+                  <div className="relative flex flex-col items-start justify-center">
+                    <h2 className="text-2xl md:text-4xl font-bold text-gray-800 font-poppins">
+                      {item.name}
+                    </h2>
+                  </div>
+                  <div className="relative">
+                    <p className="font-inter text-sm md:text-lg text-gray-600">{item.description}</p>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
     </>
