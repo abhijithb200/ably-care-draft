@@ -1,31 +1,31 @@
 export const psychoSocialTilesData = [
   {
-    image: "/icons/coordination-icon.png",
+    image: "/icons/ndis-navigation.png",
     title: "NDIS Navigation",
     subTitle: "Helping participants understand and engage with their NDIS plan",
   },
   {
-    image: "/icons/coordination-icon.png",
+    image: "/icons/informal-support.png",
     title: "Informal Supports",
     subTitle: "Building and strengthening informal support networks",
   },
   {
-    image: "/icons/coordination-icon.png",
+    image: "/icons/capacity-building.png",
     title: "Capacity Building",
     subTitle: "Enhancing decision-making, self-advocacy, and independence",
   },
   {
-    image: "/icons/coordination-icon.png",
+    image: "/icons/collabaration-new.png",
     title: "Collaboration",
     subTitle: "Working closely with Support Coordinators and other providers",
   },
   {
-    image: "/icons/coordination-icon.png",
+    image: "/icons/doc-reports.png",
     title: "Documentation & Reports",
     subTitle: "Submitting reports for plan reviews and demonstrating impact",
   },
   {
-    image: "/icons/coordination-icon.png",
+    image: "/icons/conflict-management.png",
     title: "Conflict Management",
     subTitle: "Monitoring and resolving conflicts of interest transparently",
   },

@@ -25,7 +25,7 @@ const PlanManagement = () => {
         <PlanManagementHero />
       </main>
       <div className="w-full p-4">
-        <div className="py-6 md:py-16 container mx-auto px-4 max-w-6xl">
+        <div className="py-6 md:py-16 container mx-auto px-4 max-w-6xl" id="learn-more">
           <div className="mb-7 flex flex-col items-start justify-center lg:items-center mt-20 p-4">
             <ChalkTitle
               title="Unlocking Choice & Control"

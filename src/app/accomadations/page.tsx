@@ -21,7 +21,7 @@ const Accomadations = () => {
       <main className="mx-auto p-2 w-full lg:max-w-7xl mt-20">
         <AccomadationsHero />
       </main>
-      <section className="mx-auto p-2 w-full lg:max-w-7xl">
+      <section className="mx-auto p-2 w-full lg:max-w-7xl" id="learn-more">
         <div className="py-6 md:py-16 container mx-auto px-4 max-w-6xl">
           <div className="mb-7 flex flex-col items-start justify-center lg:items-center">
             <ChalkTitle

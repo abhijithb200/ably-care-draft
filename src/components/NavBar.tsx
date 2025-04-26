@@ -150,7 +150,7 @@ const NavBar = () => {
                       About Us
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[800px] lg:grid-cols-3">
+                      <ul className="grid gap-2 p-4 md:w-[400px] lg:w-[600px] lg:grid-cols-2">
                         {aboutUsData.map((item, index) => (
                           <ListItem href={item.link} key={index}>
                             <div className="w-full flex gap-2">

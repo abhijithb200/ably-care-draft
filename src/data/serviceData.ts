@@ -76,13 +76,6 @@ export const ourServicesData = [
 
 export const aboutUsData = [
   {
-    image: "/icons/about-us-icon.png",
-    title: "About Us",
-    description:
-      " Ably Care is a leading provider of home and community care services.",
-    link: "/about",
-  },
-  {
     image: "/icons/mission-vision-values-icon.png",
     title: "Mission, Vision & Values",
     description:
