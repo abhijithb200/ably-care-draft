@@ -19,7 +19,7 @@ const NdisStepsCards = () => {
   
     const stepsData = [
       {
-        image: "/icons/fill-form-icon.png",
+        image: "/icons/call-icon.png",
         description:
           "Call NDIA on 1800 800 110 and provide them with details about yourself and your disability.",
       },
@@ -29,12 +29,12 @@ const NdisStepsCards = () => {
           "Fill out a planning document and meet your Local Area Coordinator or NDIS Planner.",
       },
       {
-        image: "/icons/fill-form-icon.png",
+        image: "/icons/help-icon.png",
         description:
           "Once your funding is approved, reach out to Leora Healthcare who can help you with your needs.",
       },
       {
-        image: "/icons/fill-form-icon.png",
+        image: "/icons/docs.png",
         description:
           "Receive supports and services from Leora Healthcare!",
       },
