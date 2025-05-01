@@ -7,7 +7,7 @@ const Hero = () => {
     <>
         <div className="w-full h-60 lg:h-96 xl:h-[450px] flex lg:rounded-2xl overflow-hidden">
             <div className="flex lg:p-4  flex-col justify-center items-center gap-2 lg:justify-center lg:items-start lg:w-[50%]">
-                <h1 className="font-poppins text-4xl text-center font-semibold lg:text-start lg:text-4xl xl:text-5xl">Refer a Friend & Make a <br className="hidden md:block"/> Difference!</h1>
+                <h1 className="font-poppins text-4xl text-center font-semibold lg:text-start lg:text-4xl xl:text-5xl">Make a Difference <br className="hidden md:block"/>Through Referrals</h1>
                 <p className="font-inter text-xs text-center text-gray-600 w-[85%] md:w-[70%] lg:w-[500px] lg:text-start xl:text-sm">
                     At Ably Care, we believe in the power of community and the impact of personal recommendations. If you know someone who could benefit from our dedicated care services, refer them to us today!
                 </p>

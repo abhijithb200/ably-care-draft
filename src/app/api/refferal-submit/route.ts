@@ -64,12 +64,6 @@ interface ReferrerFormState {
   additionalInfo: string;
 }
 
-interface InvoiceOptionsState {
-  ndia: boolean;
-  selfManaged: boolean;
-  planManaged: boolean;
-}
-
 interface InvoiceDetailsState {
   organisation: string;
   fullName: string;
@@ -93,14 +87,15 @@ interface FileData {
   content: string;
 }
 
+type invoiceField = "ndia" | "self-managed" | "plan-managed";
+
 interface FormData {
   participant: ParticipantFormState;
   referrer: ReferrerFormState;
-  invoiceOptions: InvoiceOptionsState;
-  invoiceDetails: InvoiceDetailsState;
   serviceAgreementForm: ServiceAgreementFormState;
   whoSignedServiceAgreement: string;
   furtherInfo: string;
+  invoiceDetails: invoiceField;
   files: FileData[];
   timestamp: string;
 }
@@ -144,19 +139,6 @@ const formatReferralReasons = (reasons: ReferralReasonsState): string => {
   return selected.length > 0 ? selected.join(', ') : 'None selected';
 };
 
-const formatInvoiceOptions = (options: InvoiceOptionsState): string => {
-  const selected = Object.entries(options)
-    .filter(([_, value]) => value)
-    .map(([key, _]) => {
-      if (key === 'ndia') return 'NDIA';
-      if (key === 'selfManaged') return 'Self-managed';
-      if (key === 'planManaged') return 'Plan-managed';
-      return key;
-    });
-  
-  return selected.length > 0 ? selected.join(', ') : 'None selected';
-};
-
 export async function POST(request: Request) {
   try {
     const formData: FormData = await request.json();
@@ -168,7 +150,7 @@ export async function POST(request: Request) {
       }
     });
 
-    const { participant, referrer, invoiceOptions, invoiceDetails, serviceAgreementForm, whoSignedServiceAgreement, furtherInfo, files, timestamp } = formData;
+    const { participant, referrer, invoiceDetails, serviceAgreementForm, whoSignedServiceAgreement, furtherInfo, files, timestamp } = formData;
     
     const attachments = files && files.length > 0 ? files.map(file => {
       const base64Data = file.content.split(';base64,').pop() || '';
@@ -232,16 +214,7 @@ export async function POST(request: Request) {
       </ul>
       
       <h3>Invoice Options</h3>
-      <p>${formatInvoiceOptions(invoiceOptions)}</p>
-      
-      <h3>Invoice Contact Details</h3>
-      <ul>
-        <li><strong>Organisation:</strong> ${invoiceDetails.organisation || 'Not provided'}</li>
-        <li><strong>Full Name:</strong> ${invoiceDetails.fullName || 'Not provided'}</li>
-        <li><strong>Organisation Email:</strong> ${invoiceDetails.organisationEmail || 'Not provided'}</li>
-        <li><strong>Organisation Phone:</strong> ${invoiceDetails.organisationPhone || 'Not provided'}</li>
-        <li><strong>Services NDIA Managed:</strong> ${invoiceDetails.servicesManagedNdia || 'Not provided'}</li>
-      </ul>
+      <p>${invoiceDetails}</p>
       
       <h3>Service Agreement Details</h3>
       <ul>
